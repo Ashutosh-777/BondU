@@ -1,4 +1,4 @@
-# magicconnect
+# BondU
 
 A new Flutter project.
 
