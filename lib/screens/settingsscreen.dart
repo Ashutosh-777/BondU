@@ -54,8 +54,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(6.0),
               child: Row(
                 children: [
-                  Image.asset("assets/whitedot.png",color: Colors.white,width: 25,height: 25,),
-                  SizedBox(width: 8,),
+                  Image.asset(
+                    "assets/whitedot.png",
+                    color: Colors.white,
+                    width: 25,
+                    height: 25,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
                   Text(
                     "$name",
                     style: const TextStyle(
@@ -123,10 +130,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.white,
             height: 0,
-            thickness: 2,
+            thickness: 1,
           ),
           Container(
             width: deviceWidth(context) * 0.9,
@@ -173,7 +180,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Divider(
             color: Colors.white,
             height: 0,
-            thickness: 2,
+            thickness: 1,
           ),
           InkWell(
             onTap: () {
@@ -195,7 +202,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       "Settings",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                    )
                   ],
                 ),
               ),

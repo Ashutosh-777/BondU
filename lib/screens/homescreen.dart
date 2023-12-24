@@ -3,23 +3,24 @@ import 'package:magicconnect/widgets/sharescreen.dart';
 import 'package:magicconnect/widgets/visiting_card.dart';
 import '../globals/colors.dart';
 import '../widgets/views_card.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   String username = "Ashutosh Kumar";
   String connections = "12";
   String designation = "App Developer";
-  int mode1 = 1;
-  int mode2 = 0;
+  int mode = 1;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width  = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor:  Colors.black,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
@@ -39,12 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding:
-                  EdgeInsets.only(bottom: height * 0.020,left: 12,right:12),
+                  EdgeInsets.only(bottom: height * 0.020, left: 12, right: 12),
               child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        left: width * 0.05, top: 10,),
+                      left: width * 0.05,
+                      top: 10,
+                    ),
                     child: const Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -76,11 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(width * 0.05,
-                  16, width * 0.05, 8),
+              padding: EdgeInsets.fromLTRB(width * 0.05, 16, width * 0.05, 8),
               child: Container(
                 decoration: BoxDecoration(
-                    color: const Color(0xff1b1b1b), borderRadius: BorderRadius.circular(12)),
+                    color: const Color(0xff1b1b1b),
+                    borderRadius: BorderRadius.circular(12)),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -108,11 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  width * 0.05,
-                                  height * 0.0025,
-                                  0,
-                                  height * 0.012),
+                              padding: EdgeInsets.fromLTRB(width * 0.05,
+                                  height * 0.0025, 0, height * 0.012),
                               child: Text(
                                 "$connections new connections today",
                                 textAlign: TextAlign.start,
@@ -137,12 +137,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(width * 0.075,
-                  height * 0.012, width * 0.075, 0),
+              padding: EdgeInsets.fromLTRB(
+                  width * 0.075, height * 0.012, width * 0.075, 0),
               // Original padding was (30, 40, 30, 50)
               child: Container(
                 decoration: BoxDecoration(
-                    color: const Color(0xff1b1b1b), borderRadius: BorderRadius.circular(50)),
+                    color: const Color(0xff1b1b1b),
+                    borderRadius: BorderRadius.circular(50)),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
@@ -150,75 +151,60 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (mode1 == 0) {
-                            colorTemp = color1;
-                            color1 = color2;
-                            color2 = colorTemp;
-                            mode1 = 1;
-                            mode2 = 0;
-                          }
+                          mode = 1;
                           setState(() {});
                         },
                         child: Container(
-
                           decoration: BoxDecoration(
-                              boxShadow: (mode1 == 1)
+                              boxShadow: (mode == 1)
                                   ? const [
                                       BoxShadow(
-                                          color:
-                                              Color.fromARGB(130, 255, 255, 255),
+                                          color: Color.fromARGB(
+                                              130, 255, 255, 255),
                                           blurRadius: 4,
                                           offset: Offset(0, 2))
                                     ]
                                   : null,
-                              color: color2,
+                              color: (mode == 1) ? color2 : color1,
                               borderRadius: BorderRadius.circular(30)),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
-                                width * 0.12,
-                                10,
-                                width * 0.12,
-                                10),
+                                width * 0.12, 10, width * 0.12, 10),
                             child: Text(
                               "Personal",
-                              style: TextStyle(fontSize: 16, color: color1),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: (mode == 1) ? color1 : color2),
                             ),
                           ),
                         ),
                       ),
                       InkWell(
                         onTap: (() {
-                          if (mode2 == 0) {
-                            colorTemp = color1;
-                            color1 = color2;
-                            color2 = colorTemp;
-                            mode2 = 1;
-                            mode1 = 0;
-                          }
+                          mode = 0;
                           setState(() {});
                         }),
                         child: Container(
                           decoration: BoxDecoration(
-                              boxShadow: (mode2 == 1)
+                              boxShadow: (mode == 0)
                                   ? const [
                                       BoxShadow(
-                                          color:
-                                              Color.fromARGB(130, 255, 255, 255),
+                                          color: Color.fromARGB(
+                                              130, 255, 255, 255),
                                           blurRadius: 4,
                                           offset: Offset(0, 2))
                                     ]
                                   : null,
-                              color: color1,
+                              color: (mode == 0) ? color2 : color1,
                               borderRadius: BorderRadius.circular(30)),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
-                                width * 0.12,
-                                10,
-                                width * 0.12,
-                                10),
+                                width * 0.12, 10, width * 0.12, 10),
                             child: Text(
                               "Business",
-                              style: TextStyle(fontSize: 16, color: color2),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: (mode == 0) ? color1 : color2),
                             ),
                           ),
                         ),
@@ -228,12 +214,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-             Stack(
-                children: [
-                  VisitingCard(userName: username, designation: designation,),
-                  const ViewsCard(views: 2560,),
-                ]
-            ),
+            Stack(children: [
+              VisitingCard(
+                userName: username,
+                designation: designation,
+              ),
+              const ViewsCard(
+                views: 2560,
+              ),
+            ]),
             InkWell(
               onTap: () {
                 showModalBottomSheet<dynamic>(
@@ -258,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         //BoxShadow(color: Colors.blue)
                       ]),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(width * 0.35,15,
-                        width * 0.35, 15),
+                    padding:
+                        EdgeInsets.fromLTRB(width * 0.35, 15, width * 0.35, 15),
                     child: const Text(
                       "Share",
                       style: TextStyle(
@@ -278,8 +267,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: const Color(0xff9D9D9D),
                     borderRadius: BorderRadius.circular(12)),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(width * 0.06, 5,
-                      width * 0.06, 5),
+                  padding:
+                      EdgeInsets.fromLTRB(width * 0.06, 5, width * 0.06, 5),
                   // original padding from top and bottom 10
                   child: const Padding(
                     padding: EdgeInsets.all(5.0),

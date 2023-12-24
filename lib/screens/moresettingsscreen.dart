@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 class MoreSettingsScreen extends StatefulWidget {
   const MoreSettingsScreen({super.key});
   @override
   State<MoreSettingsScreen> createState() => _MoreSettingsScreenState();
 }
+
 class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
             icon: const ImageIcon(AssetImage("assets/arrow_backward.png"))),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
