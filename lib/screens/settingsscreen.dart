@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/screens/moresettingsscreen.dart';
 import 'package:magicconnect/widgets/sharescreen.dart';
+import 'package:provider/provider.dart';
+
+import '../stores/auth.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,9 +16,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
-  dynamic name = "Shiv Bhushan";
   @override
+
   Widget build(BuildContext context) {
+    var currentUser = context.read<Auth>().user;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -64,7 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: 8,
                   ),
                   Text(
-                    "$name",
+                    currentUser.name!,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,

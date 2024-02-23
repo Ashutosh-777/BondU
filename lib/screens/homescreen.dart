@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/modals/user_model.dart';
+import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/sharescreen.dart';
 import 'package:magicconnect/widgets/visiting_card.dart';
+import 'package:provider/provider.dart';
 import '../globals/colors.dart';
+import '../stores/auth.dart';
 import '../widgets/views_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,12 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String username = "Ashutosh Kumar";
+
   String connections = "12";
-  String designation = "App Developer";
   int mode = 1;
   @override
   Widget build(BuildContext context) {
+    UserInfo user = context.read<Auth>().user;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -66,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        username,
+                        user.name!,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                             color: Colors.white,
@@ -216,8 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Stack(children: [
               VisitingCard(
-                userName: username,
-                designation: designation,
+                userName: user.name!,
+                designation: user.designation!,
               ),
               const ViewsCard(
                 views: 2560,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../globals/styles.dart';
+import '../stores/auth.dart';
 
 class VisitingCard extends StatefulWidget {
   final String userName;
@@ -70,9 +72,9 @@ class _VisitingCardState extends State<VisitingCard> {
                 ),
               ],
             ),
-            const VisitingCardName(
-              userName: 'Ashutosh Kumar',
-              designation: 'App Developer',
+             VisitingCardName(
+              userName: context.read<Auth>().user.name!,
+              designation: context.read<Auth>().user.designation!,
             ),
           ]),
     );

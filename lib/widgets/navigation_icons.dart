@@ -7,7 +7,7 @@ List<Widget> bottomNavIcons(){
     ),
     const NavigationDestination(
       icon:  ImageIcon(AssetImage('assets/contact2.png'),color: Colors.white,),
-      label: 'Home',
+      label: '',
     ),
     const NavigationDestination(
       icon:  ImageIcon(AssetImage('assets/Analytics.png'),color: Colors.white,),

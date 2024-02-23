@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../stores/auth.dart';
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
   @override
   State<AnalyticsScreen> createState() => _AnalyticsScreenState();
 }
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  dynamic username = "Shiv";
   dynamic count = 50;
   dynamic streak = 5;
   @override
   Widget build(BuildContext context) {
+    var currentUser = context.read<Auth>().user;
     return Scaffold(
       backgroundColor:  Colors.black,
       appBar: AppBar(
@@ -32,7 +35,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Text(
-                "Hey $username",
+                "Hey ${currentUser.name}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
