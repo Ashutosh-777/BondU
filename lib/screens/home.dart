@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/analyticsscreen.dart';
 import 'package:magicconnect/screens/contactsscreen.dart';
 import 'package:magicconnect/screens/homescreen.dart';
 import 'package:magicconnect/screens/settingsscreen.dart';
 import 'package:magicconnect/widgets/navigation_icons.dart';
+import 'package:magicconnect/widgets/sharescreen.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
   @override
   State<Home> createState() => _HomeState();
 }
+
 class _HomeState extends State<Home> {
   int index = 0;
   final PageController _pageController = PageController();
@@ -22,7 +26,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child:  PageView(
+        child: PageView(
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {
@@ -32,18 +36,30 @@ class _HomeState extends State<Home> {
           children: tabs,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+        onPressed: (() {
+          showModalBottomSheet<dynamic>(
+              backgroundColor: Colors.transparent,
+              isScrollControlled: true,
+              context: context,
+              builder: (builder) {
+                return const Wrap(children: [SharingScreen()]);
+              });
+        }),
+        child: const Icon(Icons.share),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: NavigationBarTheme(
-        data:  const NavigationBarThemeData(
-          backgroundColor: Colors.black,
-          indicatorColor: Color(0xff1b1b1b),
-        ),
+        data: const NavigationBarThemeData(indicatorColor: Colors.transparent),
         child: NavigationBar(
-          height: 56,
+          elevation: 30,
+          height: 80,
           destinations: bottomNavIcons(),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           selectedIndex: index,
           onDestinationSelected: (index) => setState(() {
-            this.index =index;
+            this.index = index;
             _pageController.animateToPage(
               index,
               duration: const Duration(milliseconds: 300),
@@ -51,7 +67,6 @@ class _HomeState extends State<Home> {
             );
           }),
         ),
-
       ),
     );
   }
