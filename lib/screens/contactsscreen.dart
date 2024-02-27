@@ -22,7 +22,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
       appBar: AppBar(
         title: const Text(
           "BondU",
-          style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: primaryColor,
+            fontWeight: FontWeight.w900,
+          ),
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -88,8 +91,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide:
-                              const BorderSide(color: Colors.black, width: 1.0),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
                         ),
                         border: InputBorder.none,
                         labelText: "  Search",
@@ -99,6 +102,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         )),
                   ),
                 ),
+              ),
+              Container(
+                height: 4,
+                color: Colors.purple.withAlpha(75),
               ),
               Expanded(
                 child: ListView.builder(

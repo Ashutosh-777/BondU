@@ -20,64 +20,44 @@ class Contact extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
       height: 67,
       width: MediaQuery.of(context).size.width - 46,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.black),
-      ),
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black12))),
       child: Padding(
         padding: const EdgeInsets.only(left: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ClipOval(
-                child: Image.asset(
-              imagePath,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            )),
-            Padding(
-              padding: EdgeInsets.only(left: 12, top: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    contactName,
-                    style: Styles.contactName,
-                  ),
-                  Text(
-                    designation,
-                    style: Styles.designation,
-                  ),
-                ],
-              ),
-            ),
             Row(
               children: [
+                ClipOval(
+                    child: Image.asset(
+                  imagePath,
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                )),
                 Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Image.asset(
-                    'assets/SendDiagonal.png',
-                    width: 30,
-                    height: 300,
-                    color: Colors.black,
+                  padding: const EdgeInsets.only(top: 16, left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        contactName,
+                        style: Styles.contactName,
+                      ),
+                      Text(
+                        "12 Oct",
+                        style: Styles.designation.copyWith(color: Colors.blue),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Image.asset(
-                    'assets/adduser.png',
-                    width: 30,
-                    height: 30,
-                    color: Colors.black,
-                  ),
-                ),
-                const Icon(
-                  Icons.more_vert,
-                  color: Colors.black,
-                  size: 35,
                 ),
               ],
+            ),
+            const Icon(
+              Icons.more_vert,
+              color: Colors.black,
+              size: 35,
             ),
           ],
         ),

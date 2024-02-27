@@ -27,7 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text(
           "BondU",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w900,
+          ),
         ),
         centerTitle: true,
         backgroundColor: primaryColor,
@@ -168,8 +171,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                const BusinessCard(),
-                const BusinessCard(),
+                BusinessCard(
+                  user: user,
+                ),
+                BusinessCard(
+                  user: user,
+                ),
               ],
             ),
           )

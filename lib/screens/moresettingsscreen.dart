@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/globals/colors.dart';
 
 class MoreSettingsScreen extends StatefulWidget {
   const MoreSettingsScreen({super.key});
@@ -14,91 +15,95 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
     double deviceWidth(BuildContext context) =>
         MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
+        title: const Text(
+          "BondU",
+          style: TextStyle(
+            color: primaryColor,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const ImageIcon(AssetImage("assets/arrow_backward.png"))),
+            icon: const ImageIcon(
+              AssetImage("assets/arrow_backward.png"),
+              color: primaryColor,
+            )),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: const Color(0xff1b1b1b),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Edit Email and Phone",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+          Container(
+            color: Colors.white,
+            height: 50,
+            width: deviceHeight(context),
+          ),
+          Container(
+            height: 4,
+            color: Colors.purple.withAlpha(75),
+          ),
+          Container(
+            margin: const EdgeInsets.all(12.0),
+            width: deviceWidth(context) * 0.9,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: const Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Edit Email and Phone",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Sign Out",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: const Color(0xff1b1b1b),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Sign Out",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
+          Container(
+            margin: const EdgeInsets.all(12.0),
+            width: deviceWidth(context) * 0.9,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: const Color(0xff1b1b1b),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Deactivate Account",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+            child: const Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Deactivate Account",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: const Color(0xff1b1b1b),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Delete Account",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Delete Account",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           SizedBox(

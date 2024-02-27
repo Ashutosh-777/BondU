@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/modals/user_model.dart';
 
 class BusinessCard extends StatelessWidget {
-  const BusinessCard({super.key});
+  final UserInfo user;
+  const BusinessCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +24,20 @@ class BusinessCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Jason Reily",
+                  user.name!,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
-                Text("CEO"),
-                SizedBox(
+                Text(user.designation!),
+                const SizedBox(
                   height: 10,
                 ),
-                Text("8109206619"),
-                Text("jason.reily@gmail.com"),
+                Text(user.phone.toString()),
+                Text(user.email.toString()),
               ],
             ),
             Container(

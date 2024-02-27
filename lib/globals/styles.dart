@@ -8,7 +8,7 @@ class Styles {
       fontFamily: 'Gilroy-Medium');
   static const TextStyle designation = TextStyle(
       color: Colors.black,
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: FontWeight.w400,
       fontFamily: 'Gilroy-Medium');
   static const TextStyle cardName = TextStyle(

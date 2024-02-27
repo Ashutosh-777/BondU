@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/moresettingsscreen.dart';
 import 'package:magicconnect/widgets/sharescreen.dart';
 import 'package:provider/provider.dart';
@@ -17,219 +18,199 @@ class _SettingsScreenState extends State<SettingsScreen> {
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   @override
-
   Widget build(BuildContext context) {
     var currentUser = context.read<Auth>().user;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                showModalBottomSheet<dynamic>(
-                    isDismissible: true,
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (builder) {
-                      return const Wrap(children: [SharingScreen()]);
-                    });
-              },
-              icon: const ImageIcon(AssetImage("assets/sendnew.png"))),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const ImageIcon(AssetImage("assets/gift.png"))),
-          ]),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: deviceWidth(context) * 0.9,
-            height: 48,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            //color: Color(0xff1b1b1b),
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/whitedot.png",
-                    color: Colors.white,
-                    width: 25,
-                    height: 25,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    currentUser.name!,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+        title: const Text(
+          "BondU",
+          style: TextStyle(
+            color: primaryColor,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              width: deviceWidth(context),
+              padding: const EdgeInsets.all(16),
+              child: const Text(
+                "Settings",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 30,
+                ),
               ),
             ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
+            Container(
+              height: 4,
+              color: Colors.purple.withAlpha(75),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Activate Device",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "User Guide",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Get a device",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Current Main Card",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white,
-            height: 0,
-            thickness: 1,
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "About",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Privacy Policy",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Help and Support",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white,
-            height: 0,
-            thickness: 1,
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const MoreSettingsScreen()));
-            },
-            child: Container(
+            Container(
+              margin: const EdgeInsets.all(8.0),
               width: deviceWidth(context) * 0.9,
               decoration: BoxDecoration(
-                color: const Color(0xff1b1b1b),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
+              //color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Settings",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    Image.asset(
+                      "assets/whitedot.png",
+                      width: 25,
+                      height: 25,
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.white,
-                    )
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          currentUser.name!,
+                          style: const TextStyle(
+                              fontSize: 26, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          currentUser.designation!,
+                          style: const TextStyle(
+                              fontSize: 12, color: primaryColor),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-          Container(
-            width: deviceWidth(context) * 0.9,
-            decoration: BoxDecoration(
-              color: const Color(0xff1b1b1b),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Dark Mode",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              width: deviceWidth(context) * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Activate Device",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "User Guide",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Get a device",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              width: deviceWidth(context) * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Current Main Card",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "About",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Privacy Policy",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              width: deviceWidth(context) * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Help and Support",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const MoreSettingsScreen()));
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Settings",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Dark Mode",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
