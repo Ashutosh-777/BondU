@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
-List<Widget> bottomNavIcons() {
+List<BottomNavigationBarItem> bottomNavIcons() {
   return [
-    const NavigationDestination(
+    const BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage('assets/Home.png'),
         color: Colors.black,
       ),
       label: 'Home',
     ),
-    const NavigationDestination(
+    const BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage('assets/contact2.png'),
         color: Colors.black,
       ),
       label: 'Connections',
     ),
-    const NavigationDestination(
+    const BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage('assets/Analytics.png'),
         color: Colors.black,
       ),
       label: 'Analytics',
     ),
-    const NavigationDestination(
+    const BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage('assets/Settings.png'),
         color: Colors.black,
