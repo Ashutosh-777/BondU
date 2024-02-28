@@ -36,18 +36,25 @@ class _HomeState extends State<Home> {
           children: tabs,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryColor,
-        onPressed: (() {
-          showModalBottomSheet<dynamic>(
-              backgroundColor: Colors.transparent,
-              isScrollControlled: true,
-              context: context,
-              builder: (builder) {
-                return const Wrap(children: [SharingScreen()]);
-              });
-        }),
-        child: const Icon(Icons.share),
+      floatingActionButton: Container(
+        height: 75,
+        width: 75,
+        child: FloatingActionButton(
+          backgroundColor: Colors.white,
+          onPressed: (() {
+            showModalBottomSheet<dynamic>(
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                context: context,
+                builder: (builder) {
+                  return const Wrap(children: [SharingScreen()]);
+                });
+          }),
+          child: Image.asset(
+            "assets/share_button.png",
+            scale: 4,
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: NavigationBarTheme(

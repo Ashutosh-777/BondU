@@ -51,27 +51,29 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
             color: Colors.purple.withAlpha(75),
           ),
           Container(
-            margin: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             width: deviceWidth(context) * 0.9,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: const Column(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(color: Colors.grey.shade300))),
+                  padding: const EdgeInsets.all(12.0),
+                  child: const Text(
                     "Edit Email and Phone",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
                     "Sign Out",
-                    textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
                 ),
@@ -79,27 +81,29 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             width: deviceWidth(context) * 0.9,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: const Column(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(color: Colors.grey.shade300))),
+                  padding: const EdgeInsets.all(12.0),
+                  child: const Text(
                     "Deactivate Account",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
                     "Delete Account",
-                    textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
                 ),

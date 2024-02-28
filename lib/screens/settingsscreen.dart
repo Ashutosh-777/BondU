@@ -100,24 +100,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Text(
                       "Activate Device",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Text(
                       "User Guide",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text(
                       "Get a device",
@@ -134,24 +140,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Text(
                       "Current Main Card",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Text(
                       "About",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text(
                       "Privacy Policy",
@@ -169,11 +181,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Text(
                       "Help and Support",
                       style: TextStyle(fontSize: 20),
                     ),
@@ -183,9 +198,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const MoreSettingsScreen()));
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Row(
+                    child: Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey.shade300))),
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
