@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/database_strings.dart';
 import 'auth_user_helper.dart';
@@ -14,28 +14,29 @@ class ApiService {
     };
   }
 
-  final dio = Dio(
-      BaseOptions(
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-      headers: getHeader(),
-      )
-  );
-  Future<Map<String,dynamic>> verifyUser(String token)async {
-    try{
-      dynamic results = await dio.get('https://server.magiconnect.in/user/authenticate/phone',      options: Options(
-        headers: {"Authorization": token},
-      ));
+  final dio = Dio(BaseOptions(
+    connectTimeout: const Duration(seconds: 15),
+    receiveTimeout: const Duration(seconds: 15),
+    headers: getHeader(),
+  ));
+  Future<Map<String, dynamic>> verifyUser(String token) async {
+    try {
+      dynamic results =
+          await dio.get('https://server.magiconnect.in/user/authenticate/phone',
+              options: Options(
+                headers: {"Authorization": token},
+              ));
       print(results);
-      BackendHelper.id  = results.data['_id'];
+      BackendHelper.id = results.data['_id'];
+      BackendHelper.sessionToken = results.data['sessionToken'];
+
       print("BackendHelper.id = result.data['id] is ${BackendHelper.id}");
       return results;
+    } catch (e) {
+      return {"error": true};
     }
-    catch(e){
-      return {"error":true};
-    }
-
   }
+
   Future<String> postUser(UserInfo user) async {
     try {
       Response response = await Dio().post(
@@ -59,13 +60,13 @@ class ApiService {
         print("helo");
         var responseData = response.data;
         String temp = responseData.toString();
-        String id ="";
+        String id = "";
         int i = 5;
-        while(temp[i]!=' '){
-          id+=temp[i];
+        while (temp[i] != ' ') {
+          id += temp[i];
           i++;
         }
-        if(id == BackendHelper.id){
+        if (id == BackendHelper.id) {
           print("BAckend id and id same");
         }
         BackendHelper.id = id;
@@ -81,31 +82,36 @@ class ApiService {
       return "failed";
     }
   }
+
   Future<void> updateUser(UserInfo user) async {
+    String id = BackendHelper.id;
+    Map<String, dynamic> userDetailsJSON = user.toJson();
+    userDetailsJSON.remove("_id");
+
     try {
       Response response = await Dio().post(
-        'https://server.magiconnect.in/user/updateUser/${BackendHelper.id}',
+        'https://server.magiconnect.in/user/updateUser/${id}',
         options: Options(
-          headers: getHeader(),
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": BackendHelper.sessionToken,
+          },
         ),
-        data: {
-          "designation": "user.designation",
-          "bio": user.bio,
-        },
+        data: userDetailsJSON,
       );
-      print("changed successfully");
-      // Check if the request was successful (status code 2xx)
     } catch (e) {
       print(e);
       print("______________________________________________________");
     }
   }
 
-  Future<UserInfo> getUser() async{
+  Future<UserInfo> getUser() async {
     Response response = await Dio().get(
       'https://server.magiconnect.in/user/${BackendHelper.id}',
       options: Options(
-        headers: getHeader(),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       ),
     );
     // print(response.data);
@@ -123,6 +129,4 @@ class ApiService {
     //   throw Exception('Unexpected data type in response');
     // }
   }
-
-
 }

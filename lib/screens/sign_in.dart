@@ -32,16 +32,15 @@ class _SignInState extends State<SignIn> {
     // _otplessFlutterPlugin.hideFabButton();
   }
 
-
   Future<void> openLoginPage() async {
     _otplessFlutterPlugin.openLoginPage((result) {
       var message = "";
       var phone = result['data']['mobile']['number'];
-       tempPhone = int.parse(phone);
+      tempPhone = int.parse(phone);
       print(tempPhone.runtimeType);
       if (result['data'] != null) {
         final token = result['data']['token'];
-        message =  token;
+        message = token;
       }
       setState(() {
         accessToken = message ?? "Unknown";
@@ -58,85 +57,84 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-
     var currentUser = context.read<Auth>();
     return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
         backgroundColor: Colors.grey,
-        appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: const Text('Login to BondU'),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                children: [
-                  accessToken == "Unknown"
-                      ? GestureDetector(
-                          onTap: () {
-                            openLoginPage();
-                            _otplessFlutterPlugin.signInCompleted();
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff1b1b1b),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: Text(
-                                "Login to continue",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+        title: const Text('Login to BondU'),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              children: [
+                accessToken == "Unknown"
+                    ? GestureDetector(
+                        onTap: () {
+                          openLoginPage();
+                          _otplessFlutterPlugin.signInCompleted();
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff1b1b1b),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text(
+                              "Login to continue",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
-                        )
-                      : GestureDetector(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff1b1b1b),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: Text(
-                                "Enter",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+                        ),
+                      )
+                    : GestureDetector(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff1b1b1b),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text(
+                              "Enter",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
-                          onTap: () async{
-                            print("Starting Authentication");
-                            print(accessToken);
-                            Map<String,dynamic> verify = await ApiService().verifyUser(accessToken);
-                            _otplessFlutterPlugin.signInCompleted();
+                        ),
+                        onTap: () async {
+                          print("Starting Authentication");
+                          print(accessToken);
+                          Map<String, dynamic> verify =
+                              await ApiService().verifyUser(accessToken);
+                          _otplessFlutterPlugin.signInCompleted();
 
-                            if(BackendHelper.id!="id"){
-                              UserInfo user = await ApiService().getUser();
-                              currentUser.addDetails(user);
-                              currentUser.addPhone(tempPhone);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context)=> Home())
-                              );
-                            }else{
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context)=> UserInput(
-                                    user: currentUser.user,
-                                  ))
-                              );
-                            }
-                          })
-                ],
-              ),
+                          if (BackendHelper.id != "id") {
+                            UserInfo user = await ApiService().getUser();
+                            currentUser.addDetails(user);
+                            currentUser.addPhone(tempPhone);
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                          } else {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => UserInput(
+                                          user: currentUser.user,
+                                        )));
+                          }
+                        })
+              ],
             ),
           ),
         ),
-      );
-
+      ),
+    );
   }
 }
