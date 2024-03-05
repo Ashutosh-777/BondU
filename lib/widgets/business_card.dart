@@ -9,6 +9,8 @@ class BusinessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(user.toJson());
+
     return GestureDetector(
       onTap: (() {
         Navigator.of(context).push(MaterialPageRoute(
@@ -39,19 +41,19 @@ class BusinessCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.name!,
+                    user.name ?? "",
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  Text(user.designation!),
+                  Text(user.designation ?? ""),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(user.phone.toString()),
-                  Text(user.email.toString()),
+                  Text(user.email?.characters.take(20).toString() ?? ""),
                 ],
               ),
-              Container(
+              SizedBox(
                 height: 100,
                 width: 100,
                 child: Image.asset(

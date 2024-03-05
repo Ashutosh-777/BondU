@@ -26,10 +26,29 @@ class _SignInState extends State<SignIn> {
     "method": "get",
     "params": {"cid": "YNVNTQ8OGP5AVUYQ1RKA0GARKVLG77DC"}
   };
+  late String? sessionToken;
+  late String? userID;
+
   @override
   void initState() {
     super.initState();
+    loadSessionToken();
     // _otplessFlutterPlugin.hideFabButton();
+  }
+
+  void loadSessionToken() async {
+    sessionToken = await AuthUserHelper.getSessionToken();
+    userID = await AuthUserHelper.getUserID();
+    print(sessionToken);
+    if (sessionToken != null && userID != null) {
+      BackendHelper.id = userID ?? "";
+      BackendHelper.sessionToken = sessionToken ?? "";
+      UserInfo user = await ApiService().getUser();
+      var currentUser = context.read<Auth>();
+      currentUser.addDetails(user);
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+    }
   }
 
   Future<void> openLoginPage() async {

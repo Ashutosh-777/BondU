@@ -29,7 +29,8 @@ class ApiService {
       print(results);
       BackendHelper.id = results.data['_id'];
       BackendHelper.sessionToken = results.data['sessionToken'];
-
+      AuthUserHelper.setSessionToken(BackendHelper.sessionToken);
+      AuthUserHelper.setUserID(BackendHelper.id);
       print("BackendHelper.id = result.data['id] is ${BackendHelper.id}");
       return results;
     } catch (e) {
@@ -87,6 +88,7 @@ class ApiService {
     String id = BackendHelper.id;
     Map<String, dynamic> userDetailsJSON = user.toJson();
     userDetailsJSON.remove("_id");
+    userDetailsJSON.remove("phone");
 
     try {
       Response response = await Dio().post(
