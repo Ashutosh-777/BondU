@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/screens/editcardscreen.dart';
+import 'package:magicconnect/services/database_strings.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class BusinessCard extends StatelessWidget {
   final UserInfo user;
@@ -56,8 +58,11 @@ class BusinessCard extends StatelessWidget {
               SizedBox(
                 height: 100,
                 width: 100,
-                child: Image.asset(
-                  'assets/qrcode.png',
+                child: QrImageView(
+                  data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
+                  version: QrVersions.auto,
+                  size: 200,
+                  gapless: false,
                 ),
               )
             ]),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/moresettingsscreen.dart';
-import 'package:magicconnect/widgets/sharescreen.dart';
 import 'package:provider/provider.dart';
 
 import '../stores/auth.dart';
@@ -207,7 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Settings",
+                            "More Settings",
                             style: TextStyle(fontSize: 20),
                           ),
                           Icon(

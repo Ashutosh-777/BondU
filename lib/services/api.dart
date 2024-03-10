@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+import 'package:magicconnect/modals/contact_model.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/database_strings.dart';
 import 'auth_user_helper.dart';
@@ -130,5 +127,27 @@ class ApiService {
     //   // Handle other cases if necessary
     //   throw Exception('Unexpected data type in response');
     // }
+  }
+
+  Future<List<ContactModel>> getContacts() async {
+    Response response = await Dio().get(
+      'https://server.magiconnect.in/profile/getContacts/${BackendHelper.id}',
+      options: Options(
+        headers: {
+          'Authorization': BackendHelper.sessionToken,
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+
+    var data = response.data;
+
+    List<ContactModel> contacts = [];
+    print(data);
+    data.forEach((s) {
+      contacts.add(ContactModel.fromJson(s));
+    });
+
+    return contacts;
   }
 }

@@ -62,7 +62,7 @@ class _SignInState extends State<SignIn> {
         message = token;
       }
       setState(() {
-        accessToken = message ?? "Unknown";
+        accessToken = message;
       });
     });
   }

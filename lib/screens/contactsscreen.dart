@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/modals/contact_model.dart';
+import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/contact.dart';
-import 'package:magicconnect/widgets/sharescreen.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -15,6 +16,19 @@ class _ContactsScreenState extends State<ContactsScreen> {
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   int count = 8;
+  List<ContactModel> contacts = [];
+
+  void getContacts() async {
+    contacts = await ApiService().getContacts();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getContacts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,11 +123,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: count,
+                    itemCount: contacts.length,
                     itemBuilder: (context, index) {
-                      return const Contact(
-                        contactName: 'Shiv Bhusan Singh',
-                        designation: 'BondU Founder',
+                      return Contact(
+                        contactName: contacts[index].name ?? "",
+                        designation: contacts[index].companyName ?? "",
                         imagePath: 'assets/pp.png',
                       );
                     }),

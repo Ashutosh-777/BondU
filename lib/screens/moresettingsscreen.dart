@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/screens/sign_in.dart';
+import 'package:magicconnect/services/auth_user_helper.dart';
 
 class MoreSettingsScreen extends StatefulWidget {
   const MoreSettingsScreen({super.key});
@@ -8,6 +10,15 @@ class MoreSettingsScreen extends StatefulWidget {
 }
 
 class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
+  void signOut() async {
+    await AuthUserHelper.signOut();
+    Navigator.of(context).pushAndRemoveUntil<void>(
+      MaterialPageRoute<void>(
+          builder: (BuildContext context) => const SignIn()),
+      ModalRoute.withName('/'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight(BuildContext context) =>
@@ -70,11 +81,14 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
-                    "Sign Out",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                GestureDetector(
+                  onTap: signOut,
+                  child: const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Sign Out",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
                   ),
                 ),
               ],

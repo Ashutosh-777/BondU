@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../globals/colors.dart';
 import '../globals/styles.dart';
 
 class Contact extends StatelessWidget {

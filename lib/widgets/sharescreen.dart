@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/services/auth_user_helper.dart';
+import 'package:magicconnect/services/database_strings.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SharingScreen extends StatelessWidget {
   const SharingScreen({super.key});
@@ -44,17 +49,22 @@ class SharingScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.0),
                 color: Colors.white,
               ),
-              child: Image.asset(
-                'assets/qrcode.png',
-                width: 200,
-                height: 200,
+              child: QrImageView(
+                data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
+                version: QrVersions.auto,
+                size: 200,
+                gapless: false,
               ),
             ),
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                GestureDetector(
+                  onTap: () async {
+                    await Share.share(
+                        'Check out my BondU card \n https://www.app.bondu.in/user/${BackendHelper.id}');
+                  },
                   child: Container(
+                    margin: const EdgeInsets.all(8.0),
                     width: deviceWidth(context) * 0.9,
                     decoration: BoxDecoration(
                       color: primaryColor,
@@ -82,10 +92,21 @@ class SharingScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18.0, vertical: 8.0),
+                    GestureDetector(
+                      onTap: () async {
+                        await Clipboard.setData(ClipboardData(
+                            text:
+                                "https://www.app.bondu.in/user/${BackendHelper.id}"));
+                        // copied successfully
+                        // ScaffoldMessenger.of(context)
+                        //     .showSnackBar(const SnackBar(
+
+                        //   content: Text("Copied to Clipboard!"),
+                        // ));
+                      },
                       child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 18.0, vertical: 8.0),
                         width: deviceWidth(context) * 0.40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -106,28 +127,26 @@ class SharingScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
+                    Container(
+                      margin: const EdgeInsets.symmetric(
                           horizontal: 18.0, vertical: 8.0),
-                      child: Container(
-                        width: deviceWidth(context) * 0.40,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Icon(Icons.download),
-                              Text(
-                                "Download QR",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
+                      width: deviceWidth(context) * 0.40,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.download),
+                            Text(
+                              "Download QR",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
                       ),
                     ),
