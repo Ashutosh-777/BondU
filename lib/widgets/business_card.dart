@@ -5,35 +5,43 @@ import 'package:magicconnect/screens/editcardscreen.dart';
 import 'package:magicconnect/services/database_strings.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class BusinessCard extends StatelessWidget {
+class BusinessCard extends StatefulWidget {
   final UserInfo user;
-  const BusinessCard({super.key, required this.user});
+  final double deviceWidth;
+  final double deviceHeight;
+  const BusinessCard({super.key, required this.user, required this.deviceWidth, required this.deviceHeight});
 
   @override
-  Widget build(BuildContext context) {
-    print(user.toJson());
+  State<BusinessCard> createState() => _BusinessCardState();
+}
 
+class _BusinessCardState extends State<BusinessCard> {
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => EditCardScreen(
-                  user: user,
-                )));
-      }),
+        showModalBottomSheet<dynamic>(
+            backgroundColor: Colors.transparent,
+            isScrollControlled: true,
+            context: context,
+            builder: (builder) {
+              return  Wrap(children: [EditCardScreen(user: widget.user)]);
+            });
+      }
+      ),
       child: Container(
         decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
                   color: Colors.grey, blurRadius: 3, offset: Offset(0, 3)),
-              //BoxShadow(color: Colors.blue)
             ],
             border: Border.all(color: primaryColor, width: 4.0),
             borderRadius: BorderRadius.circular(12.0),
             color: const Color.fromARGB(220, 255, 255, 255)),
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.width * 0.5,
+        width: widget.deviceWidth*0.8,
+        height: widget.deviceHeight*.2118226,
         padding: const EdgeInsets.all(20.0),
-        margin: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.only(top: 23),
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,25 +51,37 @@ class BusinessCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.name ?? "",
+                    widget.user.name ?? "UserName",
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  Text(user.designation ?? ""),
+                  Text(widget.user.designation ?? "Designation"),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(user.phone.toString()),
-                  Text(user.email?.characters.take(20).toString() ?? ""),
+                  Text(widget.user.phone.toString()),
+                  Text(widget.user.email?.characters.take(20).toString() ?? "EMAIL"),
                 ],
               ),
-              SizedBox(
-                height: 100,
-                width: 100,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(11),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset:Offset(
+                        0,1
+                      ),
+                      spreadRadius: 5,
+                      blurRadius: 3,
+                      color: Color.fromRGBO(197, 138, 252, 0.13),
+                    )
+                  ],
+                  color: Colors.white
+                ),
                 child: QrImageView(
                   data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
                   version: QrVersions.auto,
-                  size: 200,
+                  size: 72,
                   gapless: false,
                 ),
               )

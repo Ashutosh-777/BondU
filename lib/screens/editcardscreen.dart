@@ -7,7 +7,6 @@ import 'package:magicconnect/widgets/business_card.dart';
 
 class EditCardScreen extends StatefulWidget {
   final UserInfo user;
-
   const EditCardScreen({super.key, required this.user});
 
   @override
@@ -18,183 +17,187 @@ class _EditCardScreenState extends State<EditCardScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String fName = '', lName = '', designation = '', company = '', email = '';
   int phone = 0;
-
   void _submitForm() async {
     _formKey.currentState!.save();
-    widget.user.name = fName.trim() + " " + lName.trim();
-
+    widget.user.name = "${fName.trim()} ${lName.trim()}";
     await ApiService().updateUser(widget.user);
   }
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController designationController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController companyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 8),
-              child: IconButton(
-                  onPressed: () {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+          color: Colors.white,
+        ),
+        width: width,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: const Icon(
+                    Icons.close,
+                    size: 24,
+                  ),
+                  onTap: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(
-                    Icons.close,
-                    size: 30,
-                  )),
+                ),
+                const Icon(
+                  Icons.check,
+                  size: 24,
+                )
+              ],
             ),
-            Container(
-              height: 4,
-              color: Colors.purple.withAlpha(75),
+            BusinessCard(
+              user: widget.user,
+              deviceWidth: width,
+              deviceHeight: height,
             ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              width: MediaQuery.of(context).size.width,
-              child: const Text(
-                "Edit your Card",
-                style: TextStyle(fontSize: 24),
-              ),
+            const SizedBox(
+              height: 10,
             ),
-            BusinessCard(user: widget.user),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/pp.png',
-                        scale: 7,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              initialValue: widget.user.name?.split(' ')[0],
-                              decoration: const InputDecoration(
-                                hintText: "First Name",
-                              ),
-                              onSaved: (value) {
-                                print(value);
-                                fName = value ??
-                                    widget.user.name?.split(' ')[0] ??
-                                    " ";
-                              },
-                            ),
-                            TextFormField(
-                              initialValue: widget.user.name?.split(' ')[1],
-                              decoration:
-                                  const InputDecoration(hintText: "Last Name"),
-                              onSaved: (newValue) {
-                                print(newValue);
-                                lName = newValue ??
-                                    widget.user.name?.split(' ')[1] ??
-                                    " ";
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: TextFormField(
-                            onSaved: (newValue) {
-                              widget.user.designation =
-                                  newValue ?? widget.user.designation ?? " ";
-                            },
-                            initialValue: widget.user.designation,
-                            decoration: const InputDecoration(
-                              hintText: "Designation",
-                            ),
-                          )),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: TextFormField(
-                            initialValue: widget.user.companyName,
-                            onSaved: (newValue) {
-                              widget.user.companyName =
-                                  newValue ?? widget.user.companyName ?? " ";
-                            },
-                            decoration:
-                                const InputDecoration(hintText: "Company"),
-                          ))
-                    ],
-                  ),
-                  TextFormField(
-                    initialValue: widget.user.email,
-                    onSaved: (newValue) {
-                      widget.user.email = newValue ?? widget.user.email ?? " ";
-                    },
-                    decoration: const InputDecoration(hintText: "Email"),
-                  ),
-                  TextFormField(
-                    initialValue: widget.user.phone.toString(),
-                    onSaved: (newValue) {
-                      widget.user.phone =
-                          int.parse(newValue ?? widget.user.phone.toString());
-                    },
-                    decoration: const InputDecoration(hintText: "Phone no."),
-                  ),
-                ],
-              ),
+            const Divider(
+              color: Color.fromRGBO(187, 187, 187, 1),
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            CommonTextField(
+                initialVal: widget.user.name,
+                hintText: 'Name',
+                textEditingController: nameController),
+            const SizedBox(
+              height: 18,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        fixedSize: MaterialStatePropertyAll(
-                            Size(MediaQuery.of(context).size.width * 0.4, 48)),
-                        backgroundColor:
-                            const MaterialStatePropertyAll(primaryColor)),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const AddSocialsScreen();
-                          },
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Add Socials",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                    ),
-                  ),
+                SizedBox(
+                    width: width * .35,
+                    child: CommonTextField(
+                        initialVal: widget.user.designation,
+                        hintText: 'Designation',
+                        textEditingController: designationController)),
+                SizedBox(
+                    width: width * .35,
+                    child: CommonTextField(
+                        initialVal: widget.user.companyName,
+                        hintText: 'Company',
+                        textEditingController: companyController))
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            CommonTextField(
+                initialVal: widget.user.email,
+                hintText: 'Email',
+                textEditingController: emailController),
+            const SizedBox(
+              height: 18,
+            ),
+            CommonTextField(
+                initialVal: widget.user.phone.toString(),
+                hintText: 'Phone',
+                textEditingController: phoneController),
+            SizedBox(
+              height: height * 0.1,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PrimaryButton(
+                  width: width,
+                  buttonName: 'Add Social',
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        fixedSize: MaterialStatePropertyAll(
-                            Size(MediaQuery.of(context).size.width * 0.4, 48)),
-                        backgroundColor:
-                            const MaterialStatePropertyAll(primaryColor)),
-                    onPressed: _submitForm,
-                    child: const Text(
-                      "Submit",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                    ),
-                  ),
+                PrimaryButton(
+                  width: width,
+                  buttonName: 'Preview',
                 ),
               ],
             )
-          ]),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CommonTextField extends StatefulWidget {
+  final initialVal;
+  final String hintText;
+  final TextEditingController textEditingController;
+  const CommonTextField(
+      {super.key,
+      this.initialVal,
+      required this.hintText,
+      required this.textEditingController});
+
+  @override
+  State<CommonTextField> createState() => _CommonTextFieldState();
+}
+
+class _CommonTextFieldState extends State<CommonTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      initialValue: widget.initialVal,
+      decoration: InputDecoration(
+          filled: true,
+          fillColor:
+              const Color.fromRGBO(0, 0, 0, 0.12), // Grey background color
+          border: const OutlineInputBorder(borderSide: BorderSide.none),
+          hintText: widget.hintText,
+          hintStyle: const TextStyle(
+            color: Color.fromRGBO(0, 0, 0, 0.6),
+            fontSize: 16,
+            fontFamily: 'Gilroy-Medium',
+          )),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return 'This field cannot remain empty';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class PrimaryButton extends StatelessWidget {
+  final String buttonName;
+  final double width;
+  const PrimaryButton(
+      {super.key, required this.buttonName, required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 39,
+      width: width * 0.4,
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Center(
+        child: Text(
+          buttonName,
+          style: const TextStyle(
+              fontFamily: 'Gilory-Regular', fontSize: 12, color: Colors.white),
         ),
       ),
     );
