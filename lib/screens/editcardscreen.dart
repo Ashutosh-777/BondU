@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/modals/user_model.dart';
+import 'package:magicconnect/screens/addsocialsscreen.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/business_card.dart';
 
@@ -148,28 +149,51 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: ElevatedButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(primaryColor)),
-                onPressed: _submitForm,
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        fixedSize: MaterialStatePropertyAll(
+                            Size(MediaQuery.of(context).size.width * 0.4, 48)),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(primaryColor)),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const AddSocialsScreen();
+                          },
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Add Socials",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(24.0),
-              child: Text(
-                "BondU \n",
-                style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 20),
-              ),
-            ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        fixedSize: MaterialStatePropertyAll(
+                            Size(MediaQuery.of(context).size.width * 0.4, 48)),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(primaryColor)),
+                    onPressed: _submitForm,
+                    child: const Text(
+                      "Submit",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ]),
         ),
       ),
