@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/screens/home.dart';
 import 'package:magicconnect/screens/sign_in.dart';
 import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';

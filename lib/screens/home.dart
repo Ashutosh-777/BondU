@@ -138,7 +138,7 @@ class NavBarItem extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-              color: isSelected ? primaryColor : Colors.black, fontSize: 12),
+              color: isSelected ? primaryColor : Colors.black, fontSize: 11.5),
         )
       ]),
     );
