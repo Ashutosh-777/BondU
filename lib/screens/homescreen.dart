@@ -12,8 +12,6 @@ import '../widgets/views_card.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-import 'editcardscreen.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
@@ -177,24 +175,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ]),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1),
-            child: GestureDetector(
-              onTap: (){
-                showModalBottomSheet<dynamic>(
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (builder) {
-                      return  Wrap(children: [EditCardScreen(user: user)]);
-                    });
-              },
-              child: BusinessCard(
-                user: user,
-                deviceWidth: width,
-                deviceHeight: height,
-              ),
-            ),
+          BusinessCard(
+            user: user,
+            deviceWidth: width,
+            deviceHeight: height,
           ),
           Container(
             margin: const EdgeInsets.only(left: 24, top: 17, bottom: 8),
@@ -212,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
-                        'assets/Whatsapp.png',
+                        'assets/WhatsApp.png',
                         height: 16,
                         width: 16,
                       ),
@@ -220,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
-                        'assets/LinkedIn.png',
+                        'assets/LinkedIN.png',
                         height: 16,
                         width: 16,
                       ),
@@ -274,6 +258,3 @@ class ConnectionData {
   final String date;
   final double connection;
 }
-
-
-

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/addsocialsscreen.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/business_card.dart';
 
@@ -22,7 +21,6 @@ class _EditCardScreenState extends State<EditCardScreen> {
     widget.user.name = "${fName.trim()} ${lName.trim()}";
     await ApiService().updateUser(widget.user);
   }
-
   TextEditingController nameController = TextEditingController();
   TextEditingController designationController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -40,11 +38,11 @@ class _EditCardScreenState extends State<EditCardScreen> {
           color: Colors.white,
         ),
         width: width,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
@@ -52,7 +50,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     Icons.close,
                     size: 24,
                   ),
-                  onTap: () {
+                  onTap: (){
                     Navigator.pop(context);
                   },
                 ),
@@ -62,73 +60,36 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 )
               ],
             ),
-            BusinessCard(
-              user: widget.user,
-              deviceWidth: width,
-              deviceHeight: height,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            BusinessCard(user:widget.user, deviceWidth: width, deviceHeight: height,),
+            const SizedBox(height: 10,),
             const Divider(
               color: Color.fromRGBO(187, 187, 187, 1),
               thickness: 2,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            CommonTextField(
-                initialVal: widget.user.name,
-                hintText: 'Name',
-                textEditingController: nameController),
-            const SizedBox(
-              height: 18,
-            ),
+            const SizedBox(height: 10,),
+            CommonTextField(initialVal: widget.user.name, hintText: 'Name', textEditingController: nameController),
+            const SizedBox(height: 18,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: width * .35,
-                    child: CommonTextField(
-                        initialVal: widget.user.designation,
-                        hintText: 'Designation',
-                        textEditingController: designationController)),
+                  width: width*.35,
+                    child: CommonTextField(initialVal:widget.user.designation, hintText: 'Designation', textEditingController: designationController)),
                 SizedBox(
-                    width: width * .35,
-                    child: CommonTextField(
-                        initialVal: widget.user.companyName,
-                        hintText: 'Company',
-                        textEditingController: companyController))
+                  width: width*.35,
+                    child: CommonTextField(initialVal:widget.user.companyName, hintText: 'Company', textEditingController: companyController))
               ],
             ),
-            const SizedBox(
-              height: 18,
-            ),
-            CommonTextField(
-                initialVal: widget.user.email,
-                hintText: 'Email',
-                textEditingController: emailController),
-            const SizedBox(
-              height: 18,
-            ),
-            CommonTextField(
-                initialVal: widget.user.phone.toString(),
-                hintText: 'Phone',
-                textEditingController: phoneController),
-            SizedBox(
-              height: height * 0.1,
-            ),
+            const SizedBox(height: 18,),
+            CommonTextField(initialVal: widget.user.email, hintText: 'Email', textEditingController: emailController),
+            const SizedBox(height: 18,),
+            CommonTextField(initialVal: widget.user.phone.toString(), hintText: 'Phone', textEditingController: phoneController),
+            SizedBox(height: height*0.1,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PrimaryButton(
-                  width: width,
-                  buttonName: 'Add Social',
-                ),
-                PrimaryButton(
-                  width: width,
-                  buttonName: 'Preview',
-                ),
+                PrimaryButton(width: width, buttonName: 'Add Social',),
+                PrimaryButton(width: width, buttonName: 'Preview',),
               ],
             )
           ],
@@ -139,14 +100,10 @@ class _EditCardScreenState extends State<EditCardScreen> {
 }
 
 class CommonTextField extends StatefulWidget {
-  final initialVal;
+  final  initialVal;
   final String hintText;
   final TextEditingController textEditingController;
-  const CommonTextField(
-      {super.key,
-      this.initialVal,
-      required this.hintText,
-      required this.textEditingController});
+  const CommonTextField({super.key,   this.initialVal, required this.hintText, required this.textEditingController});
 
   @override
   State<CommonTextField> createState() => _CommonTextFieldState();
@@ -158,18 +115,20 @@ class _CommonTextFieldState extends State<CommonTextField> {
     return TextFormField(
       initialValue: widget.initialVal,
       decoration: InputDecoration(
-          filled: true,
-          fillColor:
-              const Color.fromRGBO(0, 0, 0, 0.12), // Grey background color
-          border: const OutlineInputBorder(borderSide: BorderSide.none),
-          hintText: widget.hintText,
-          hintStyle: const TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 0.6),
-            fontSize: 16,
-            fontFamily: 'Gilroy-Medium',
-          )),
-      validator: (val) {
-        if (val == null || val.isEmpty) {
+        filled: true,
+        fillColor: const Color.fromRGBO(0, 0, 0, 0.12), // Grey background color
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none
+        ),
+        hintText: widget.hintText,
+        hintStyle: const TextStyle(
+          color: Color.fromRGBO(0, 0, 0, 0.6),
+          fontSize: 16,
+          fontFamily: 'Gilroy-Medium',
+        )
+      ),
+      validator: (val){
+        if(val==null||val.isEmpty){
           return 'This field cannot remain empty';
         }
         return null;
@@ -177,27 +136,28 @@ class _CommonTextFieldState extends State<CommonTextField> {
     );
   }
 }
-
 class PrimaryButton extends StatelessWidget {
   final String buttonName;
   final double width;
-  const PrimaryButton(
-      {super.key, required this.buttonName, required this.width});
+  const PrimaryButton({super.key, required this.buttonName, required this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 39,
-      width: width * 0.4,
+      width: width*0.4,
       decoration: BoxDecoration(
         color: primaryColor,
         borderRadius: BorderRadius.circular(4),
+
       ),
       child: Center(
-        child: Text(
-          buttonName,
+        child: Text(buttonName,
           style: const TextStyle(
-              fontFamily: 'Gilory-Regular', fontSize: 12, color: Colors.white),
+            fontFamily: 'Gilory-Regular',
+            fontSize: 12,
+            color: Colors.white
+          ),
         ),
       ),
     );
