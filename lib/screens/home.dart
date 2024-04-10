@@ -43,7 +43,15 @@ class _HomeState extends State<Home> {
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {
-              this.index = index;
+              this.index = index;PageView(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    this.index = index;
+                  });
+                },
+                children: tabs,
+              );
             });
           },
           children: tabs,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/screens/create_profile.dart';
 import 'package:magicconnect/screens/user_input.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/services/database_strings.dart';
@@ -133,14 +134,13 @@ class _SignInState extends State<SignIn> {
                           Map<String, dynamic> verify =
                               await ApiService().verifyUser(accessToken);
                           _otplessFlutterPlugin.signInCompleted();
-
                           if (BackendHelper.id != "id") {
                             UserInfo user = await ApiService().getUser();
                             currentUser.addDetails(user);
                             currentUser.addPhone(tempPhone);
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                    builder: (context) => Home()));
+                                    builder: (context) => CreateProfile1()));
                           } else {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(

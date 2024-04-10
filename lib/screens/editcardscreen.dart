@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/modals/user_model.dart';
+import 'package:magicconnect/screens/add_social.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/business_card.dart';
+
+import '../widgets/primary_button.dart';
 
 class EditCardScreen extends StatefulWidget {
   final UserInfo user;
@@ -88,8 +91,14 @@ class _EditCardScreenState extends State<EditCardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PrimaryButton(width: width, buttonName: 'Add Social',),
-                PrimaryButton(width: width, buttonName: 'Preview',),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder:(context)=>AddSocial())
+                    );
+                  },
+                    child: PrimaryButton(width: width*0.4, buttonName: 'Add Social', bold: false,)),
+                PrimaryButton(width: width*0.4, buttonName: 'Preview', bold: false,),
               ],
             )
           ],
@@ -133,33 +142,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
         }
         return null;
       },
-    );
-  }
-}
-class PrimaryButton extends StatelessWidget {
-  final String buttonName;
-  final double width;
-  const PrimaryButton({super.key, required this.buttonName, required this.width});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 39,
-      width: width*0.4,
-      decoration: BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.circular(4),
-
-      ),
-      child: Center(
-        child: Text(buttonName,
-          style: const TextStyle(
-            fontFamily: 'Gilory-Regular',
-            fontSize: 12,
-            color: Colors.white
-          ),
-        ),
-      ),
     );
   }
 }

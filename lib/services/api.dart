@@ -83,6 +83,7 @@ class ApiService {
 
   Future<void> updateUser(UserInfo user) async {
     String id = BackendHelper.id;
+    print("id: $id}");
     Map<String, dynamic> userDetailsJSON = user.toJson();
     userDetailsJSON.remove("_id");
     userDetailsJSON.remove("phone");
@@ -113,6 +114,7 @@ class ApiService {
         },
       ),
     );
+    print("id: ${BackendHelper.id}");
     // print(response.data);
     // print("Hello");
     // var jsonData = jsonDecode(response.data);
