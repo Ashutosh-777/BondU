@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:magicconnect/widgets/profilepage_textfield.dart';
-
 import '../globals/colors.dart';
 import '../widgets/primary_button.dart';
+import '../widgets/profilepage_textfield.dart';
 import 'home.dart';
 class CreateProfile2 extends StatefulWidget {
   const CreateProfile2({super.key});

@@ -12,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 39,
-      width: width,
+      width: width*0.4,
       decoration: BoxDecoration(
         color: primaryColor,
         borderRadius: BorderRadius.circular(4),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/screens/create_profile_2.dart';
 import 'package:magicconnect/screens/sign_in.dart';
-import 'package:magicconnect/widgets/custom_button.dart';
 import 'package:magicconnect/widgets/primary_button.dart';
 import 'package:magicconnect/widgets/profilepage_textfield.dart';
 import '../globals/colors.dart';

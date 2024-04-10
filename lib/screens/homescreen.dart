@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
-                        'assets/WhatsApp.png',
+                        'assets/Whatsapp.png',
                         height: 16,
                         width: 16,
                       ),
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
-                        'assets/LinkedIN.png',
+                        'assets/LinkedIn.png',
                         height: 16,
                         width: 16,
                       ),
