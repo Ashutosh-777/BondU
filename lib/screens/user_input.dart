@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/api.dart';
-import 'package:magicconnect/services/database_strings.dart';
-import 'package:magicconnect/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 import '../globals/colors.dart';

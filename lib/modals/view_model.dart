@@ -1,14 +1,19 @@
 class ViewModel {
   int? views;
   int? contacted;
-  Float? tapThroughRate;
-  
+  double? tapThroughRate;
+  String? lastContactDate;
+  ViewModel({
+    required this.views,
+    required this.contacted,
+    required this.tapThroughRate,
+    required this.lastContactDate
+});
 
-
-  factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
-    name: json['name'],
-    phone: json['phone'],
-    email: json['email'],
-    companyName: json['companyName'],
+  factory ViewModel.fromJson(Map<String, dynamic> json) => ViewModel(
+    views: json['views'],
+    contacted: json['contacted'],
+    lastContactDate: json['lastContactDate'],
+    tapThroughRate: json['tapThroughRate'],
   );
 }

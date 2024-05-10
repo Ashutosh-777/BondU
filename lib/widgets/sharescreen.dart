@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/services/database_strings.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 class SharingScreen extends StatelessWidget {
@@ -56,7 +55,7 @@ class SharingScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               child: QrImageView(
-                data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
+                data: 'https://www.app.bondu.in/user/${AuthUserHelper.getUserID()}',
                 version: QrVersions.auto,
                 size: 200,
                 gapless: false,
@@ -67,7 +66,7 @@ class SharingScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () async {
                       await Share.share(
-                          'Check out my BondU card \n https://www.app.bondu.in/user/${BackendHelper.id}');
+                          'Check out my BondU card \n https://www.app.bondu.in/user/${await AuthUserHelper.getUserID()}');
                     },
                     child: Container(
                       margin: const EdgeInsets.all(8.0),
@@ -102,7 +101,7 @@ class SharingScreen extends StatelessWidget {
                         onTap: () async {
                           await Clipboard.setData(ClipboardData(
                               text:
-                                  "https://www.app.bondu.in/user/${BackendHelper.id}"));
+                                  "https://www.app.bondu.in/user/${await AuthUserHelper.getUserID()}"));
                           // copied successfully
                           // ScaffoldMessenger.of(context)
                           //     .showSnackBar(const SnackBar(

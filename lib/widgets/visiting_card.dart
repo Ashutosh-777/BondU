@@ -73,8 +73,8 @@ class _VisitingCardState extends State<VisitingCard> {
               ],
             ),
              VisitingCardName(
-              userName: context.read<Auth>().user.name!,
-              designation: context.read<Auth>().user.designation!,
+              userName: context.read<Auth>().userDetails.name!,
+              designation: context.read<Auth>().userDetails.designation!,
             ),
           ]),
     );

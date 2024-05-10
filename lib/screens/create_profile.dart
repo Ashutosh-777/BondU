@@ -18,6 +18,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
   final formKey = GlobalKey<FormState>();
   void signOut() async {
     await AuthUserHelper.signOut();
+    await AuthUserHelper.setLoginState(false);
     Navigator.of(context).pushAndRemoveUntil<void>(
       MaterialPageRoute<void>(
           builder: (BuildContext context) => const SignIn()),
@@ -94,7 +95,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
                     onTap: (){
                       if(formKey.currentState!.validate()){
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context)=>const CreateProfile2())
+                            MaterialPageRoute(builder: (context)=> CreateProfile2(name: nameController.text, email: emailController.text,))
                         );
                       }
           

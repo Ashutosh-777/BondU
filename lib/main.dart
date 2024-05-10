@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/home.dart';
 import 'package:magicconnect/screens/sign_in.dart';
+import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -14,19 +15,20 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-
+  final loginState = await AuthUserHelper.getLoginStatus();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MyApp(),
+      child: MyApp(loginState: loginState,),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final bool loginState;
+  MyApp({super.key, required this.loginState});
   // This widget is the root of your application.
 
   @override
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignIn(),
+      home: loginState? const Home() :const SignIn(),
     );
   }
 }

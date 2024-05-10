@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
+import 'package:magicconnect/screens/add_link.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/business_card.dart';
-import 'package:magicconnect/widgets/sharescreen.dart';
-import 'package:magicconnect/widgets/visiting_card.dart';
 import 'package:provider/provider.dart';
 import '../globals/colors.dart';
+import '../modals/view_model.dart';
 import '../stores/auth.dart';
 import '../widgets/custom_clipper.dart';
-import '../widgets/views_card.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+
+import 'add_social.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    UserInfo user = context.read<Auth>().user;
+    UserInfo user = context.read<Auth>().userDetails;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     final TextEditingController text1 = TextEditingController();
@@ -153,13 +153,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Gilroy-Bold'),
                           ),
-                          Text(
-                            "$connections new connections today",
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Color(0xff555555),
-                                fontSize: 16,
-                                fontFamily: 'Gilroy-Bold'),
+                          FutureBuilder(
+                            future: ApiService().getViews(),
+                            builder: (BuildContext context, AsyncSnapshot<ViewModel> snapshot) {
+                              if(snapshot.hasData){
+                                return  Text(
+                                  "${snapshot.data?.views??0} new connections today",
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                      color: Color(0xff555555),
+                                      fontSize: 16,
+                                      fontFamily: 'Gilroy-Bold'),
+                                );
+                              }else{
+                                return RefreshProgressIndicator();
+                              }
+
+                            },
                           ),
                         ],
                       ),
@@ -175,10 +185,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ]),
-          BusinessCard(
-            user: user,
-            deviceWidth: width,
-            deviceHeight: height,
+          Center(
+            child: BusinessCard(
+              user: user,
+              deviceWidth: width,
+              deviceHeight: height,
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(left: 24, top: 17, bottom: 8),
@@ -193,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Row(
                   children: [
-                    Padding(
+                    user.socialMediaHandles?['Whatsapp']==null?const SizedBox():Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
                         'assets/Whatsapp.png',
@@ -201,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 16,
                       ),
                     ),
-                    Padding(
+                    user.socialMediaHandles?['LinkedIn']==null?const SizedBox():Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
                         'assets/LinkedIn.png',
@@ -209,12 +221,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 16,
                       ),
                     ),
-                    Padding(
+                    user.socialMediaHandles?['Twitter']==null?const SizedBox():Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Image.asset(
-                        'assets/addIcon.png',
+                        'assets/Twitter.png',
                         height: 16,
                         width: 16,
+                      ),
+                    ),
+                    user.socialMediaHandles?['Behance']==null?const SizedBox():Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Image.asset(
+                        'assets/Behance.png',
+                        height: 16,
+                        width: 16,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder:(context) => const AddSocial())
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Image.asset(
+                          'assets/addIcon.png',
+                          height: 16,
+                          width: 16,
+                        ),
                       ),
                     ),
                   ],

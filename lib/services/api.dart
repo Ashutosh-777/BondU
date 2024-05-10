@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:magicconnect/modals/contact_model.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/database_strings.dart';
+import '../modals/view_model.dart';
 import 'auth_user_helper.dart';
 
 class ApiService {
@@ -28,6 +29,7 @@ class ApiService {
       BackendHelper.sessionToken = results.data['sessionToken'];
       AuthUserHelper.setSessionToken(BackendHelper.sessionToken);
       AuthUserHelper.setUserID(BackendHelper.id);
+      AuthUserHelper.setLoginState(true);
       print("BackendHelper.id = result.data['id] is ${BackendHelper.id}");
       return results;
     } catch (e) {
@@ -36,6 +38,7 @@ class ApiService {
   }
 
   Future<String> postUser(UserInfo user) async {
+    print(user.toJson());
     try {
       Response response = await Dio().post(
         'https://server.magiconnect.in/user/add',
@@ -86,10 +89,9 @@ class ApiService {
     Map<String, dynamic> userDetailsJSON = user.toJson();
     userDetailsJSON.remove("_id");
     userDetailsJSON.remove("phone");
-
     try {
       Response response = await Dio().post(
-        'https://server.magiconnect.in/user/updateUser/${id}',
+        'https://server.magiconnect.in/user/updateUser/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -149,5 +151,46 @@ class ApiService {
     });
 
     return contacts;
+  }
+  Future<ViewModel> getViews() async {
+    try{
+      Response response = await Dio().get(
+        'https://server.magiconnect.in/profile/getAnalytics/${BackendHelper.id}',
+        options: Options(
+          headers: {
+            'Authorization': BackendHelper.sessionToken,
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      var data = response.data;
+      ViewModel views = ViewModel.fromJson(data);
+      return views;
+    }catch(e){
+      print("error in here $e");
+      return ViewModel(views: null, contacted: null, tapThroughRate: null, lastContactDate: '');
+    }
+
+  }
+  Future<String> updateSocials(UserInfo user) async{
+    try{
+      String? userID = await AuthUserHelper.getUserID();
+      var response = await Dio().post('https://server.magiconnect.in/user/updateUser/$userID',
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              "Authorization": BackendHelper.sessionToken,
+            },
+          ),
+          data: {
+            "socialMediaHandles": user.socialMediaHandles}
+      );
+      return "Success";
+    }catch(e){
+      print(e.toString());
+      return "Failed";
+
+    }
+
   }
 }

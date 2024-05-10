@@ -12,6 +12,7 @@ class MoreSettingsScreen extends StatefulWidget {
 class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
   void signOut() async {
     await AuthUserHelper.signOut();
+    await AuthUserHelper.setLoginState(false);
     Navigator.of(context).pushAndRemoveUntil<void>(
       MaterialPageRoute<void>(
           builder: (BuildContext context) => const SignIn()),

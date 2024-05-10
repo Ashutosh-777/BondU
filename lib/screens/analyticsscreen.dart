@@ -14,7 +14,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   dynamic streak = 5;
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.read<Auth>().user;
+    var currentUser = context.read<Auth>().userDetails;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(

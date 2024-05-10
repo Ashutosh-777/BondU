@@ -43,6 +43,8 @@ dependencies:
   qr_flutter: ^4.1.0
   share_plus: ^7.2.2
   syncfusion_flutter_charts: ^25.1.35
+  carousel_slider: ^4.2.1
+  webview_flutter: ^4.5.0
 
 dev_dependencies:
   flutter_test:

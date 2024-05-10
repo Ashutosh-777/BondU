@@ -3,7 +3,9 @@ import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/screens/add_social.dart';
 import 'package:magicconnect/screens/addsocialsscreen.dart';
+import 'package:magicconnect/screens/preview.dart';
 import 'package:magicconnect/services/api.dart';
+import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/widgets/business_card.dart';
 
 import '../widgets/primary_button.dart';
@@ -135,9 +137,17 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     buttonName: 'Add Social', bold: false,
                   ),
                 ),
-                PrimaryButton(
-                    width: width,
-                    buttonName: 'Preview', bold: false
+                GestureDetector(
+                  onTap: ()async{
+                    String? temp = await AuthUserHelper.getUserID();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>Preview(userid: temp ))
+                    );
+                  },
+                  child: PrimaryButton(
+                      width: width,
+                      buttonName: 'Preview', bold: false
+                  ),
                 ),
               ],
             )

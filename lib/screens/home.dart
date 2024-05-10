@@ -4,8 +4,6 @@ import 'package:magicconnect/screens/analyticsscreen.dart';
 import 'package:magicconnect/screens/contactsscreen.dart';
 import 'package:magicconnect/screens/homescreen.dart';
 import 'package:magicconnect/screens/settingsscreen.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/widgets/navigation_icons.dart';
 import 'package:magicconnect/widgets/sharescreen.dart';
 
 class Home extends StatefulWidget {
@@ -34,7 +32,11 @@ class _HomeState extends State<Home> {
       );
     });
   }
+  @override
+  void initState(){
+    super.initState();
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

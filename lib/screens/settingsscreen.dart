@@ -18,7 +18,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.read<Auth>().user;
+    var currentUser = context.read<Auth>().userDetails;
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(

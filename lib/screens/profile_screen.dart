@@ -14,7 +14,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final PageController _pageController = PageController();
   List<Widget> tabs = [
     const CreateProfile1(),
-    const CreateProfile2(),
   ];
   void changeIndex(int index) {
     setState(() {
