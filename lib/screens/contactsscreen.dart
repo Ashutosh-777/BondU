@@ -20,7 +20,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void getContacts() async {
     contacts = await ApiService().getContacts();
-    setState(() {});
+    setState(() {
+    });
   }
 
   @override

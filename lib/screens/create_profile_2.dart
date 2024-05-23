@@ -108,8 +108,9 @@ class _CreateProfile2State extends State<CreateProfile2> {
                         await ApiService().postUser(tempuser);
                         print("User Posted");
                         await ApiService().getUser();
+                        if(!mounted) return;
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const Home()));
+                            builder: (context) =>  Home()));
                       }
                     },
                     child: PrimaryButton(

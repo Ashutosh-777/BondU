@@ -52,10 +52,21 @@ class Contact extends StatelessWidget {
                 ),
               ],
             ),
-            const Icon(
-              Icons.more_vert,
-              color: Colors.black,
-              size: 35,
+            GestureDetector(
+              onTap: (){
+                showModalBottomSheet<dynamic>(
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (builder) {
+                      return const Wrap(children: [SharingScreen()]);
+                    });
+              },
+              child: const Icon(
+                Icons.more_vert,
+                color: Colors.black,
+                size: 35,
+              ),
             ),
           ],
         ),

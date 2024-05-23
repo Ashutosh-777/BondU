@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/add_link.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/widgets/business_card.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                user.name!,
+                                user.name??"",
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                     color: Colors.white,
@@ -268,10 +267,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24,left: 8,right: 8),
               child: SfCartesianChart(
-                  primaryXAxis: const CategoryAxis(),
+                  primaryXAxis: const CategoryAxis(
+                    name: "XAxis",
+                  ),
                   tooltipBehavior: TooltipBehavior(enable: true),
                   series: <CartesianSeries<ConnectionData, String>>[
                     LineSeries<ConnectionData, String>(
+
+                      // xAxisName: "abc",
+                      // yAxisName: "Connections",
                       color: primaryColor,
                       dataSource: data,
                       xValueMapper: (ConnectionData sales, _) => sales.date,

@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
+import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/screens/analyticsscreen.dart';
 import 'package:magicconnect/screens/contactsscreen.dart';
 import 'package:magicconnect/screens/homescreen.dart';
 import 'package:magicconnect/screens/settingsscreen.dart';
 import 'package:magicconnect/widgets/sharescreen.dart';
+import 'package:provider/provider.dart';
+
+import '../services/api.dart';
+import '../services/auth_user_helper.dart';
+import '../services/database_strings.dart';
+import '../stores/auth.dart';
+import '../widgets/nav_bar.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, }) : super(key: key);
   @override
   State<Home> createState() => _HomeState();
 }
@@ -21,7 +29,29 @@ class _HomeState extends State<Home> {
     const AnalyticsScreen(),
     const SettingsScreen(),
   ];
-
+  late String? sessionToken;
+  late String? userID;
+  void loadSessionToken() async {
+    sessionToken = await AuthUserHelper.getSessionToken();
+    userID = await AuthUserHelper.getUserID();
+    if (sessionToken != null && userID != null) {
+      BackendHelper.id = userID ?? "";
+      BackendHelper.sessionToken = sessionToken ?? "";
+      UserInfo user = await ApiService().getUser();
+      if(!mounted) return;
+      var currentUser = context.read<Auth>();
+      print(user);
+      print(user.name);
+      currentUser.addDetails(user);
+    }else{
+      print("Error");
+      return;
+    }
+  }
+  @override
+  void initState(){
+    super.initState();
+  }
   void changeIndex(int index) {
     setState(() {
       this.index = index;
@@ -32,11 +62,7 @@ class _HomeState extends State<Home> {
       );
     });
   }
-  @override
-  void initState(){
-    super.initState();
 
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +104,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(8.0),
           height: 70,
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             NavBarItem(
               assetImage: 'assets/house.png',
               title: "Home",
@@ -108,41 +134,6 @@ class _HomeState extends State<Home> {
           ]),
         ),
       ),
-    );
-  }
-}
-
-class NavBarItem extends StatelessWidget {
-  final String assetImage;
-  final String title;
-  final int index;
-  final Function onTap;
-  final bool isSelected;
-  const NavBarItem(
-      {super.key,
-      required this.assetImage,
-      required this.title,
-      required this.index,
-      required this.onTap,
-      required this.isSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onTap(index);
-      },
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ImageIcon(
-          AssetImage(assetImage),
-          color: isSelected ? primaryColor : Colors.black,
-        ),
-        Text(
-          title,
-          style: TextStyle(
-              color: isSelected ? primaryColor : Colors.black, fontSize: 11.5),
-        )
-      ]),
     );
   }
 }

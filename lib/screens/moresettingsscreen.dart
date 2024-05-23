@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/sign_in.dart';
+import 'package:magicconnect/screens/splash_screen.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 
 class MoreSettingsScreen extends StatefulWidget {
@@ -12,10 +13,9 @@ class MoreSettingsScreen extends StatefulWidget {
 class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
   void signOut() async {
     await AuthUserHelper.signOut();
-    await AuthUserHelper.setLoginState(false);
     Navigator.of(context).pushAndRemoveUntil<void>(
       MaterialPageRoute<void>(
-          builder: (BuildContext context) => const SignIn()),
+          builder: (BuildContext context) =>  SignIn()),
       ModalRoute.withName('/'),
     );
   }

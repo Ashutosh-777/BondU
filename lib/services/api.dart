@@ -17,7 +17,9 @@ class ApiService {
     receiveTimeout: const Duration(seconds: 15),
     headers: getHeader(),
   ));
+  //Backend Helper not needed in verify user
   Future<Map<String, dynamic>> verifyUser(String token) async {
+    print("Inside verify User__________________________________________________________________");
     try {
       dynamic results =
           await dio.get('https://server.magiconnect.in/user/authenticate/phone',
@@ -27,8 +29,8 @@ class ApiService {
       print(results);
       BackendHelper.id = results.data['_id'];
       BackendHelper.sessionToken = results.data['sessionToken'];
-      AuthUserHelper.setSessionToken(BackendHelper.sessionToken);
-      AuthUserHelper.setUserID(BackendHelper.id);
+      AuthUserHelper.setSessionToken(results.data['sessionToken']);
+      AuthUserHelper.setUserID(results.data['_id']);
       AuthUserHelper.setLoginState(true);
       print("BackendHelper.id = result.data['id] is ${BackendHelper.id}");
       return results;
@@ -107,6 +109,7 @@ class ApiService {
   }
 
   Future<UserInfo> getUser() async {
+    print("Inside Get Results");
     Response response = await Dio().get(
       'https://server.magiconnect.in/user/${BackendHelper.id}',
       options: Options(
@@ -115,20 +118,8 @@ class ApiService {
         },
       ),
     );
-    // print(response.data);
-    // print("Hello");
-    // var jsonData = jsonDecode(response.data);
-    // return UserInfo.fromJson(jsonData);
+    print(response.data);
     return UserInfo.fromJson(response.data);
-    // if (response.data is String) {
-    //   var jsonData = jsonDecode(response.data);
-    //   return UserInfo.fromJson(jsonData);
-    // } else if (response.data is Map<String, dynamic>) {
-    //
-    // } else {
-    //   // Handle other cases if necessary
-    //   throw Exception('Unexpected data type in response');
-    // }
   }
 
   Future<List<ContactModel>> getContacts() async {

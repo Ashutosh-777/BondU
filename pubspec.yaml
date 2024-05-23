@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider: ^6.1.1
-  otpless_flutter: 2.0.0
+  otpless_flutter: ^2.1.3
   dio: ^5.4.0
   shared_preferences: ^2.2.2
   http: ^1.1.0

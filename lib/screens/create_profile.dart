@@ -16,15 +16,6 @@ class _CreateProfile1State extends State<CreateProfile1> {
   TextEditingController nameController= TextEditingController();
   TextEditingController emailController= TextEditingController();
   final formKey = GlobalKey<FormState>();
-  void signOut() async {
-    await AuthUserHelper.signOut();
-    await AuthUserHelper.setLoginState(false);
-    Navigator.of(context).pushAndRemoveUntil<void>(
-      MaterialPageRoute<void>(
-          builder: (BuildContext context) => const SignIn()),
-      ModalRoute.withName('/'),
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

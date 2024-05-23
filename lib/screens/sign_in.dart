@@ -1,3 +1,5 @@
+// import 'dart:convert';
+//
 // import 'package:flutter/material.dart';
 // import 'package:magicconnect/screens/create_profile.dart';
 // import 'package:magicconnect/screens/user_input.dart';
@@ -31,47 +33,37 @@
 //   late String? sessionToken;
 //   late String? userID;
 //
-//   @override
-//   void initState() {
-//     super.initState();
-//     loadSessionToken();
-//     // _otplessFlutterPlugin.hideFabButton();
-//   }
-//
-//   void loadSessionToken() async {
+//   // @override
+//   // void initState() {
+//   //   super.initState();
+//   //   loadSessionToken();
+//   //   // _otplessFlutterPlugin.hideFabButton();
+//   // }
+//   //no use of backend helper
+//   Future<void> loadSessionToken() async {
 //     sessionToken = await AuthUserHelper.getSessionToken();
 //     userID = await AuthUserHelper.getUserID();
-//     print(sessionToken);
 //     if (sessionToken != null && userID != null) {
 //       BackendHelper.id = userID ?? "";
 //       BackendHelper.sessionToken = sessionToken ?? "";
 //       UserInfo user = await ApiService().getUser();
+//       if(!mounted) return;
 //       var currentUser = context.read<Auth>();
 //       currentUser.addDetails(user);
-//       if(user.name!.isEmpty ){
-//         Navigator.of(context).push(
-//           MaterialPageRoute(builder: (context)=> CreateProfile1()),
-//         );
-//       }else {
-//         Navigator.of(context)
-//           .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
-//       }
+//     }else{
+//       print("Error");
+//       return;
 //     }
 //   }
-//
 //   Future<void> openLoginPage() async {
 //     _otplessFlutterPlugin.openLoginPage((result) {
-//       var message = "";
 //       var phone = result['data']['mobile']['number'];
 //       tempPhone = int.parse(phone);
 //       print(tempPhone.runtimeType);
 //       if (result['data'] != null) {
 //         final token = result['data']['token'];
-//         message = token;
+//         accessToken = token;
 //       }
-//       setState(() {
-//         accessToken = message;
-//       });
 //     });
 //   }
 //
@@ -91,12 +83,39 @@
 //         backgroundColor: Colors.grey,
 //         title: const Text('Login to BondU'),
 //       ),
-//
+//       body: GestureDetector(
+//         onTap: () async {
+//           await openLoginPage();
+//           await _otplessFlutterPlugin.signInCompleted();
+//           await ApiService().verifyUser(accessToken);
+//           await loadSessionToken();
+//           print("loaded session Token");
+//           if(!mounted) return;
+//           Navigator.of(context).pushReplacement(
+//             MaterialPageRoute(builder: (context)=>Home())
+//           );
+//         },
+//         child: Container(
+//           width: MediaQuery.of(context).size.width * 0.9,
+//           decoration: BoxDecoration(
+//             color: primaryColor,
+//             borderRadius: BorderRadius.circular(6),
+//           ),
+//           child: const Padding(
+//             padding: EdgeInsets.all(12.0),
+//             child: Text(
+//               "Login to continue",
+//               style: TextStyle(color: Colors.white, fontSize: 20),
+//             ),
+//           ),
+//         ),
+//       ),
 //     );
 //   }
 // }
 import 'package:flutter/material.dart';
 import 'package:magicconnect/screens/create_profile.dart';
+import 'package:magicconnect/screens/splash_screen.dart';
 import 'package:magicconnect/screens/user_input.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/services/database_strings.dart';
@@ -120,22 +139,19 @@ class _SignInState extends State<SignIn> {
   String accessToken = 'Unknown';
   int tempPhone = 0;
   final _otplessFlutterPlugin = Otpless();
-  final TextEditingController urlTextContoller = TextEditingController();
-  var extra = {
-    "method": "get",
-    "params": {"cid": "YNVNTQ8OGP5AVUYQ1RKA0GARKVLG77DC"}
-  };
   late String? sessionToken;
   late String? userID;
-
+  var arg = {
+    'appId': "51CF91N5R7AF9P34L2DP",
+  };
   @override
   void initState() {
     super.initState();
-    loadSessionToken();
+    openLoginPage();
     // _otplessFlutterPlugin.hideFabButton();
   }
 
-  void loadSessionToken() async {
+  Future<void> loadSessionToken() async {
     sessionToken = await AuthUserHelper.getSessionToken();
     userID = await AuthUserHelper.getUserID();
     print(sessionToken);
@@ -143,45 +159,50 @@ class _SignInState extends State<SignIn> {
       BackendHelper.id = userID ?? "";
       BackendHelper.sessionToken = sessionToken ?? "";
       UserInfo user = await ApiService().getUser();
+      if(!mounted) return;
       var currentUser = context.read<Auth>();
       currentUser.addDetails(user);
-      if(user.name!.isEmpty ){
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context)=> CreateProfile1()),
-        );
-      }else {
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
-      }
+      // if(user.name!.isEmpty ){
+      //   Navigator.of(context).push(
+      //     MaterialPageRoute(builder: (context)=> CreateProfile1()),
+      //   );
+      // }else {
+      //   Navigator.of(context)
+      //       .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+      // }
     }
   }
 
   Future<void> openLoginPage() async {
-    _otplessFlutterPlugin.openLoginPage((result) {
-      var message = "";
-      var phone = result['data']['mobile']['number'];
-      tempPhone = int.parse(phone);
-      print(tempPhone.runtimeType);
-      if (result['data'] != null) {
-        final token = result['data']['token'];
-        message = token;
+      try{
+        print("need to open login page_____________________________");
+         _otplessFlutterPlugin.openLoginPage((result) {
+          var message = "";
+          if (result['data'] != null) {
+            final token = result['data']['token'];
+            message = "token: $token";
+            setState(() async{
+              accessToken=token;
+            });
+            return;
+          } else {
+            message = result['errorMessage'];
+            return;
+          }
+        } , arg);
+      }catch(e){
+        print("Error caught $e ");
+        return;
       }
-      setState(() {
-        accessToken = message;
-      });
-    });
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
-    urlTextContoller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.read<Auth>();
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -197,10 +218,10 @@ class _SignInState extends State<SignIn> {
                 accessToken == "Unknown"
                     ? GestureDetector(
                   onTap: () async{
-                    openLoginPage();
-                    await _otplessFlutterPlugin.signInCompleted();
-                    await ApiService().verifyUser(accessToken);
-                    loadSessionToken();
+                    await openLoginPage();
+                    // await _otplessFlutterPlugin.signInCompleted();
+                    // await ApiService().verifyUser(accessToken);
+                    // loadSessionToken();
                     // if (BackendHelper.id != "id") {
                     //   UserInfo user = await ApiService().getUser();
                     //   currentUser.addDetails(user);
@@ -238,48 +259,66 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 )
-                    :
-                GestureDetector(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff1b1b1b),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Text(
-                          "Enter",
-                          style:
-                          TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      ),
-                    ),
-                    onTap: () async {
-                      print("Starting Authentication");
-                      print(accessToken);
-                      Map<String, dynamic> verify =
-                      await ApiService().verifyUser(accessToken);
-                      _otplessFlutterPlugin.signInCompleted();
-
-                      if (BackendHelper.id != "id") {
-                        UserInfo user = await ApiService().getUser();
-                        currentUser.addDetails(user);
-                        currentUser.addPhone(tempPhone);
-                        await AuthUserHelper.setPhone(tempPhone.toString());
+                    : FutureBuilder(
+                  future: Future.delayed(const Duration(milliseconds: 100)),
+                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) async{
+                        await ApiService().verifyUser(accessToken);
+                        if(!mounted) return;
                         Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => Home()));
-                      } else {
-                        //if(!mounted) return;
-                        Navigator.of(context)
-                            .pushReplacement(MaterialPageRoute(
-                            builder: (context) => UserInput(
-                              user: currentUser.userDetails,
-                            )));
-                      }
+                          MaterialPageRoute(
+                            builder: (context) => const SplashScreen(loadUserData: false,),
+                          ),
+                        );
+                      });
                     }
+
+                    return const SizedBox();
+                  },
+
                 )
+                // GestureDetector(
+                //     child: Container(
+                //       width: MediaQuery.of(context).size.width * 0.9,
+                //       decoration: BoxDecoration(
+                //         color: const Color(0xff1b1b1b),
+                //         borderRadius: BorderRadius.circular(6),
+                //       ),
+                //       child: const Padding(
+                //         padding: EdgeInsets.all(12.0),
+                //         child: Text(
+                //           "Enter",
+                //           style:
+                //           TextStyle(color: Colors.white, fontSize: 20),
+                //         ),
+                //       ),
+                //     ),
+                //     onTap: () async {
+                //       print("Starting Authentication");
+                //       print(accessToken);
+                //       Map<String, dynamic> verify =
+                //       await ApiService().verifyUser(accessToken);
+                //      // _otplessFlutterPlugin.signInCompleted();
+                //
+                //       if (BackendHelper.id != "id") {
+                //         UserInfo user = await ApiService().getUser();
+                //         currentUser.addDetails(user);
+                //         currentUser.addPhone(tempPhone);
+                //         await AuthUserHelper.setPhone(tempPhone.toString());
+                //         Navigator.of(context).pushReplacement(
+                //             MaterialPageRoute(
+                //                 builder: (context) => Home()));
+                //       } else {
+                //         //if(!mounted) return;
+                //         Navigator.of(context)
+                //             .pushReplacement(MaterialPageRoute(
+                //             builder: (context) => UserInput(
+                //               user: currentUser.userDetails,
+                //             )));
+                //       }
+                //     }
+                // )
               ],
             ),
           ),

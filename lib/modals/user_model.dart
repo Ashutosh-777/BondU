@@ -18,7 +18,8 @@ class UserInfo {
       this.email,
       this.phone});
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
+  factory UserInfo.fromJson(Map<String, dynamic> json) {
+    return UserInfo(
       name: json['name'] ?? '',
       phone: json['phone'] ?? '',
       bio: json['bio'] ?? 'Please add bio',
@@ -27,6 +28,7 @@ class UserInfo {
       companyName: json['companyName'],
       socialMediaHandles: json['socialMediaHandles'],
       id: json['_id']);
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

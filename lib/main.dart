@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/home.dart';
 import 'package:magicconnect/screens/sign_in.dart';
+import 'package:magicconnect/screens/splash_screen.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final isLoggedIn = await AuthUserHelper.getLoginStatus() ;
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -15,21 +17,19 @@ void main() async{
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  final loginState = await AuthUserHelper.getLoginStatus();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MyApp(loginState: loginState,),
+      child: MyApp(isLoggedIn: isLoggedIn,),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool loginState;
-  MyApp({super.key, required this.loginState});
-  // This widget is the root of your application.
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: loginState? const Home() :const SignIn(),
+      home:isLoggedIn? const SplashScreen(loadUserData: false,):const SignIn(),
     );
   }
 }
