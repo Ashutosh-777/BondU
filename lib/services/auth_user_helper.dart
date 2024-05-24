@@ -7,6 +7,7 @@ class AuthUserHelper {
   static Future<void> setUserData(String jsonData) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("userData", jsonData);
+    await AuthUserHelper.setLoginState(true);
   }
   static Future<void> setSessionToken(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

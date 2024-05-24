@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magicconnect/screens/contact_bottom_sheet.dart';
 import '../globals/styles.dart';
 
 class Contact extends StatelessWidget {
@@ -59,7 +60,9 @@ class Contact extends StatelessWidget {
                     isScrollControlled: true,
                     context: context,
                     builder: (builder) {
-                      return const Wrap(children: [SharingScreen()]);
+                      return const Wrap(children: [
+                        ContactBottomSheet()
+                      ]);
                     });
               },
               child: const Icon(

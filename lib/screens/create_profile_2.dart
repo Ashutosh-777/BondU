@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
+import 'package:provider/provider.dart';
 import '../globals/colors.dart';
+import '../stores/auth.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/profilepage_textfield.dart';
 import 'home.dart';
@@ -105,12 +109,17 @@ class _CreateProfile2State extends State<CreateProfile2> {
                           companyName: companyController.text,
                           designation: designationController.text,
                         );
-                        await ApiService().postUser(tempuser);
+                        await ApiService().updateUser(tempuser);
+                        // if(result=="Failed") {
+                        //   print("gaya bhains__________");
+                        //   return;}
                         print("User Posted");
-                        await ApiService().getUser();
+                        UserInfo user = await ApiService().getUser();
+                        await AuthUserHelper.setUserData(jsonEncode(user.toJson()));
+                        context.read<Auth>().addDetails(user);
                         if(!mounted) return;
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) =>  Home()));
+                            builder: (context) =>  const Home()));
                       }
                     },
                     child: PrimaryButton(

@@ -57,7 +57,8 @@ class _SplashScreenState extends State<SplashScreen>
       }
       UserInfo user = await AuthUserHelper.getUserData();
       // if(!mounted) return;
-      // if(user.name==null){
+      // if(user.name!.isEmpty){
+      //   print("khikhih______SDSDSD_____________");
       //   Navigator.of(context).pushReplacement(
       //     MaterialPageRoute(builder:(context)=>const CreateProfile1()),
       //   );
@@ -129,11 +130,20 @@ class _SplashScreenState extends State<SplashScreen>
               await loadSessionToken();
               print("Now moving to HomePage");
               if(!mounted) return;
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const Home(),
-                ),
-              );
+              UserInfo user = context.read<Auth>().userDetails;
+              if(user.name!.isEmpty){
+                print("hello ${user.name}");
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context)=>CreateProfile1())
+                );
+              }else{
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const Home(),
+                  ),
+                );                
+              }
+
             });
           }
           return Center(

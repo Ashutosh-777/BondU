@@ -31,7 +31,6 @@ class ApiService {
       BackendHelper.sessionToken = results.data['sessionToken'];
       AuthUserHelper.setSessionToken(results.data['sessionToken']);
       AuthUserHelper.setUserID(results.data['_id']);
-      AuthUserHelper.setLoginState(true);
       print("BackendHelper.id = result.data['id] is ${BackendHelper.id}");
       return results;
     } catch (e) {
@@ -39,52 +38,53 @@ class ApiService {
     }
   }
 
-  Future<String> postUser(UserInfo user) async {
-    print(user.toJson());
-    try {
-      Response response = await Dio().post(
-        'https://server.magiconnect.in/user/add',
-        options: Options(
-          headers: getHeader(),
-        ),
-        data: {
-          "name": user.name,
-          "phone": user.phone,
-          "email": user.email,
-          "companyName": user.companyName,
-          "designation": user.designation,
-          "bio": user.bio,
-        },
-      );
-
-      // Check if the request was successful (status code 2xx)
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        // Parse the JSON response
-        print("helo");
-        var responseData = response.data;
-        String temp = responseData.toString();
-        String id = "";
-        int i = 5;
-        while (temp[i] != ' ') {
-          id += temp[i];
-          i++;
-        }
-        if (id == BackendHelper.id) {
-          print("BAckend id and id same");
-        }
-        BackendHelper.id = id;
-        print(BackendHelper.id);
-        return "success";
-      } else {
-        print("Failed with status: ${response.statusCode}");
-        return "failed";
-      }
-    } catch (e) {
-      print(e);
-      print("______________________________________________________");
-      return "failed";
-    }
-  }
+  // Future<String> postUser(UserInfo user) async {
+  //   String? tempId = await AuthUserHelper.getUserID();
+  //   try {
+  //     Response response = await Dio().post(
+  //       'https://server.magiconnect.in/user/updateUser/$tempId',
+  //       options: Options(
+  //         headers: getHeader(),
+  //       ),
+  //       data: {
+  //         "name": user.name,
+  //         "phone": user.phone,
+  //         "email": user.email,
+  //         "companyName": user.companyName,
+  //         "designation": user.designation,
+  //         "bio": user.bio,
+  //       },
+  //     );
+  //
+  //     // Check if the request was successful (status code 2xx)
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       // Parse the JSON response
+  //       print("helo");
+  //       var responseData = response.data;
+  //       String temp = responseData.toString();
+  //       String id = "";
+  //       int i = 5;
+  //       while (temp[i] != ' ') {
+  //         id += temp[i];
+  //         i++;
+  //       }
+  //       if (id == BackendHelper.id) {
+  //         print("BAckend id and id same");
+  //       }
+  //       BackendHelper.id = id;
+  //       print(BackendHelper.id);
+  //       AuthUserHelper.setUserID(id);
+  //       return "success";
+  //     } else {
+  //       print("Failed with status: ${response.statusCode}");
+  //       return "Failed";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     print("______________________________________________________");
+  //     return "Failed";
+  //   }
+  // }
 
   Future<void> updateUser(UserInfo user) async {
     String id = BackendHelper.id;
@@ -104,22 +104,27 @@ class ApiService {
       );
     } catch (e) {
       print(e);
-      print("______________________________________________________");
     }
   }
 
   Future<UserInfo> getUser() async {
     print("Inside Get Results");
+    String? temp = await AuthUserHelper.getUserID();
+    print(temp);
     Response response = await Dio().get(
-      'https://server.magiconnect.in/user/${BackendHelper.id}',
+      'https://server.magiconnect.in/user/${temp}',
       options: Options(
         headers: {
           'Content-Type': 'application/json',
         },
       ),
     );
+    print("Here goes response ___________________");
     print(response.data);
-    return UserInfo.fromJson(response.data);
+    UserInfo user = UserInfo.fromJson(response.data);
+    print(response.data['name']);
+    print(user.name.runtimeType);
+    return user;
   }
 
   Future<List<ContactModel>> getContacts() async {

@@ -268,7 +268,7 @@ class _SignInState extends State<SignIn> {
                         if(!mounted) return;
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => const SplashScreen(loadUserData: false,),
+                            builder: (context) => const SplashScreen(loadUserData: true,),
                           ),
                         );
                       });
