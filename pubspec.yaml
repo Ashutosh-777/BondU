@@ -45,6 +45,7 @@ dependencies:
   syncfusion_flutter_charts: ^25.1.35
   carousel_slider: ^4.2.1
   webview_flutter: ^4.5.0
+  contacts_service: ^0.6.3
 
 dev_dependencies:
   flutter_test:

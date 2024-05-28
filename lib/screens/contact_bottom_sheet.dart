@@ -1,11 +1,23 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magicconnect/screens/contactsscreen.dart';
 class ContactBottomSheet extends StatelessWidget {
-  const ContactBottomSheet({super.key});
+  final String name;
+  final int? phone;
+  const ContactBottomSheet({super.key, required this.name, required this.phone});
+
 
   @override
   Widget build(BuildContext context) {
+    Item x = Item(
+      label: 'Mobile Number',
+      value: phone.toString()
+    );
+    Contact newContact = Contact(
+      displayName: name,
+      phones: [x]
+    );
     Size device(BuildContext context) => MediaQuery.of(context).size;
     return Container(
         width: device(context).width,
@@ -28,11 +40,16 @@ class ContactBottomSheet extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal:24,vertical: 16 ),
-            child: Text('Save Contact',
-              style: TextStyle(
-                fontSize: 16,
+          GestureDetector(
+            onTap: () async{
+              await ContactsService.addContact(newContact);
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal:24,vertical: 16 ),
+              child: Text('Save Contact',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),

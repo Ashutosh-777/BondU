@@ -130,6 +130,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         contactName: contacts[index].name ?? "",
                         designation: contacts[index].companyName ?? "",
                         imagePath: 'assets/pp.png',
+                        phone: contacts[index].phone,
                       );
                     }),
               ),

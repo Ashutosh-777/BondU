@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:magicconnect/screens/contact_bottom_sheet.dart';
 import '../globals/styles.dart';
+import 'package:contacts_service/contacts_service.dart' as cp;
 
 class Contact extends StatelessWidget {
   final String contactName;
   final String designation;
   final String imagePath;
+  final int? phone;
   const Contact(
       {Key? key,
       required this.contactName,
       required this.designation,
+        required this.phone,
       required this.imagePath})
       : super(key: key);
 
@@ -60,8 +63,8 @@ class Contact extends StatelessWidget {
                     isScrollControlled: true,
                     context: context,
                     builder: (builder) {
-                      return const Wrap(children: [
-                        ContactBottomSheet()
+                      return  Wrap(children: [
+                        ContactBottomSheet(name: contactName, phone: phone,)
                       ]);
                     });
               },

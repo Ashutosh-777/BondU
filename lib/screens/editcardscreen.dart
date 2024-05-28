@@ -7,7 +7,9 @@ import 'package:magicconnect/screens/preview.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/widgets/business_card.dart';
+import 'package:provider/provider.dart';
 
+import '../stores/auth.dart';
 import '../widgets/primary_button.dart';
 
 class EditCardScreen extends StatefulWidget {
@@ -20,13 +22,14 @@ class EditCardScreen extends StatefulWidget {
 
 class _EditCardScreenState extends State<EditCardScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String fName = '', lName = '', designation = '', company = '', email = '';
-  int phone = 0;
-  void _submitForm() async {
-    _formKey.currentState!.save();
-    widget.user.name = "${fName.trim()} ${lName.trim()}";
-    await ApiService().updateUser(widget.user);
-  }
+  // String fName = '', lName = '', designation = '', company = '', email = '';
+  // int phone = 0;
+  final formKey = GlobalKey<FormState>();
+  // Future<void> _submitForm() async {
+  //   _formKey.currentState!.save();
+  //   widget.user.name = "${fName.trim()} ${lName.trim()}";
+  //   await ApiService().updateUser(widget.user);
+  // }
 
   TextEditingController nameController = TextEditingController();
   TextEditingController designationController = TextEditingController();
@@ -61,9 +64,28 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     Navigator.pop(context);
                   },
                 ),
-                const Icon(
-                  Icons.check,
-                  size: 24,
+                GestureDetector(
+                  onTap: () async{
+                    //if(formKey.currentState!.validate()){
+                    print(nameController.text);
+                    print(nameController.text.toString());
+                      UserInfo user = UserInfo(
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: 1212222,
+                        designation: designationController.text,
+                        companyName: companyController.text
+                      );
+                      await ApiService().updateUser(user);
+                      user = await ApiService().getUser();
+                      context.read<Auth>().addDetails(user);
+                      Navigator.pop(context);
+                    //}
+                  },
+                  child: const Icon(
+                    Icons.check,
+                    size: 24,
+                  ),
                 )
               ],
             ),
