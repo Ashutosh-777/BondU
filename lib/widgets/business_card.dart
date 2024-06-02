@@ -22,10 +22,11 @@ class _BusinessCardState extends State<BusinessCard> {
       onTap: (() {
         showModalBottomSheet<dynamic>(
             backgroundColor: Colors.transparent,
-            isScrollControlled: true,
             context: context,
+            isScrollControlled: true,
+
             builder: (builder) {
-              return  Wrap(children: [EditCardScreen(user: widget.user)]);
+              return  EditCardScreen(user: widget.user);
             });
       }
       ),
