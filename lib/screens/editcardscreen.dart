@@ -22,24 +22,16 @@ class EditCardScreen extends StatefulWidget {
 
 class _EditCardScreenState extends State<EditCardScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // String fName = '', lName = '', designation = '', company = '', email = '';
-  // int phone = 0;
   final formKey = GlobalKey<FormState>();
-  // Future<void> _submitForm() async {
-  //   _formKey.currentState!.save();
-  //   widget.user.name = "${fName.trim()} ${lName.trim()}";
-  //   await ApiService().updateUser(widget.user);
-  // }
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController designationController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController companyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    TextEditingController nameController = TextEditingController(text: widget.user.name);
+    TextEditingController designationController = TextEditingController(text: widget.user.designation);
+    TextEditingController emailController = TextEditingController(text: widget.user.email);
+    TextEditingController phoneController = TextEditingController(text: widget.user.phone.toString());
+    TextEditingController companyController = TextEditingController(text: widget.user.companyName);
     return SingleChildScrollView(
       child: Padding(
         padding:  MediaQuery.of(context).viewInsets,
@@ -75,7 +67,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                         UserInfo user = UserInfo(
                           name: nameController.text,
                           email: emailController.text,
-                          phone: 1212222,
+                          phone: int.parse(phoneController.text),
                           designation: designationController.text,
                           companyName: companyController.text
                         );
@@ -108,11 +100,10 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 height: 10,
               ),
               CommonTextField(
-                  initialVal: widget.user.name,
                   hintText: 'Name',
                   textEditingController: nameController),
               const SizedBox(
-                height: 18,
+                height: 17,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,29 +111,25 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   SizedBox(
                       width: width * .35,
                       child: CommonTextField(
-                          initialVal: widget.user.designation,
                           hintText: 'Designation',
                           textEditingController: designationController)),
                   SizedBox(
                       width: width * .35,
                       child: CommonTextField(
-                          initialVal: widget.user.companyName,
                           hintText: 'Company',
                           textEditingController: companyController))
                 ],
               ),
               const SizedBox(
-                height: 18,
+                height: 17,
               ),
               CommonTextField(
-                  initialVal: widget.user.email,
                   hintText: 'Email',
                   textEditingController: emailController),
               const SizedBox(
-                height: 18,
+                height: 17,
               ),
               CommonTextField(
-                  initialVal: widget.user.phone.toString(),
                   hintText: 'Phone',
                   textEditingController: phoneController),
               SizedBox(
@@ -185,12 +172,11 @@ class _EditCardScreenState extends State<EditCardScreen> {
 }
 
 class CommonTextField extends StatefulWidget {
-  final initialVal;
   final String hintText;
+  bool intKeyboard = false;
   final TextEditingController textEditingController;
-  const CommonTextField(
+  CommonTextField(
       {super.key,
-        this.initialVal,
         required this.hintText,
         required this.textEditingController});
 
@@ -202,7 +188,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: widget.initialVal,
       decoration: InputDecoration(
           filled: true,
           fillColor:
@@ -214,6 +199,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
             fontSize: 16,
             fontFamily: 'Gilroy-Medium',
           )),
+      controller: widget.textEditingController,
       validator: (val) {
         if (val == null || val.isEmpty) {
           return 'This field cannot remain empty';

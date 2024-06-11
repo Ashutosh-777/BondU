@@ -124,6 +124,7 @@ class ApiService {
     UserInfo user = UserInfo.fromJson(response.data);
     print(response.data['name']);
     print(user.name.runtimeType);
+    AuthUserHelper.setUserData(user.toJson().toString());
     return user;
   }
 
@@ -161,6 +162,9 @@ class ApiService {
       );
       var data = response.data;
       ViewModel views = ViewModel.fromJson(data);
+      if(true){
+        return Future.error("error");
+      }
       return views;
     }catch(e){
       print("error in here $e");

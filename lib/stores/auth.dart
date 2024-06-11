@@ -16,6 +16,7 @@ class Auth with ChangeNotifier, DiagnosticableTreeMixin {
     String? _id = user.id;
     user = temp;
     user.id = _id;
+    print("details notifed??");
     notifyListeners();
   }
 }

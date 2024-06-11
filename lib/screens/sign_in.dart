@@ -114,6 +114,8 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+
 import 'package:magicconnect/screens/create_profile.dart';
 import 'package:magicconnect/screens/splash_screen.dart';
 import 'package:magicconnect/screens/user_input.dart';
@@ -137,6 +139,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   String accessToken = 'Unknown';
+
   int tempPhone = 0;
   final _otplessFlutterPlugin = Otpless();
   late String? sessionToken;
@@ -150,7 +153,6 @@ class _SignInState extends State<SignIn> {
     openLoginPage();
     // _otplessFlutterPlugin.hideFabButton();
   }
-
   Future<void> loadSessionToken() async {
     sessionToken = await AuthUserHelper.getSessionToken();
     userID = await AuthUserHelper.getUserID();
