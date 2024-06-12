@@ -20,8 +20,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void getContacts() async {
     contacts = await ApiService().getContacts();
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -34,7 +33,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      appBar: AppBar( 
         title: const Text(
           "BondU",
           style: TextStyle(
@@ -104,13 +103,38 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   child: TextField(
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
                               color: Colors.black12, width: 1.0),
                         ),
-                        border: InputBorder.none,
-                        labelText: "  Search",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.black12, width: 1.0),
+                        ),
+                        // labelText: "  Search",
                         filled: true,
                         labelStyle: const TextStyle(
                           color: Colors.grey,

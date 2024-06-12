@@ -12,7 +12,7 @@ class Contact extends StatelessWidget {
       {Key? key,
       required this.contactName,
       required this.designation,
-        required this.phone,
+      required this.phone,
       required this.imagePath})
       : super(key: key);
 
@@ -57,21 +57,24 @@ class Contact extends StatelessWidget {
               ],
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 showModalBottomSheet<dynamic>(
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
                     context: context,
                     builder: (builder) {
-                      return  Wrap(children: [
-                        ContactBottomSheet(name: contactName, phone: phone,)
+                      return Wrap(children: [
+                        ContactBottomSheet(
+                          name: contactName,
+                          phone: phone,
+                        )
                       ]);
                     });
               },
               child: const Icon(
                 Icons.more_vert,
                 color: Colors.black,
-                size: 35,
+                size: 24,
               ),
             ),
           ],

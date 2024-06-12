@@ -9,7 +9,11 @@ class BusinessCard extends StatefulWidget {
   final UserInfo user;
   final double deviceWidth;
   final double deviceHeight;
-  const BusinessCard({super.key, required this.user, required this.deviceWidth, required this.deviceHeight});
+  const BusinessCard(
+      {super.key,
+      required this.user,
+      required this.deviceWidth,
+      required this.deviceHeight});
 
   @override
   State<BusinessCard> createState() => _BusinessCardState();
@@ -24,12 +28,10 @@ class _BusinessCardState extends State<BusinessCard> {
             backgroundColor: Colors.transparent,
             context: context,
             isScrollControlled: true,
-
             builder: (builder) {
-              return  EditCardScreen(user: widget.user);
+              return EditCardScreen(user: widget.user);
             });
-      }
-      ),
+      }),
       child: Container(
         decoration: BoxDecoration(
             boxShadow: const [
@@ -37,10 +39,10 @@ class _BusinessCardState extends State<BusinessCard> {
                   color: Colors.grey, blurRadius: 3, offset: Offset(0, 3)),
             ],
             border: Border.all(color: primaryColor, width: 4.0),
-            borderRadius: BorderRadius.circular(12.0),
-            color: const Color.fromARGB(220, 255, 255, 255)),
-        width: widget.deviceWidth*0.8,
-        height: widget.deviceHeight*.2118226,
+            borderRadius: BorderRadius.circular(20.0),
+            color: const Color(0xFFF7F0FF)),
+        width: widget.deviceWidth * 0.8,
+        height: widget.deviceHeight * .2118226,
         padding: const EdgeInsets.all(20.0),
         margin: const EdgeInsets.only(top: 23),
         child: Row(
@@ -56,29 +58,30 @@ class _BusinessCardState extends State<BusinessCard> {
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  Text(widget.user.designation ?? "Designation"),
+                  Text(
+                    "${widget.user.designation ?? ""} : ${widget.user.companyName ?? ""}",
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(widget.user.phone.toString()),
-                  Text(widget.user.email?.characters.take(20).toString() ?? "EMAIL"),
+                  Text(widget.user.email?.characters.take(20).toString() ??
+                      "EMAIL"),
                 ],
               ),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(11),
-                  boxShadow: const [
-                    BoxShadow(
-                      offset:Offset(
-                        0,1
-                      ),
-                      spreadRadius: 5,
-                      blurRadius: 3,
-                      color: Color.fromRGBO(197, 138, 252, 0.13),
-                    )
-                  ],
-                  color: Colors.white
-                ),
+                    borderRadius: BorderRadius.circular(11),
+                    boxShadow: const [
+                      BoxShadow(
+                        offset: Offset(0, 1),
+                        spreadRadius: 5,
+                        blurRadius: 3,
+                        color: Color.fromRGBO(197, 138, 252, 0.13),
+                      )
+                    ],
+                    color: Colors.white),
                 child: QrImageView(
                   data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
                   version: QrVersions.auto,
