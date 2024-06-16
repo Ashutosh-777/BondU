@@ -51,22 +51,12 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 32),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-              icon: const Icon(Icons.file_present),
-              onPressed: () async {
-                await showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Text(
-                        contact.toVCard(withPhoto: false, includeDate: true)),
-                  ),
-                );
-              },
-            ),
             GestureDetector(
               onTap: () async {
                 String vCard = contact.toVCard();
@@ -174,7 +164,10 @@ class DeleteBottomSheet extends StatelessWidget {
                 color: Color.fromRGBO(0, 0, 0, 0.6),
               ),
             ),
-            DeleteButton()
+            SizedBox(height: 10),
+            DeleteButton(),
+            SizedBox(height: 10),
+            CancelButton(),
           ],
         ),
       ),
@@ -194,7 +187,6 @@ class DeleteButton extends StatelessWidget {
         //TODO: Add delete contact logic
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 18),
         height: deviceSize.height * 0.0541,
         width: deviceSize.width,
         decoration: BoxDecoration(
@@ -205,6 +197,33 @@ class DeleteButton extends StatelessWidget {
             'Delete Contact',
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CancelButton extends StatelessWidget {
+  const CancelButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: SizedBox(
+        height: deviceSize.height * 0.0541,
+        width: deviceSize.width,
+        child: Center(
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+                color: const Color(0xFF000000).withOpacity(0.6),
+                fontWeight: FontWeight.w400,
+                fontSize: 16),
           ),
         ),
       ),

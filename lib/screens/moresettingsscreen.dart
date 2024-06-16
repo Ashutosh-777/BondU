@@ -15,7 +15,7 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
     await AuthUserHelper.signOut();
     Navigator.of(context).pushAndRemoveUntil<void>(
       MaterialPageRoute<void>(
-          builder: (BuildContext context) =>  SignIn()),
+          builder: (BuildContext context) => const SignIn()),
       ModalRoute.withName('/'),
     );
   }
@@ -68,6 +68,13 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                    color: const Color(0xFF000000).withOpacity(0.05),
+                    blurRadius: 12,
+                    offset: const Offset(3, 4),
+                    spreadRadius: 0),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -101,6 +108,13 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                    color: const Color(0xFF000000).withOpacity(0.05),
+                    blurRadius: 12,
+                    offset: const Offset(3, 4),
+                    spreadRadius: 0),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

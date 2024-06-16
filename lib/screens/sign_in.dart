@@ -51,7 +51,7 @@
 //       var currentUser = context.read<Auth>();
 //       currentUser.addDetails(user);
 //     }else{
-//       print("Error");
+//       log("Error");
 //       return;
 //     }
 //   }
@@ -59,7 +59,7 @@
 //     _otplessFlutterPlugin.openLoginPage((result) {
 //       var phone = result['data']['mobile']['number'];
 //       tempPhone = int.parse(phone);
-//       print(tempPhone.runtimeType);
+//       log(tempPhone.runtimeType);
 //       if (result['data'] != null) {
 //         final token = result['data']['token'];
 //         accessToken = token;
@@ -89,7 +89,7 @@
 //           await _otplessFlutterPlugin.signInCompleted();
 //           await ApiService().verifyUser(accessToken);
 //           await loadSessionToken();
-//           print("loaded session Token");
+//           log("loaded session Token");
 //           if(!mounted) return;
 //           Navigator.of(context).pushReplacement(
 //             MaterialPageRoute(builder: (context)=>Home())
@@ -113,6 +113,8 @@
 //     );
 //   }
 // }
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 
@@ -153,15 +155,16 @@ class _SignInState extends State<SignIn> {
     openLoginPage();
     // _otplessFlutterPlugin.hideFabButton();
   }
+
   Future<void> loadSessionToken() async {
     sessionToken = await AuthUserHelper.getSessionToken();
     userID = await AuthUserHelper.getUserID();
-    print(sessionToken);
+    log(sessionToken.toString());
     if (sessionToken != null && userID != null) {
       BackendHelper.id = userID ?? "";
       BackendHelper.sessionToken = sessionToken ?? "";
       UserInfo user = await ApiService().getUser();
-      if(!mounted) return;
+      if (!mounted) return;
       var currentUser = context.read<Auth>();
       currentUser.addDetails(user);
       // if(user.name!.isEmpty ){
@@ -176,26 +179,26 @@ class _SignInState extends State<SignIn> {
   }
 
   Future<void> openLoginPage() async {
-      try{
-        print("need to open login page_____________________________");
-         _otplessFlutterPlugin.openLoginPage((result) {
-          var message = "";
-          if (result['data'] != null) {
-            final token = result['data']['token'];
-            message = "token: $token";
-            setState(() async{
-              accessToken=token;
-            });
-            return;
-          } else {
-            message = result['errorMessage'];
-            return;
-          }
-        } , arg);
-      }catch(e){
-        print("Error caught $e ");
-        return;
-      }
+    try {
+      log("need to open login page_____________________________");
+      _otplessFlutterPlugin.openLoginPage((result) {
+        var message = "";
+        if (result['data'] != null) {
+          final token = result['data']['token'];
+          message = "token: $token";
+          setState(() async {
+            accessToken = token;
+          });
+          return;
+        } else {
+          message = result['errorMessage'];
+          return;
+        }
+      }, arg);
+    } catch (e) {
+      log("Error caught $e ");
+      return;
+    }
   }
 
   @override
@@ -219,67 +222,72 @@ class _SignInState extends State<SignIn> {
               children: [
                 accessToken == "Unknown"
                     ? GestureDetector(
-                  onTap: () async{
-                    await openLoginPage();
-                    // await _otplessFlutterPlugin.signInCompleted();
-                    // await ApiService().verifyUser(accessToken);
-                    // loadSessionToken();
-                    // if (BackendHelper.id != "id") {
-                    //   UserInfo user = await ApiService().getUser();
-                    //   currentUser.addDetails(user);
-                    //   currentUser.addPhone(tempPhone);
-                    //   await AuthUserHelper.setPhone(tempPhone.toString());
-                    //   if(user.name!.isEmpty||user.email!.isEmpty ) {
-                    //     Navigator.of(context)
-                    //         .pushReplacement(MaterialPageRoute(
-                    //         builder: (context) => CreateProfile1()));
-                    //   }else{
-                    //     Navigator.of(context).pushReplacement(
-                    //         MaterialPageRoute(
-                    //             builder: (context) => Home()));
-                    //   }
-                    // } else {
-                    //   //if(!mounted) return;
-                    //   Navigator.of(context)
-                    //       .pushReplacement(MaterialPageRoute(
-                    //       builder: (context) => CreateProfile1()));
-                    // }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: BoxDecoration(
-                      color: primaryColor ,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        "Login to continue",
-                        style:
-                        TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                )
-                    : FutureBuilder(
-                  future: Future.delayed(const Duration(milliseconds: 100)),
-                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) async{
-                        await ApiService().verifyUser(accessToken);
-                        if(!mounted) return;
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const SplashScreen(loadUserData: true,),
+                        onTap: () async {
+                          await openLoginPage();
+                          // await _otplessFlutterPlugin.signInCompleted();
+                          // await ApiService().verifyUser(accessToken);
+                          // loadSessionToken();
+                          // if (BackendHelper.id != "id") {
+                          //   UserInfo user = await ApiService().getUser();
+                          //   currentUser.addDetails(user);
+                          //   currentUser.addPhone(tempPhone);
+                          //   await AuthUserHelper.setPhone(tempPhone.toString());
+                          //   if(user.name!.isEmpty||user.email!.isEmpty ) {
+                          //     Navigator.of(context)
+                          //         .pushReplacement(MaterialPageRoute(
+                          //         builder: (context) => CreateProfile1()));
+                          //   }else{
+                          //     Navigator.of(context).pushReplacement(
+                          //         MaterialPageRoute(
+                          //             builder: (context) => Home()));
+                          //   }
+                          // } else {
+                          //   //if(!mounted) return;
+                          //   Navigator.of(context)
+                          //       .pushReplacement(MaterialPageRoute(
+                          //       builder: (context) => CreateProfile1()));
+                          // }
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                        );
-                      });
-                    }
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text(
+                              "Login to continue",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      )
+                    : FutureBuilder(
+                        future:
+                            Future.delayed(const Duration(milliseconds: 100)),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) async {
+                              await ApiService().verifyUser(accessToken);
+                              if (!mounted) return;
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const SplashScreen(
+                                    loadUserData: true,
+                                  ),
+                                ),
+                              );
+                            });
+                          }
 
-                    return const SizedBox();
-                  },
-
-                )
+                          return const SizedBox();
+                        },
+                      )
                 // GestureDetector(
                 //     child: Container(
                 //       width: MediaQuery.of(context).size.width * 0.9,
@@ -297,8 +305,8 @@ class _SignInState extends State<SignIn> {
                 //       ),
                 //     ),
                 //     onTap: () async {
-                //       print("Starting Authentication");
-                //       print(accessToken);
+                //       log("Starting Authentication");
+                //       log(accessToken);
                 //       Map<String, dynamic> verify =
                 //       await ApiService().verifyUser(accessToken);
                 //      // _otplessFlutterPlugin.signInCompleted();

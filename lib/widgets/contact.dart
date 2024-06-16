@@ -63,12 +63,10 @@ class Contact extends StatelessWidget {
                     isScrollControlled: true,
                     context: context,
                     builder: (builder) {
-                      return Wrap(children: [
-                        ContactBottomSheet(
-                          name: contactName,
-                          phone: phone,
-                        )
-                      ]);
+                      return ContactBottomSheet(
+                        name: contactName,
+                        phone: phone,
+                      );
                     });
               },
               child: const Icon(

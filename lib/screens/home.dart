@@ -103,10 +103,15 @@ class _HomeState extends State<Home> {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
+                  color: const Color(0xFF6D6DC5).withOpacity(0.3),
+                  blurRadius: 11,
+                  offset: const Offset(0, 20),
+                ),
+                BoxShadow(
                   color: const Color(0xFF9b51e0).withOpacity(0.19),
                   blurRadius: 11,
-                  offset: const Offset(-3, -4),
-                ),
+                  offset: const Offset(0, -5),
+                )
               ]),
           height: 70,
           width: 70,

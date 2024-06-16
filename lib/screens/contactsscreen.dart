@@ -33,7 +33,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar( 
+      appBar: AppBar(
         title: const Text(
           "BondU",
           style: TextStyle(
@@ -92,18 +92,27 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   )
                 ],
               ),
+              const SizedBox(height: 14),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 21),
                 child: Container(
                   decoration: const BoxDecoration(
-                      color: Color.fromARGB(50, 122, 122, 122),
-                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                    color: Color.fromARGB(50, 122, 122, 122),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12.0),
+                    ),
+                  ),
                   height: 45,
                   child: TextField(
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
+                        contentPadding: EdgeInsets.zero,
+                        hintText: "Search",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: Colors.grey,
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
@@ -142,9 +151,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 18),
               Container(
                 height: 4,
-                color: Colors.purple.withAlpha(75),
+                color: const Color(0xFFD0D0F2),
               ),
               Expanded(
                 child: ListView.builder(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:magicconnect/modals/contact_model.dart';
 import 'package:magicconnect/modals/user_model.dart';
@@ -16,13 +18,15 @@ class ApiService {
     connectTimeout: const Duration(seconds: 15),
     receiveTimeout: const Duration(seconds: 15),
     headers: getHeader(),
+    validateStatus: (status) => true,
   ));
   //Backend Helper not needed in verify user
   Future<Map<String, dynamic>> verifyUser(String token) async {
-    print("Inside verify User__________________________________________________________________");
+    print(
+        "Inside verify User__________________________________________________________________");
     try {
       dynamic results =
-          await dio.get('https://server.magiconnect.in/user/authenticate/phone',
+          await dio.get('http://server.bondu.in/user/authenticate/phone',
               options: Options(
                 headers: {"Authorization": token},
               ));
@@ -41,8 +45,8 @@ class ApiService {
   // Future<String> postUser(UserInfo user) async {
   //   String? tempId = await AuthUserHelper.getUserID();
   //   try {
-  //     Response response = await Dio().post(
-  //       'https://server.magiconnect.in/user/updateUser/$tempId',
+  //     Response response = await dio.post(
+  //       'http://server.bondu.in/user/updateUser/$tempId',
   //       options: Options(
   //         headers: getHeader(),
   //       ),
@@ -92,8 +96,8 @@ class ApiService {
     userDetailsJSON.remove("_id");
     userDetailsJSON.remove("phone");
     try {
-      Response response = await Dio().post(
-        'https://server.magiconnect.in/user/updateUser/$id',
+      Response response = await dio.post(
+        'http://server.bondu.in/user/updateUser/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -108,29 +112,24 @@ class ApiService {
   }
 
   Future<UserInfo> getUser() async {
-    print("Inside Get Results");
     String? temp = await AuthUserHelper.getUserID();
-    print(temp);
-    Response response = await Dio().get(
-      'https://server.magiconnect.in/user/${temp}',
+    Response response = await dio.get(
+      'http://server.bondu.in/user/$temp',
       options: Options(
         headers: {
           'Content-Type': 'application/json',
         },
       ),
     );
-    print("Here goes response ___________________");
-    print(response.data);
     UserInfo user = UserInfo.fromJson(response.data);
-    print(response.data['name']);
-    print(user.name.runtimeType);
-    AuthUserHelper.setUserData(user.toJson().toString());
+    // TODO: REMOVE THIS
+    AuthUserHelper.setUserData(jsonEncode(user.toJson()));
     return user;
   }
 
   Future<List<ContactModel>> getContacts() async {
-    Response response = await Dio().get(
-      'https://server.magiconnect.in/profile/getContacts/${BackendHelper.id}',
+    Response response = await dio.get(
+      'http://server.bondu.in/profile/getContacts/${BackendHelper.id}',
       options: Options(
         headers: {
           'Authorization': BackendHelper.sessionToken,
@@ -143,16 +142,18 @@ class ApiService {
 
     List<ContactModel> contacts = [];
     print(data);
+
     data.forEach((s) {
       contacts.add(ContactModel.fromJson(s));
     });
 
     return contacts;
   }
+
   Future<ViewModel> getViews() async {
-    try{
-      Response response = await Dio().get(
-        'https://server.magiconnect.in/profile/getAnalytics/${BackendHelper.id}',
+    try {
+      Response response = await dio.get(
+        'http://server.bondu.in/profile/getAnalytics/${BackendHelper.id}',
         options: Options(
           headers: {
             'Authorization': BackendHelper.sessionToken,
@@ -162,35 +163,34 @@ class ApiService {
       );
       var data = response.data;
       ViewModel views = ViewModel.fromJson(data);
-      if(true){
-        return Future.error("error");
-      }
-      return views;
-    }catch(e){
-      print("error in here $e");
-      return ViewModel(views: null, contacted: null, tapThroughRate: null, lastContactDate: '');
-    }
 
+      return views;
+    } catch (e) {
+      print("error in here $e");
+      return ViewModel(
+          views: null,
+          contacted: null,
+          tapThroughRate: null,
+          lastContactDate: '');
+    }
   }
-  Future<String> updateSocials(UserInfo user) async{
-    try{
+
+  Future<String> updateSocials(UserInfo user) async {
+    try {
       String? userID = await AuthUserHelper.getUserID();
-      var response = await Dio().post('https://server.magiconnect.in/user/updateUser/$userID',
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-              "Authorization": BackendHelper.sessionToken,
-            },
-          ),
-          data: {
-            "socialMediaHandles": user.socialMediaHandles}
-      );
+      var response =
+          await Dio().post('http://server.bondu.in/user/updateUser/$userID',
+              options: Options(
+                headers: {
+                  'Content-Type': 'application/json',
+                  "Authorization": BackendHelper.sessionToken,
+                },
+              ),
+              data: {"socialMediaHandles": user.socialMediaHandles});
       return "Success";
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return "Failed";
-
     }
-
   }
 }

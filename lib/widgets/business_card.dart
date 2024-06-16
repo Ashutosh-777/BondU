@@ -24,72 +24,101 @@ class _BusinessCardState extends State<BusinessCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
-        showModalBottomSheet<dynamic>(
-            backgroundColor: Colors.transparent,
-            context: context,
-            isScrollControlled: true,
-            builder: (builder) {
-              return EditCardScreen(user: widget.user);
-            });
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) =>
+                  Material(child: EditCardScreen(user: widget.user))),
+        );
       }),
-      child: Container(
-        decoration: BoxDecoration(
-            boxShadow: const [
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            boxShadow: [
               BoxShadow(
-                  color: Colors.grey, blurRadius: 3, offset: Offset(0, 3)),
+                  color: const Color(0xFF9B51E0).withOpacity(0.19),
+                  blurRadius: 12,
+                  offset: const Offset(3, 3)),
             ],
-            border: Border.all(color: primaryColor, width: 4.0),
             borderRadius: BorderRadius.circular(20.0),
-            color: const Color(0xFFF7F0FF)),
-        width: widget.deviceWidth * 0.8,
-        height: widget.deviceHeight * .2118226,
-        padding: const EdgeInsets.all(20.0),
-        margin: const EdgeInsets.only(top: 23),
-        child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFFB180FF),
+                Color(0xFF4B21A4),
+              ],
+              stops: [0.0275, 1],
+            ),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF7F0FF),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+
+            // height: widget.deviceHeight * .2118226,
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 50),
+            child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.user.name ?? "UserName",
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    "${widget.user.designation ?? ""} : ${widget.user.companyName ?? ""}",
-                    overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.user.name ?? "UserName",
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "${widget.user.designation ?? ""} : ${widget.user.companyName ?? ""}",
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 10, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(widget.user.phone.toString(),
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w400)),
+                        Text(widget.user.email ?? "EMAIL",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w400)),
+                      ],
+                    ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    width: 20,
                   ),
-                  Text(widget.user.phone.toString()),
-                  Text(widget.user.email?.characters.take(20).toString() ??
-                      "EMAIL"),
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    boxShadow: const [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        spreadRadius: 5,
-                        blurRadius: 3,
-                        color: Color.fromRGBO(197, 138, 252, 0.13),
-                      )
-                    ],
-                    color: Colors.white),
-                child: QrImageView(
-                  data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
-                  version: QrVersions.auto,
-                  size: 72,
-                  gapless: false,
-                ),
-              )
-            ]),
+                  Container(
+                    height: 72,
+                    width: 72,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        boxShadow: const [
+                          // BoxShadow(
+                          //   offset: Offset(0, 1),
+                          //   spreadRadius: 5,
+                          //   blurRadius: 3,
+                          //   color: Color.fromRGBO(197, 138, 252, 0.13),
+                          // )
+                        ],
+                        color: Colors.white),
+                    child: QrImageView(
+                      data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
+                      version: QrVersions.auto,
+                    ),
+                  )
+                ]),
+          ),
+        ),
       ),
     );
   }

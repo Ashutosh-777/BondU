@@ -4,9 +4,14 @@ import 'package:magicconnect/screens/editsocialscreen.dart';
 
 class SocialLinkTile extends StatelessWidget {
   final String text;
-  final String url;
+  final String imageUrl;
+  final bool linkExists;
 
-  const SocialLinkTile({super.key, required this.text, required this.url});
+  const SocialLinkTile(
+      {super.key,
+      required this.text,
+      required this.imageUrl,
+      this.linkExists = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class SocialLinkTile extends StatelessWidget {
             children: [
               ClipOval(
                 child: Image.network(
-                  url,
+                  imageUrl,
                   height: 35,
                   width: 35,
                 ),
@@ -46,9 +51,9 @@ class SocialLinkTile extends StatelessWidget {
             style: const ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(primaryColor),
             ),
-            child: const Text(
-              "ADD",
-              style: TextStyle(fontSize: 12),
+            child: Text(
+              linkExists ? "ADD" : "EDIT",
+              style: const TextStyle(fontSize: 12),
             ),
           )
         ],
