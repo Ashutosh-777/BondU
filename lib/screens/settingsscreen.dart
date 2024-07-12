@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/moresettingsscreen.dart';
@@ -100,17 +101,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   currentUser.name!,
+                                  maxLines: 1,
+                                  minFontSize: 20,
+                                  maxFontSize: 30,
                                   style: const TextStyle(
-                                      fontSize: 26,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
+                                AutoSizeText(
                                   currentUser.designation!,
+                                  maxLines: 1,
+                                  minFontSize: 10,
+                                  maxFontSize: 20,
                                   textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                      fontSize: 12, color: primaryColor),
+                                  style: const TextStyle(color: primaryColor),
                                 ),
                               ],
                             ),
@@ -294,8 +299,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         bottom: BorderSide(
                                             color: Colors.grey.shade300))),
                                 child: const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "More Settings",
@@ -303,9 +306,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400),
                                     ),
+                                    Spacer(),
                                     Icon(
                                       Icons.arrow_forward_ios_rounded,
-                                    )
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
                                   ],
                                 ),
                               ),

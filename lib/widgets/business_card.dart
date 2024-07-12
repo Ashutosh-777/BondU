@@ -7,13 +7,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class BusinessCard extends StatefulWidget {
   final UserInfo user;
-  final double deviceWidth;
-  final double deviceHeight;
-  const BusinessCard(
-      {super.key,
-      required this.user,
-      required this.deviceWidth,
-      required this.deviceHeight});
+  final bool isEdit;
+  const BusinessCard({
+    super.key,
+    required this.user,
+    this.isEdit = false,
+  });
 
   @override
   State<BusinessCard> createState() => _BusinessCardState();
@@ -24,6 +23,7 @@ class _BusinessCardState extends State<BusinessCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
+        if (widget.isEdit) return;
         Navigator.of(context).push(
           MaterialPageRoute(
               builder: (context) =>
@@ -31,9 +31,9 @@ class _BusinessCardState extends State<BusinessCard> {
         );
       }),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: EdgeInsets.symmetric(horizontal: widget.isEdit ? 0 : 30.0),
         child: Container(
-          padding: const EdgeInsets.all(4),
+          // padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -41,7 +41,7 @@ class _BusinessCardState extends State<BusinessCard> {
                   blurRadius: 12,
                   offset: const Offset(3, 3)),
             ],
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(19.0),
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -52,71 +52,132 @@ class _BusinessCardState extends State<BusinessCard> {
               stops: [0.0275, 1],
             ),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFFF7F0FF),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7F0FF),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
 
-            // height: widget.deviceHeight * .2118226,
-            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 50),
-            child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.user.name ?? "UserName",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "${widget.user.designation ?? ""} : ${widget.user.companyName ?? ""}",
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w400),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(widget.user.phone.toString(),
+              // height: widget.deviceHeight * .2118226,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 50),
+              child: Row(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.user.name ?? "UserName",
                             style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w400)),
-                        Text(widget.user.email ?? "EMAIL",
-                            maxLines: 1,
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "${widget.user.designation ?? ""} : ${widget.user.companyName ?? ""}",
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w400)),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 72,
-                    width: 72,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(11),
-                        boxShadow: const [
-                          // BoxShadow(
-                          //   offset: Offset(0, 1),
-                          //   spreadRadius: 5,
-                          //   blurRadius: 3,
-                          //   color: Color.fromRGBO(197, 138, 252, 0.13),
-                          // )
+                                fontSize: 10, fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          if (widget.user.phone != null)
+                            Text(widget.user.phone.toString(),
+                                style: const TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w400)),
+                          Text(widget.user.email ?? "EMAIL",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w400)),
                         ],
-                        color: Colors.white),
-                    child: QrImageView(
-                      data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
-                      version: QrVersions.auto,
+                      ),
                     ),
-                  )
-                ]),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.width + 80,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(45),
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFC58AFC)
+                                          .withOpacity(0.13),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(20),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(11)),
+                                          child: Center(
+                                            child: QrImageView(
+                                              data:
+                                                  'https://www.app.bondu.in/user/${BackendHelper.id}',
+                                              version: QrVersions.auto,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 72,
+                        width: 72,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(11),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(3, 3),
+                                spreadRadius: 0,
+                                blurRadius: 11.2,
+                                color:
+                                    const Color(0xFF9B51E0).withOpacity(0.19),
+                              )
+                            ],
+                            color: Colors.white),
+                        child: QrImageView(
+                          data:
+                              'https://www.app.bondu.in/user/${BackendHelper.id}',
+                          version: QrVersions.auto,
+                        ),
+                      ),
+                    )
+                  ]),
+            ),
           ),
         ),
       ),

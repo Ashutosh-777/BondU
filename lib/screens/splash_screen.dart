@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/screens/create_profile.dart';
 import 'package:magicconnect/screens/home.dart';
-import 'package:otpless_flutter/otpless_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../modals/user_model.dart';
@@ -12,9 +11,13 @@ import '../services/api.dart';
 import '../services/auth_user_helper.dart';
 import '../services/database_strings.dart';
 import '../stores/auth.dart';
+
 class SplashScreen extends StatefulWidget {
   final bool loadUserData;
-  const SplashScreen({Key? key, required this.loadUserData,}) : super(key: key);
+  const SplashScreen({
+    Key? key,
+    required this.loadUserData,
+  }) : super(key: key);
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -50,8 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
       BackendHelper.id = userID ?? "";
       BackendHelper.sessionToken = sessionToken ?? "";
 
-      if(widget.loadUserData){
-        print("Are you fool?__________ ${widget.loadUserData}");
+      if (widget.loadUserData) {
         UserInfo user = await ApiService().getUser();
         await AuthUserHelper.setUserData(jsonEncode(user.toJson()));
       }
@@ -65,17 +67,18 @@ class _SplashScreenState extends State<SplashScreen>
       // }
       var currentUser = context.read<Auth>();
       currentUser.addDetails(user);
-    }else{
+    } else {
       print("Error");
       return;
     }
   }
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1500),
     );
 
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller)
@@ -97,9 +100,9 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: primaryColor,
       body: FutureBuilder(
         future: Future.delayed(const Duration(seconds: 2)),
-        builder: (context,snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            WidgetsBinding.instance.addPostFrameCallback((_) async{
+            WidgetsBinding.instance.addPostFrameCallback((_) async {
               final loginState = await AuthUserHelper.getLoginStatus();
               print(loginState);
               // if(!loginState){
@@ -129,21 +132,19 @@ class _SplashScreenState extends State<SplashScreen>
               // }
               await loadSessionToken();
               print("Now moving to HomePage");
-              if(!mounted) return;
+              if (!mounted) return;
               UserInfo user = context.read<Auth>().userDetails;
-              if(user.name!.isEmpty){
+              if (user.name!.isEmpty) {
                 print("hello ${user.name}");
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context)=>CreateProfile1())
-                );
-              }else{
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const CreateProfile1()));
+              } else {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => const Home(),
                   ),
-                );                
+                );
               }
-
             });
           }
           return Center(
@@ -167,4 +168,3 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-

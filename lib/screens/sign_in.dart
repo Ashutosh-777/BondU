@@ -116,11 +116,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 
-import 'package:magicconnect/screens/create_profile.dart';
 import 'package:magicconnect/screens/splash_screen.dart';
-import 'package:magicconnect/screens/user_input.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/services/database_strings.dart';
 import 'dart:async';
@@ -130,7 +127,6 @@ import '../globals/colors.dart';
 import '../modals/user_model.dart';
 import '../services/api.dart';
 import '../stores/auth.dart';
-import 'home.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -153,7 +149,6 @@ class _SignInState extends State<SignIn> {
   void initState() {
     super.initState();
     openLoginPage();
-    // _otplessFlutterPlugin.hideFabButton();
   }
 
   Future<void> loadSessionToken() async {
@@ -180,18 +175,12 @@ class _SignInState extends State<SignIn> {
 
   Future<void> openLoginPage() async {
     try {
-      log("need to open login page_____________________________");
       _otplessFlutterPlugin.openLoginPage((result) {
-        var message = "";
         if (result['data'] != null) {
           final token = result['data']['token'];
-          message = "token: $token";
           setState(() async {
             accessToken = token;
           });
-          return;
-        } else {
-          message = result['errorMessage'];
           return;
         }
       }, arg);

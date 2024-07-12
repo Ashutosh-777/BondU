@@ -160,11 +160,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 child: ListView.builder(
                     itemCount: contacts.length,
                     itemBuilder: (context, index) {
-                      return Contact(
-                        contactName: contacts[index].name ?? "",
-                        designation: contacts[index].companyName ?? "",
+                      return ContactTile(
+                        contact: contacts[index],
                         imagePath: 'assets/pp.png',
-                        phone: contacts[index].phone,
+                        onDelete: () {
+                          getContacts();
+                        },
                       );
                     }),
               ),

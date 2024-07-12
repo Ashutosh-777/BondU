@@ -19,7 +19,9 @@ class UserInfo {
       this.phone});
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {
-    return UserInfo(
+    return 
+    
+    UserInfo(
       name: json['name'] ??'',
       phone: json['phone'] ?? '',
       bio: json['bio'] ?? 'Please add bio',

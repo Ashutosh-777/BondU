@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
 import 'package:magicconnect/globals/colors.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
+import 'package:magicconnect/services/database_strings.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -50,23 +51,75 @@ class SharingScreen extends StatelessWidget {
                 width: 132,
               ),
               const SizedBox(height: 55),
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2,
-                        offset: Offset(0, 3)),
-                  ],
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: Colors.white,
-                ),
-                child: QrImageView(
-                  data:
-                      'https://www.app.bondu.in/user/${AuthUserHelper.getUserID()}',
-                  version: QrVersions.auto,
-                  size: 175,
-                  gapless: false,
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            clipBehavior: Clip.hardEdge,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width + 80,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.all(45),
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                color:
+                                    const Color(0xFFC58AFC).withOpacity(0.13),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(11)),
+                                    child: Center(
+                                      child: QrImageView(
+                                        data:
+                                            'https://www.app.bondu.in/user/${BackendHelper.id}',
+                                        version: QrVersions.auto,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2,
+                          offset: Offset(0, 3)),
+                    ],
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Colors.white,
+                  ),
+                  child: QrImageView(
+                    data:
+                        'https://www.app.bondu.in/user/${AuthUserHelper.getUserID()}',
+                    version: QrVersions.auto,
+                    size: 175,
+                    gapless: false,
+                  ),
                 ),
               ),
               const SizedBox(height: 46),

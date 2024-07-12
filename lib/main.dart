@@ -7,9 +7,9 @@ import 'package:magicconnect/services/auth_user_helper.dart';
 import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final isLoggedIn = await AuthUserHelper.getLoginStatus() ;
+  final isLoggedIn = await AuthUserHelper.getLoginStatus();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -22,7 +22,9 @@ void main() async{
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MyApp(isLoggedIn: isLoggedIn,),
+      child: MyApp(
+        isLoggedIn: isLoggedIn,
+      ),
     ),
   );
 }
@@ -40,7 +42,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home:isLoggedIn? const SplashScreen(loadUserData: false,):const SignIn(),
+      home: isLoggedIn
+          ? const SplashScreen(
+              loadUserData: false,
+            )
+          : const SignIn(),
     );
   }
 }

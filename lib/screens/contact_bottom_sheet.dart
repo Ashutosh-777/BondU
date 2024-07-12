@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:magicconnect/services/api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:toast/toast.dart';
 
 class ContactBottomSheet extends StatefulWidget {
   final String name;
-  final int? phone;
+  final String? phone;
   const ContactBottomSheet(
       {super.key, required this.name, required this.phone});
 
@@ -17,27 +19,17 @@ class ContactBottomSheet extends StatefulWidget {
 }
 
 class _ContactBottomSheetState extends State<ContactBottomSheet> {
-  List<Contact>? _contacts;
-  bool _permissionDenied = false;
   // Import contact from vCard
-  Contact contact = Contact.fromVCard('BEGIN:VCARD\n'
-      'VERSION:3.0\n'
-      'N:;Joe;;;\n'
-      'TEL;TYPE=HOME:123456\n'
-      'END:VCARD');
+  late Contact contact;
+
   @override
   void initState() {
+    contact = Contact.fromVCard('BEGIN:VCARD\n'
+        'VERSION:3.0\n'
+        'N:;${widget.name};;;\n'
+        'TEL;TYPE=HOME:${widget.phone.toString()}\n'
+        'END:VCARD');
     super.initState();
-    _fetchContacts();
-  }
-
-  Future _fetchContacts() async {
-    if (!await FlutterContacts.requestPermission(readonly: true)) {
-      setState(() => _permissionDenied = true);
-    } else {
-      final contacts = await FlutterContacts.getContacts();
-      setState(() => _contacts = contacts);
-    }
   }
 
   @override
@@ -55,7 +47,7 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             GestureDetector(
               onTap: () async {
@@ -79,15 +71,28 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
             ),
             GestureDetector(
               onTap: () async {
-                final newContact = Contact()
-                  ..name.first = widget.name
-                  ..name.last = ' '
-                  ..phones = [
-                    Phone(
-                      widget.phone.toString(),
-                    ),
-                  ];
-                await newContact.insert();
+                try {
+                  final test = await FlutterContacts.requestPermission();
+                  if (!test) return;
+                  final newContact = Contact()
+                    ..name.first = widget.name
+                    ..name.last = ' '
+                    ..phones = [
+                      Phone(
+                        widget.phone.toString(),
+                      ),
+                    ];
+                  await newContact.insert();
+                  ToastContext().init(context);
+                  Toast.show("Contact Saved!!",
+                      duration: 2, gravity: Toast.bottom);
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  ToastContext().init(context);
+                  Toast.show("Some Error Occured",
+                      duration: 2, gravity: Toast.bottom);
+                  Navigator.of(context).pop();
+                }
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -100,15 +105,26 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                showModalBottomSheet<dynamic>(
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (builder) {
-                      return const Wrap(children: [DeleteBottomSheet()]);
-                    });
+              onTap: () async {
+                final didDelete = await showModalBottomSheet<dynamic>(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (builder) {
+                    return Wrap(
+                      children: [
+                        DeleteBottomSheet(
+                          contactMobileNumber: contact.phones.first.number,
+                        )
+                      ],
+                    );
+                  },
+                );
+                if (didDelete == true) {
+                  Navigator.of(context).pop(true);
+                } else {
+                  Navigator.of(context).pop();
+                }
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -130,7 +146,8 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
 }
 
 class DeleteBottomSheet extends StatelessWidget {
-  const DeleteBottomSheet({super.key});
+  const DeleteBottomSheet({super.key, required this.contactMobileNumber});
+  final String contactMobileNumber;
   Size device(BuildContext context) => MediaQuery.of(context).size;
   @override
   Widget build(BuildContext context) {
@@ -141,12 +158,12 @@ class DeleteBottomSheet extends StatelessWidget {
             topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
         color: Colors.white,
       ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
+            const Center(
               child: Text(
                 'Delete Contact',
                 style: TextStyle(
@@ -155,19 +172,21 @@ class DeleteBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Text(
+            const Text(
               'are you sure you want to delete this contact from your contacts?',
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.6),
               ),
             ),
-            SizedBox(height: 10),
-            DeleteButton(),
-            SizedBox(height: 10),
-            CancelButton(),
+            const SizedBox(height: 10),
+            DeleteButton(
+              contactMobileNumber: contactMobileNumber,
+            ),
+            const SizedBox(height: 10),
+            const CancelButton(),
           ],
         ),
       ),
@@ -176,15 +195,16 @@ class DeleteBottomSheet extends StatelessWidget {
 }
 
 class DeleteButton extends StatelessWidget {
-  const DeleteButton({super.key});
-
+  const DeleteButton({super.key, required this.contactMobileNumber});
+  final String contactMobileNumber;
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-        //TODO: Add delete contact logic
+      onTap: () async {
+        await ApiService().deleteContacts(contactMobileNumber);
+
+        Navigator.pop(context, true);
       },
       child: Container(
         height: deviceSize.height * 0.0541,

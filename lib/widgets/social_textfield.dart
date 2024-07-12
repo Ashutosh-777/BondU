@@ -102,7 +102,9 @@ class _SocialTextFieldState extends State<SocialTextField> {
                         controller: textEditingController,
                         onChanged: _onChanged,
                         decoration: InputDecoration(
-                          hintText: 'Paste Your ${widget.name} Profile Here',
+                          hintText: widget.name == "Whatsapp"
+                              ? "Paste your Whatsapp number"
+                              : " Paste your ${widget.name} profile here",
                           suffixIcon: _showSuffixIcon
                               ? GestureDetector(
                                   onTap: () async {

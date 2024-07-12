@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
 import 'package:magicconnect/services/api.dart';
@@ -49,42 +51,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   clipper: BottomEllipticalClipper(),
                   child: Container(
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          end: Alignment(1.0, -2.0),
-                          begin: Alignment(-1.0, 1.0),
-                          stops: [
-                            -0.425,
-                            -0.3631,
-                            -0.3104,
-                            -0.1143,
-                            0.1195,
-                            0.3533,
-                            0.5871,
-                            0.6701,
-                            0.7682,
-                            0.8889,
-                            0.9341,
-                            1.017,
-                            1.0172,
-                          ],
-                          colors: [
-                            Color(0xFF9B51E0),
-                            Color(0xFF9951E0),
-                            Color(0xFF9851E0),
-                            Color(0xFF9251E0),
-                            Color(0xFF8C51E0),
-                            Color(0xFF8551E0),
-                            Color(0xFF7F51E0),
-                            Color(0xFF7C51E0),
-                            Color(0xFF7A51E0),
-                            Color(0xFF7651E0),
-                            Color(0xFF7651E0),
-                            Color(0xFF7651E0),
-                            Color(0xFF7651E0),
-                          ],
-                        ),
-                        ),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment(1.0, -2.0),
+                        begin: Alignment(-1.0, 1.0),
+                        stops: [
+                          -0.425,
+                          -0.3631,
+                          -0.3104,
+                          -0.1143,
+                          0.1195,
+                          0.3533,
+                          0.5871,
+                          0.6701,
+                          0.7682,
+                          0.8889,
+                          0.9341,
+                          1.017,
+                          1.0172,
+                        ],
+                        colors: [
+                          Color(0xFF9B51E0),
+                          Color(0xFF9951E0),
+                          Color(0xFF9851E0),
+                          Color(0xFF9251E0),
+                          Color(0xFF8C51E0),
+                          Color(0xFF8551E0),
+                          Color(0xFF7F51E0),
+                          Color(0xFF7C51E0),
+                          Color(0xFF7A51E0),
+                          Color(0xFF7651E0),
+                          Color(0xFF7651E0),
+                          Color(0xFF7651E0),
+                          Color(0xFF7651E0),
+                        ],
+                      ),
+                    ),
                     height: height * 0.19,
                     padding: EdgeInsets.only(
                         bottom: height * 0.020, left: 12, right: 12),
@@ -108,14 +110,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Text(
-                                    "Hello",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Gilroy-Bold'),
+                                  InkWell(
+                                    onTap: () async {
+                                      final user = await ApiService().getUser();
+                                      log("user  ${user.toJson()}");
+                                    },
+                                    child: const Text(
+                                      "Hello",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Gilroy-Bold'),
+                                    ),
                                   ),
                                   Text(
                                     user.name ?? "",
@@ -230,8 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: BusinessCard(
               user: user,
-              deviceWidth: width,
-              deviceHeight: height,
             ),
           ),
           Container(
@@ -243,50 +249,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(fontSize: 16, fontFamily: 'Gilroy-Bold'),
                 ),
                 const SizedBox(
-                  width: 24,
+                  width: 4,
                 ),
                 Row(
                   children: [
-                    user.socialMediaHandles?['Whatsapp'] == null
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Image.asset(
-                              'assets/Whatsapp.png',
-                              height: 16,
-                              width: 16,
-                            ),
-                          ),
-                    user.socialMediaHandles?['LinkedIn'] == null
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Image.asset(
-                              'assets/LinkedIn.png',
-                              height: 16,
-                              width: 16,
-                            ),
-                          ),
-                    user.socialMediaHandles?['Twitter'] == null
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Image.asset(
-                              'assets/Twitter.png',
-                              height: 16,
-                              width: 16,
-                            ),
-                          ),
-                    user.socialMediaHandles?['Behance'] == null
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Image.asset(
-                              'assets/Behance.png',
-                              height: 16,
-                              width: 16,
-                            ),
-                          ),
+                    if (user.socialMediaHandles?['Whatsapp'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Image.asset(
+                          'assets/Whatsapp.png',
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                    if (user.socialMediaHandles?['LinkedIn'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Image.asset(
+                          'assets/LinkedIn.png',
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                    if (user.socialMediaHandles?['Twitter'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Image.asset(
+                          'assets/Twitter.png',
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                    if (user.socialMediaHandles?['Behance'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Image.asset(
+                          'assets/Behance.png',
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(

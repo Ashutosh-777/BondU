@@ -77,7 +77,9 @@ class EditSocialScreen extends StatelessWidget {
                               borderSide: BorderSide.none,
                             ),
                             fillColor: const Color.fromARGB(255, 224, 224, 224),
-                            labelText: " Paste your $socialName profile here",
+                            labelText: socialName == "Whatsapp"
+                                ? "Paste your Whatsapp number"
+                                : " Paste your $socialName profile here",
                             filled: true,
                             labelStyle: const TextStyle(
                               color: Colors.grey,

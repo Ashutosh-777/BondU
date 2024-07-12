@@ -1,6 +1,6 @@
 class ContactModel {
   String? name;
-  int? phone;
+  String? phone;
   String? email;
   String? companyName;
 
@@ -8,7 +8,7 @@ class ContactModel {
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         name: json['name'],
-        phone: json['phone'],
+        phone: json['mobile'],
         email: json['email'],
         companyName: json['companyName'],
       );

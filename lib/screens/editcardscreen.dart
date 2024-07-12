@@ -4,9 +4,10 @@ import 'package:magicconnect/screens/add_social.dart';
 import 'package:magicconnect/screens/preview.dart';
 import 'package:magicconnect/services/api.dart';
 import 'package:magicconnect/services/auth_user_helper.dart';
+import 'package:magicconnect/widgets/business_card.dart';
 import 'package:magicconnect/widgets/edit_business_card.dart';
 import 'package:provider/provider.dart';
-
+import 'package:magicconnect/extentions/debounce_extention.dart';
 import '../stores/auth.dart';
 import '../widgets/primary_button.dart';
 
@@ -33,7 +34,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
 
   @override
   void initState() {
-    _tempUser = widget.user;
+    _tempUser = UserInfo.fromJson(widget.user.toJson());
     nameController = TextEditingController(text: widget.user.name);
     designationController =
         TextEditingController(text: widget.user.designation);
@@ -43,7 +44,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
     super.initState();
   }
 
-  void _saveDetails() async {
+  Future<void> _saveDetails() async {
     if (_formKey.currentState!.validate()) {
       UserInfo user = UserInfo(
           name: nameController.text,
@@ -60,11 +61,11 @@ class _EditCardScreenState extends State<EditCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -108,8 +109,9 @@ class _EditCardScreenState extends State<EditCardScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                EditBusinessCard(
+                BusinessCard(
                   user: _tempUser,
+                  isEdit: true,
                 ),
                 const SizedBox(
                   height: 50,
@@ -118,11 +120,9 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   labelText: 'Name',
                   textEditingController: nameController,
                   onChanged: (val) {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _tempUser.name = val;
-                      });
-                    }
+                    setState(() {
+                      _tempUser.name = val;
+                    });
                   },
                 ),
                 const SizedBox(
@@ -135,11 +135,9 @@ class _EditCardScreenState extends State<EditCardScreen> {
                         labelText: 'Designation',
                         textEditingController: designationController,
                         onChanged: (val) {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              _tempUser.designation = val;
-                            });
-                          }
+                          setState(() {
+                            _tempUser.designation = val;
+                          });
                         },
                       ),
                     ),
@@ -150,9 +148,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                         textEditingController: companyController,
                         onChanged: (val) {
                           setState(() {
-                            if (_formKey.currentState!.validate()) {
-                              _tempUser.companyName = val;
-                            }
+                            _tempUser.companyName = val;
                           });
                         },
                       ),
@@ -167,9 +163,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   textEditingController: emailController,
                   onChanged: (val) {
                     setState(() {
-                      if (_formKey.currentState!.validate()) {
-                        _tempUser.email = val;
-                      }
+                      _tempUser.email = val;
                     });
                   },
                 ),
@@ -180,13 +174,13 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   labelText: 'Phone',
                   textEditingController: phoneController,
                   onChanged: (val) {
-                    if (_formKey.currentState!.validate()) {
-                      final temp = int.tryParse(val);
-                      if (temp != null) {
-                        setState(() {
-                          _tempUser.phone = temp;
-                        });
-                      }
+                    final temp = int.tryParse(val);
+                    if (temp != null) {
+                      setState(() {
+                        _tempUser.phone = temp;
+                      });
+                    } else {
+                      _tempUser.phone = null;
                     }
                   },
                 ),
@@ -194,29 +188,33 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 41,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AddSocial()));
-                      },
-                      child: PrimaryButton(
-                        width: width,
-                        buttonName: 'Add Social',
-                        bold: false,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const AddSocial()));
+                        },
+                        child: PrimaryButton(
+                          width: width,
+                          buttonName: 'Add Social',
+                          bold: false,
+                        ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {
-                          String? temp = await AuthUserHelper.getUserID();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Preview(userid: temp)));
-                        }
-                      },
-                      child: PrimaryButton(
-                          width: width, buttonName: 'Preview', bold: false),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            String? temp = await AuthUserHelper.getUserID();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Preview(userid: temp)));
+                          }
+                        },
+                        child: PrimaryButton(
+                            width: width, buttonName: 'Preview', bold: false),
+                      ),
                     ),
                   ],
                 ),
