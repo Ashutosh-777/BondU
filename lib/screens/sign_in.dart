@@ -197,128 +197,128 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.grey,
-        title: const Text('Login to BondU'),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              children: [
-                accessToken == "Unknown"
-                    ? GestureDetector(
-                        onTap: () async {
-                          await openLoginPage();
-                          // await _otplessFlutterPlugin.signInCompleted();
-                          // await ApiService().verifyUser(accessToken);
-                          // loadSessionToken();
-                          // if (BackendHelper.id != "id") {
-                          //   UserInfo user = await ApiService().getUser();
-                          //   currentUser.addDetails(user);
-                          //   currentUser.addPhone(tempPhone);
-                          //   await AuthUserHelper.setPhone(tempPhone.toString());
-                          //   if(user.name!.isEmpty||user.email!.isEmpty ) {
-                          //     Navigator.of(context)
-                          //         .pushReplacement(MaterialPageRoute(
-                          //         builder: (context) => CreateProfile1()));
-                          //   }else{
-                          //     Navigator.of(context).pushReplacement(
-                          //         MaterialPageRoute(
-                          //             builder: (context) => Home()));
-                          //   }
-                          // } else {
-                          //   //if(!mounted) return;
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //       builder: (context) => CreateProfile1()));
-                          // }
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              "Login to continue",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+        appBar: AppBar(
+          backgroundColor: Colors.grey,
+          title: const Text('Login to BondU'),
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Column(
+                children: [
+                  accessToken == "Unknown"
+                      ? GestureDetector(
+                          onTap: () async {
+                            await openLoginPage();
+                            // await _otplessFlutterPlugin.signInCompleted();
+                            // await ApiService().verifyUser(accessToken);
+                            // loadSessionToken();
+                            // if (BackendHelper.id != "id") {
+                            //   UserInfo user = await ApiService().getUser();
+                            //   currentUser.addDetails(user);
+                            //   currentUser.addPhone(tempPhone);
+                            //   await AuthUserHelper.setPhone(tempPhone.toString());
+                            //   if(user.name!.isEmpty||user.email!.isEmpty ) {
+                            //     Navigator.of(context)
+                            //         .pushReplacement(MaterialPageRoute(
+                            //         builder: (context) => CreateProfile1()));
+                            //   }else{
+                            //     Navigator.of(context).pushReplacement(
+                            //         MaterialPageRoute(
+                            //             builder: (context) => Home()));
+                            //   }
+                            // } else {
+                            //   //if(!mounted) return;
+                            //   Navigator.of(context)
+                            //       .pushReplacement(MaterialPageRoute(
+                            //       builder: (context) => CreateProfile1()));
+                            // }
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Text(
+                                "Login to continue",
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 20),
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    : FutureBuilder(
-                        future:
-                            Future.delayed(const Duration(milliseconds: 100)),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((_) async {
-                              await ApiService().verifyUser(accessToken);
-                              if (!mounted) return;
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const SplashScreen(
-                                    loadUserData: true,
+                        )
+                      : FutureBuilder(
+                          future:
+                              Future.delayed(const Duration(milliseconds: 100)),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              WidgetsBinding.instance
+                                  .addPostFrameCallback((_) async {
+                                await ApiService().verifyUser(accessToken);
+                                if (!mounted) return;
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const SplashScreen(),
                                   ),
-                                ),
-                              );
-                            });
-                          }
-
-                          return const SizedBox();
-                        },
-                      )
-                // GestureDetector(
-                //     child: Container(
-                //       width: MediaQuery.of(context).size.width * 0.9,
-                //       decoration: BoxDecoration(
-                //         color: const Color(0xff1b1b1b),
-                //         borderRadius: BorderRadius.circular(6),
-                //       ),
-                //       child: const Padding(
-                //         padding: EdgeInsets.all(12.0),
-                //         child: Text(
-                //           "Enter",
-                //           style:
-                //           TextStyle(color: Colors.white, fontSize: 20),
-                //         ),
-                //       ),
-                //     ),
-                //     onTap: () async {
-                //       log("Starting Authentication");
-                //       log(accessToken);
-                //       Map<String, dynamic> verify =
-                //       await ApiService().verifyUser(accessToken);
-                //      // _otplessFlutterPlugin.signInCompleted();
-                //
-                //       if (BackendHelper.id != "id") {
-                //         UserInfo user = await ApiService().getUser();
-                //         currentUser.addDetails(user);
-                //         currentUser.addPhone(tempPhone);
-                //         await AuthUserHelper.setPhone(tempPhone.toString());
-                //         Navigator.of(context).pushReplacement(
-                //             MaterialPageRoute(
-                //                 builder: (context) => Home()));
-                //       } else {
-                //         //if(!mounted) return;
-                //         Navigator.of(context)
-                //             .pushReplacement(MaterialPageRoute(
-                //             builder: (context) => UserInput(
-                //               user: currentUser.userDetails,
-                //             )));
-                //       }
-                //     }
-                // )
-              ],
+                                );
+                              });
+                            }
+      
+                            return const SizedBox();
+                          },
+                        )
+                  // GestureDetector(
+                  //     child: Container(
+                  //       width: MediaQuery.of(context).size.width * 0.9,
+                  //       decoration: BoxDecoration(
+                  //         color: const Color(0xff1b1b1b),
+                  //         borderRadius: BorderRadius.circular(6),
+                  //       ),
+                  //       child: const Padding(
+                  //         padding: EdgeInsets.all(12.0),
+                  //         child: Text(
+                  //           "Enter",
+                  //           style:
+                  //           TextStyle(color: Colors.white, fontSize: 20),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     onTap: () async {
+                  //       log("Starting Authentication");
+                  //       log(accessToken);
+                  //       Map<String, dynamic> verify =
+                  //       await ApiService().verifyUser(accessToken);
+                  //      // _otplessFlutterPlugin.signInCompleted();
+                  //
+                  //       if (BackendHelper.id != "id") {
+                  //         UserInfo user = await ApiService().getUser();
+                  //         currentUser.addDetails(user);
+                  //         currentUser.addPhone(tempPhone);
+                  //         await AuthUserHelper.setPhone(tempPhone.toString());
+                  //         Navigator.of(context).pushReplacement(
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => Home()));
+                  //       } else {
+                  //         //if(!mounted) return;
+                  //         Navigator.of(context)
+                  //             .pushReplacement(MaterialPageRoute(
+                  //             builder: (context) => UserInput(
+                  //               user: currentUser.userDetails,
+                  //             )));
+                  //       }
+                  //     }
+                  // )
+                ],
+              ),
             ),
           ),
         ),

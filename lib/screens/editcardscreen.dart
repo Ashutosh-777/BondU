@@ -63,162 +63,164 @@ class _EditCardScreenState extends State<EditCardScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-        title: const Text(
-          'Edit Card',
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          // Placeholder()
-          Padding(
-            padding: const EdgeInsets.only(right: 24.0),
-            child: GestureDetector(
-              onTap: () {
-                _saveDetails();
-              },
-              child: const Text("Save",
-                  style: TextStyle(
-                      color: Color(0xFF6C24C8),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400)),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                BusinessCard(
-                  user: _tempUser,
-                  isEdit: true,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                _CommonTextField(
-                  labelText: 'Name',
-                  textEditingController: nameController,
-                  onChanged: (val) {
-                    setState(() {
-                      _tempUser.name = val;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _CommonTextField(
-                        labelText: 'Designation',
-                        textEditingController: designationController,
-                        onChanged: (val) {
-                          setState(() {
-                            _tempUser.designation = val;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: _CommonTextField(
-                        labelText: 'Company',
-                        textEditingController: companyController,
-                        onChanged: (val) {
-                          setState(() {
-                            _tempUser.companyName = val;
-                          });
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                _CommonTextField(
-                  labelText: 'Email',
-                  textEditingController: emailController,
-                  onChanged: (val) {
-                    setState(() {
-                      _tempUser.email = val;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                _CommonTextField(
-                  labelText: 'Phone',
-                  textEditingController: phoneController,
-                  onChanged: (val) {
-                    final temp = int.tryParse(val);
-                    if (temp != null) {
+          ),
+          title: const Text(
+            'Edit Card',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          actions: [
+            // Placeholder()
+            Padding(
+              padding: const EdgeInsets.only(right: 24.0),
+              child: GestureDetector(
+                onTap: () {
+                  _saveDetails();
+                },
+                child: const Text("Save",
+                    style: TextStyle(
+                        color: Color(0xFF6C24C8),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400)),
+              ),
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 30),
+                  BusinessCard(
+                    user: _tempUser,
+                    isEdit: true,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  _CommonTextField(
+                    labelText: 'Name',
+                    textEditingController: nameController,
+                    onChanged: (val) {
                       setState(() {
-                        _tempUser.phone = temp;
+                        _tempUser.name = val;
                       });
-                    } else {
-                      _tempUser.phone = null;
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 41,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const AddSocial()));
-                        },
-                        child: PrimaryButton(
-                          width: width,
-                          buttonName: 'Add Social',
-                          bold: false,
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _CommonTextField(
+                          labelText: 'Designation',
+                          textEditingController: designationController,
+                          onChanged: (val) {
+                            setState(() {
+                              _tempUser.designation = val;
+                            });
+                          },
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 18),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            String? temp = await AuthUserHelper.getUserID();
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _CommonTextField(
+                          labelText: 'Company',
+                          textEditingController: companyController,
+                          onChanged: (val) {
+                            setState(() {
+                              _tempUser.companyName = val;
+                            });
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 17,
+                  ),
+                  _CommonTextField(
+                    labelText: 'Email',
+                    textEditingController: emailController,
+                    onChanged: (val) {
+                      setState(() {
+                        _tempUser.email = val;
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    height: 17,
+                  ),
+                  _CommonTextField(
+                    labelText: 'Phone',
+                    textEditingController: phoneController,
+                    onChanged: (val) {
+                      final temp = int.tryParse(val);
+                      if (temp != null) {
+                        setState(() {
+                          _tempUser.phone = temp;
+                        });
+                      } else {
+                        _tempUser.phone = null;
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 41,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Preview(userid: temp)));
-                          }
-                        },
-                        child: PrimaryButton(
-                            width: width, buttonName: 'Preview', bold: false),
+                                builder: (context) => const AddSocial()));
+                          },
+                          child: PrimaryButton(
+                            width: width,
+                            buttonName: 'Add Social',
+                            bold: false,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              String? temp = await AuthUserHelper.getUserID();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Preview(userid: temp)));
+                            }
+                          },
+                          child: PrimaryButton(
+                              width: width, buttonName: 'Preview', bold: false),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

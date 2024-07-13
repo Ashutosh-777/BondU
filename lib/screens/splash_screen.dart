@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:magicconnect/globals/colors.dart';
@@ -13,10 +14,8 @@ import '../services/database_strings.dart';
 import '../stores/auth.dart';
 
 class SplashScreen extends StatefulWidget {
-  final bool loadUserData;
   const SplashScreen({
     Key? key,
-    required this.loadUserData,
   }) : super(key: key);
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -50,14 +49,11 @@ class _SplashScreenState extends State<SplashScreen>
     sessionToken = await AuthUserHelper.getSessionToken();
     userID = await AuthUserHelper.getUserID();
     if (sessionToken != null && userID != null) {
+      await AuthUserHelper.setLoginState(true);
       BackendHelper.id = userID ?? "";
       BackendHelper.sessionToken = sessionToken ?? "";
 
-      if (widget.loadUserData) {
-        UserInfo user = await ApiService().getUser();
-        await AuthUserHelper.setUserData(jsonEncode(user.toJson()));
-      }
-      UserInfo user = await AuthUserHelper.getUserData();
+      UserInfo user = await ApiService().getUser();
       // if(!mounted) return;
       // if(user.name!.isEmpty){
       //   print("khikhih______SDSDSD_____________");
@@ -96,74 +92,76 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      body: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 2)),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              final loginState = await AuthUserHelper.getLoginStatus();
-              print(loginState);
-              // if(!loginState){
-              //   try{
-              //     print("need to open login page_____________________________");
-              //      _otplessFlutterPlugin.openLoginPage((result) {
-              //       var message = "";
-              //       if (result['data'] != null) {
-              //         final token = result['data']['token'];
-              //         message = "token: $token";
-              //         setState(() {
-              //           accessToken=token;
-              //         });
-              //       } else {
-              //         message = result['errorMessage'];
-              //       }
-              //     } , arg);
-              //   }catch(e){
-              //     print("Error caught $e ______________________");
-              //     return;
-              //   }
-              //   await ApiService().verifyUser(accessToken);
-              //   while(accessToken=='Unknown'){
-              //     print("need to login ");
-              //   }
-              //   await ApiService().getUser();
-              // }
-              await loadSessionToken();
-              print("Now moving to HomePage");
-              if (!mounted) return;
-              UserInfo user = context.read<Auth>().userDetails;
-              if (user.name!.isEmpty) {
-                print("hello ${user.name}");
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const CreateProfile1()));
-              } else {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const Home(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: primaryColor,
+        body: FutureBuilder(
+          future: Future.delayed(const Duration(seconds: 2)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                final loginState = await AuthUserHelper.getLoginStatus();
+                log(loginState.toString());
+                // if(!loginState){
+                //   try{
+                //     log("need to open login page_____________________________");
+                //      _otplessFlutterPlugin.openLoginPage((result) {
+                //       var message = "";
+                //       if (result['data'] != null) {
+                //         final token = result['data']['token'];
+                //         message = "token: $token";
+                //         setState(() {
+                //           accessToken=token;
+                //         });
+                //       } else {
+                //         message = result['errorMessage'];
+                //       }
+                //     } , arg);
+                //   }catch(e){
+                //     log("Error caught $e ______________________");
+                //     return;
+                //   }
+                //   await ApiService().verifyUser(accessToken);
+                //   while(accessToken=='Unknown'){
+                //     log("need to login ");
+                //   }
+                //   await ApiService().getUser();
+                // }
+                await loadSessionToken();
+                log("Now moving to HomePage");
+                if (!mounted) return;
+                UserInfo user = context.read<Auth>().userDetails;
+                if (user.name!.isEmpty) {
+                  log("hello ${user.name}");
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const CreateProfile1()));
+                } else {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    ),
+                  );
+                }
+              });
+            }
+            return Center(
+              child: Opacity(
+                opacity: _animation.value,
+                child: const Text(
+                  'BONDU',
+                  style: TextStyle(
+                    fontSize: 56.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                );
-              }
-            });
-          }
-          return Center(
-            child: Opacity(
-              opacity: _animation.value,
-              child: const Text(
-                'BONDU',
-                style: TextStyle(
-                  fontSize: 56.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
                 ),
               ),
-            ),
-          );
-          // }else{
-          //
-          // }
-        },
+            );
+            // }else{
+            //
+            // }
+          },
+        ),
       ),
     );
   }

@@ -69,113 +69,115 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        // child: SingleChildScrollView(
-        //   child: Container(
-        //     height: MediaQuery.of(context).size.height * 5,
-        //     color: Colors.black,
-        //   ),
-        // ),
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() {
-              this.index = index;
-            });
-          },
-          children: tabs,
-        ),
-      ),
-      floatingActionButton: GestureDetector(
-        onTap: (() {
-          showModalBottomSheet<dynamic>(
-              backgroundColor: Colors.transparent,
-              isScrollControlled: true,
-              context: context,
-              builder: (builder) {
-                return const SharingScreen();
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          // child: SingleChildScrollView(
+          //   child: Container(
+          //     height: MediaQuery.of(context).size.height * 5,
+          //     color: Colors.black,
+          //   ),
+          // ),
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                this.index = index;
               });
-        }),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF6D6DC5).withOpacity(0.3),
-                  blurRadius: 11,
-                  offset: const Offset(0, 20),
-                ),
-                BoxShadow(
-                  color: const Color(0xFF9b51e0).withOpacity(0.19),
-                  blurRadius: 11,
-                  offset: const Offset(0, -5),
-                )
-              ]),
-          height: 70,
-          width: 70,
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Image.asset(
-              "assets/share_button.png",
-              scale: 4.5,
+            },
+            children: tabs,
+          ),
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: (() {
+            showModalBottomSheet<dynamic>(
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                context: context,
+                builder: (builder) {
+                  return const SharingScreen();
+                });
+          }),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF6D6DC5).withOpacity(0.3),
+                    blurRadius: 11,
+                    offset: const Offset(0, 20),
+                  ),
+                  BoxShadow(
+                    color: const Color(0xFF9b51e0).withOpacity(0.19),
+                    blurRadius: 11,
+                    offset: const Offset(0, -5),
+                  )
+                ]),
+            height: 70,
+            width: 70,
+            child: Padding(
+              padding: const EdgeInsets.all(0),
+              child: Image.asset(
+                "assets/share_button.png",
+                scale: 4.5,
+              ),
             ),
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF9b51e0).withOpacity(0.12),
-              blurRadius: 10,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: BottomAppBar(
-          elevation: 5,
-          color: Colors.white,
-          shadowColor: Colors.white,
-          surfaceTintColor: Colors.white,
-          notchMargin: 10.0,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            height: 70,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF9b51e0).withOpacity(0.12),
+                blurRadius: 10,
+                offset: const Offset(0, -4),
+              ),
+            ],
+          ),
+          child: BottomAppBar(
+            elevation: 5,
             color: Colors.white,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  NavBarItem(
-                    assetImage: 'assets/house.png',
-                    title: "Home",
-                    index: 0,
-                    onTap: changeIndex,
-                    isSelected: index == 0,
-                  ),
-                  NavBarItem(
-                      assetImage: 'assets/people.png',
-                      title: "Contacts",
-                      index: 1,
-                      isSelected: index == 1,
-                      onTap: changeIndex),
-                  const SizedBox(width: 10),
-                  NavBarItem(
-                      assetImage: 'assets/chart-pie.png',
-                      title: "Analytics",
-                      index: 2,
-                      isSelected: index == 2,
-                      onTap: changeIndex),
-                  NavBarItem(
-                      assetImage: 'assets/dashboard.png',
-                      title: "Settings",
-                      isSelected: index == 3,
-                      index: 3,
-                      onTap: changeIndex)
-                ]),
+            shadowColor: Colors.white,
+            surfaceTintColor: Colors.white,
+            notchMargin: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              height: 70,
+              color: Colors.white,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NavBarItem(
+                      assetImage: 'assets/house.png',
+                      title: "Home",
+                      index: 0,
+                      onTap: changeIndex,
+                      isSelected: index == 0,
+                    ),
+                    NavBarItem(
+                        assetImage: 'assets/people.png',
+                        title: "Contacts",
+                        index: 1,
+                        isSelected: index == 1,
+                        onTap: changeIndex),
+                    const SizedBox(width: 10),
+                    NavBarItem(
+                        assetImage: 'assets/chart-pie.png',
+                        title: "Analytics",
+                        index: 2,
+                        isSelected: index == 2,
+                        onTap: changeIndex),
+                    NavBarItem(
+                        assetImage: 'assets/dashboard.png',
+                        title: "Settings",
+                        isSelected: index == 3,
+                        index: 3,
+                        onTap: changeIndex)
+                  ]),
+            ),
           ),
         ),
       ),

@@ -18,9 +18,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Padding(

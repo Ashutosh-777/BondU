@@ -24,19 +24,24 @@ class _PreviewState extends State<Preview> {
           isLoading = false;
         });
       });
+
+
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BondU your Digital Saathi'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('BondU your Digital Saathi'),
+        ),
+        body: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : WebViewWidget(
+                controller: controller,
+              ),
       ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : WebViewWidget(
-              controller: controller,
-            ),
     );
   }
 }

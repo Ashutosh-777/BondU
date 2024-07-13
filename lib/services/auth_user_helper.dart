@@ -1,15 +1,6 @@
-import 'dart:convert';
-
-import 'package:magicconnect/modals/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthUserHelper {
-  static Future<void> setUserData(String jsonData) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("userData", jsonData);
-    await AuthUserHelper.setLoginState(true);
-  }
-
   static Future<void> setSessionToken(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("sessionToken", value);
@@ -30,14 +21,6 @@ class AuthUserHelper {
     await prefs.setString("userID", value);
   }
 
-  static Future<UserInfo> getUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? json = prefs.getString("userData");
-    print("inside get userData $json ${jsonDecode(json ?? "")}");
-    UserInfo user = UserInfo.fromJson(jsonDecode(json ?? ""));
-    return user;
-  }
-
   static Future<String?> getSessionToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("sessionToken");
@@ -45,9 +28,7 @@ class AuthUserHelper {
 
   static Future<bool> getLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // TODO:RESET THIS
     return prefs.getBool("isLoggedIn") ?? false;
-    return true;
   }
 
   static Future<int> getPhone() async {

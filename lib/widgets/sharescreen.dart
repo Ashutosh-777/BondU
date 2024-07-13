@@ -114,8 +114,7 @@ class SharingScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: QrImageView(
-                    data:
-                        'https://www.app.bondu.in/user/${AuthUserHelper.getUserID()}',
+                    data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
                     version: QrVersions.auto,
                     size: 175,
                     gapless: false,

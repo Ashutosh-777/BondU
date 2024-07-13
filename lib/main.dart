@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final isLoggedIn = await AuthUserHelper.getLoginStatus();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -42,11 +43,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn
-          ? const SplashScreen(
-              loadUserData: false,
-            )
-          : const SignIn(),
+      // home: const SharedPreferenceReader(),
+      home: isLoggedIn ? const SplashScreen() : const SignIn(),
     );
   }
 }

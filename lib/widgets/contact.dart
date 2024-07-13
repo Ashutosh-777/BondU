@@ -1,19 +1,37 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:magicconnect/modals/contact_model.dart';
 import 'package:magicconnect/screens/contact_bottom_sheet.dart';
 import 'package:magicconnect/screens/view_contact.dart';
+
 import '../globals/styles.dart';
 
-class ContactTile extends StatelessWidget {
-  final String imagePath;
+class ContactTile extends StatefulWidget {
   final ContactModel contact;
   final void Function() onDelete;
-  const ContactTile(
-      {Key? key,
-      required this.imagePath,
-      required this.contact,
-      required this.onDelete})
-      : super(key: key);
+  const ContactTile({
+    Key? key,
+    required this.contact,
+    required this.onDelete,
+  }) : super(key: key);
+
+  @override
+  State<ContactTile> createState() => _ContactTileState();
+}
+
+class _ContactTileState extends State<ContactTile> {
+  String initials = "";
+  @override
+  void initState() {
+    try {
+      final words = widget.contact.name!.split(" ");
+      initials = words.map((e) => e[0].toUpperCase()).join();
+    } catch (e) {
+      initials = "";
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +39,10 @@ class ContactTile extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-              builder: (context) => ViewContact(
-                    contact: contact,
-                  )),
+            builder: (context) => ViewContact(
+              contact: widget.contact,
+            ),
+          ),
         );
       },
       child: Container(
@@ -39,20 +58,43 @@ class ContactTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  ClipOval(
+                  if (initials.isNotEmpty)
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Color(0xFFBE1302)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: FittedBox(
+                          child: Transform.rotate(
+                            angle: -25 * 3.1415927 / 180,
+                            child: AutoSizeText(
+                              initials,
+                              style: const TextStyle(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    ClipOval(
                       child: Image.asset(
-                    imagePath,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                  )),
+                        'assets/pp.png',
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          contact.name ?? "",
+                          widget.contact.name ?? "",
                           style: Styles.contactName,
                         ),
                         Text(
@@ -73,12 +115,12 @@ class ContactTile extends StatelessWidget {
                       context: context,
                       builder: (builder) {
                         return ContactBottomSheet(
-                          name: contact.name ?? "",
-                          phone: contact.phone,
+                          name: widget.contact.name ?? "",
+                          phone: widget.contact.phone,
                         );
                       });
                   if (didDelete == true) {
-                    onDelete();
+                    widget.onDelete();
                   }
                 },
                 child: const Icon(

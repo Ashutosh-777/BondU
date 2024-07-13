@@ -39,7 +39,7 @@ class ApiService {
         compact: true,
         maxWidth: 90,
         logPrint: (object) {
-          log(object.toString());
+          print(object.toString());
         },
       ),
     );
@@ -143,7 +143,6 @@ class ApiService {
       ),
     );
     UserInfo user = UserInfo.fromJson(response.data);
-    AuthUserHelper.setUserData(jsonEncode(user.toJson()));
     return user;
   }
 
@@ -161,12 +160,7 @@ class ApiService {
     var data = response.data;
 
     List<ContactModel> contacts = [];
-// TODO: RESET THIS
-    // contacts.add(ContactModel(
-    //     name: "TEMP",
-    //     companyName: "NeoDocs",
-    //     email: "abcdefghijkl@g.com",
-    //     phone: 8120401100));
+
     data.forEach((s) {
       contacts.add(ContactModel.fromJson(s));
     });
@@ -187,7 +181,7 @@ class ApiService {
 
   Future<ViewModel> getViews() async {
     try {
-      Response response = await dio.get(
+      Response response = await Dio().get(
         'https://server.bondu.in/profile/getAnalytics/${BackendHelper.id}',
         options: Options(
           headers: {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:magicconnect/modals/user_model.dart';
@@ -101,6 +102,7 @@ class _SocialTextFieldState extends State<SocialTextField> {
                       child: TextFormField(
                         controller: textEditingController,
                         onChanged: _onChanged,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: widget.name == "Whatsapp"
                               ? "Paste your Whatsapp number"
@@ -123,8 +125,14 @@ class _SocialTextFieldState extends State<SocialTextField> {
                                     String result = await ApiService()
                                         .updateSocials(updateUser);
                                     if (result == "Success") {
-                                      UserInfo updatedUser =
-                                          await ApiService().getUser();
+                                      await Future.delayed(
+                                              const Duration(seconds: 2))
+                                          .whenComplete(() async {
+                                        UserInfo updatedUser =
+                                            await ApiService().getUser();
+                                        user.addDetails(updatedUser);
+                                      });
+
                                       setState(() {
                                         green = true;
                                         isLoading = false;
@@ -137,7 +145,6 @@ class _SocialTextFieldState extends State<SocialTextField> {
                                         showEditButton = true;
                                         widget.otherStream.add(true);
                                       });
-                                      user.addDetails(updatedUser);
                                     }
                                   },
                                   child: const Icon(Icons.check))
