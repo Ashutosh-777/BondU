@@ -47,11 +47,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
   Future<void> _saveDetails() async {
     if (_formKey.currentState!.validate()) {
       UserInfo user = UserInfo(
-          name: nameController.text,
-          email: emailController.text,
-          phone: int.parse(phoneController.text),
-          designation: designationController.text,
-          companyName: companyController.text);
+        name: nameController.text,
+        designation: designationController.text,
+        companyName: companyController.text,
+        email: emailController.text,
+        phone: int.parse(phoneController.text),
+        socialMediaHandles: widget.user.socialMediaHandles,
+        id: widget.user.id,
+        bio: widget.user.bio,
+      );
+
       await ApiService().updateUser(user);
       user = await ApiService().getUser();
       context.read<Auth>().addDetails(user);
