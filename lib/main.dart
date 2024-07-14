@@ -1,10 +1,10 @@
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/sign_in.dart';
+import 'package:bondu/screens/splash_screen.dart';
+import 'package:bondu/services/auth_user_helper.dart';
+import 'package:bondu/stores/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/sign_in.dart';
-import 'package:magicconnect/screens/splash_screen.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

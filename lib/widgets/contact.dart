@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:bondu/globals/colors.dart';
 
-import 'package:magicconnect/modals/contact_model.dart';
-import 'package:magicconnect/screens/contact_bottom_sheet.dart';
-import 'package:magicconnect/screens/view_contact.dart';
+import 'package:bondu/modals/contact_model.dart';
+import 'package:bondu/screens/contact_bottom_sheet.dart';
+import 'package:bondu/screens/view_contact.dart';
 
 import '../globals/styles.dart';
 
@@ -63,18 +65,15 @@ class _ContactTileState extends State<ContactTile> {
                       height: 40,
                       width: 40,
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xFFBE1302)),
+                          shape: BoxShape.circle, color: primaryColor),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: FittedBox(
-                          child: Transform.rotate(
-                            angle: -25 * 3.1415927 / 180,
-                            child: AutoSizeText(
-                              initials,
-                              style: const TextStyle(color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
+                          child: AutoSizeText(
+                            initials,
+                            style: const TextStyle(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
                       ),
@@ -97,11 +96,12 @@ class _ContactTileState extends State<ContactTile> {
                           widget.contact.name ?? "",
                           style: Styles.contactName,
                         ),
-                        Text(
-                          "12 Oct",
-                          style:
-                              Styles.designation.copyWith(color: Colors.blue),
-                        ),
+                        if (widget.contact.date != null)
+                          Text(
+                            DateFormat("d MMM").format(widget.contact.date!),
+                            style:
+                                Styles.designation.copyWith(color: Colors.blue),
+                          ),
                       ],
                     ),
                   ),

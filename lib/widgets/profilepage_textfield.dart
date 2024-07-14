@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
+import 'package:bondu/globals/colors.dart';
 
 class FormTextFieldContainer extends StatelessWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/editsocialscreen.dart';
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/editsocialscreen.dart';
 
 class SocialLinkTile extends StatelessWidget {
   final String text;

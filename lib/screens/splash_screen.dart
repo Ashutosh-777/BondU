@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/create_profile.dart';
-import 'package:magicconnect/screens/home.dart';
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/create_profile.dart';
+import 'package:bondu/screens/home.dart';
 import 'package:provider/provider.dart';
 
 import '../modals/user_model.dart';

@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:magicconnect/modals/contact_model.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/services/database_strings.dart';
+import 'package:bondu/modals/contact_model.dart';
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/services/database_strings.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../modals/view_model.dart';
 import 'auth_user_helper.dart';

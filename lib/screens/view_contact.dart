@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:magicconnect/modals/contact_model.dart';
-import 'package:magicconnect/services/api.dart';
+import 'package:bondu/modals/contact_model.dart';
+import 'package:bondu/services/api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
@@ -212,8 +212,7 @@ class _ViewContactState extends State<ViewContact> {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: Colors.black.withOpacity(0.8), width: 1),
+                    border: Border.all(color: Colors.black, width: 1),
                   ),
                   child: Text(
                     "SHARE",
@@ -376,7 +375,8 @@ class _ViewContactState extends State<ViewContact> {
                       flex: 2,
                       child: InkWell(
                         onTap: () {
-                          Share.share('Join me on BondU');
+                          Share.share(
+                              "Make a lasting impression! Create a stunning digital business card with BondU (it's free!). Join me on the platform built for professionals. www.bondu.in");
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

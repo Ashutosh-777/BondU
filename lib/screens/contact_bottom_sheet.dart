@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:bondu/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:magicconnect/services/api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';

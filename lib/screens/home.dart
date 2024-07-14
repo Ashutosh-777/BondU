@@ -1,11 +1,10 @@
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/screens/analyticsscreen.dart';
+import 'package:bondu/screens/contactsscreen.dart';
+import 'package:bondu/screens/homescreen.dart';
+import 'package:bondu/screens/settingsscreen.dart';
+import 'package:bondu/widgets/sharescreen.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/analyticsscreen.dart';
-import 'package:magicconnect/screens/contactsscreen.dart';
-import 'package:magicconnect/screens/homescreen.dart';
-import 'package:magicconnect/screens/settingsscreen.dart';
-import 'package:magicconnect/widgets/sharescreen.dart';
 import 'package:provider/provider.dart';
 
 import '../services/api.dart';

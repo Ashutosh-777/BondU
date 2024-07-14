@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/services/api.dart';
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/services/api.dart';
 import 'package:provider/provider.dart';
 
 import '../stores/auth.dart';

@@ -1,13 +1,11 @@
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/screens/add_social.dart';
+import 'package:bondu/screens/preview.dart';
+import 'package:bondu/services/api.dart';
+import 'package:bondu/services/auth_user_helper.dart';
+import 'package:bondu/widgets/business_card.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/add_social.dart';
-import 'package:magicconnect/screens/preview.dart';
-import 'package:magicconnect/services/api.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/widgets/business_card.dart';
-import 'package:magicconnect/widgets/edit_business_card.dart';
 import 'package:provider/provider.dart';
-import 'package:magicconnect/extentions/debounce_extention.dart';
 import '../stores/auth.dart';
 import '../widgets/primary_button.dart';
 

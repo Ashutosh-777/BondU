@@ -1,9 +1,9 @@
+import 'package:bondu/globals/socials.dart';
+import 'package:bondu/screens/add_link.dart';
+import 'package:bondu/services/api.dart';
+import 'package:bondu/widgets/business_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:magicconnect/globals/socials.dart';
-import 'package:magicconnect/screens/add_link.dart';
-import 'package:magicconnect/services/api.dart';
-import 'package:magicconnect/widgets/business_card.dart';
 import 'package:provider/provider.dart';
 import '../globals/colors.dart';
 import '../modals/view_model.dart';

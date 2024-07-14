@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/services/database_strings.dart';
+import 'package:bondu/services/auth_user_helper.dart';
+import 'package:bondu/services/database_strings.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -90,6 +89,7 @@ class SharingScreen extends StatelessWidget {
                                         data:
                                             'https://www.app.bondu.in/user/${BackendHelper.id}',
                                         version: QrVersions.auto,
+                                        gapless: false,
                                       ),
                                     ),
                                   ),

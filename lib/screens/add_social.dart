@@ -1,10 +1,8 @@
-import 'dart:developer';
-
+import 'package:bondu/globals/socials.dart';
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/screens/add_link.dart';
+import 'package:bondu/stores/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/socials.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/add_link.dart';
-import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
 import '../globals/colors.dart';

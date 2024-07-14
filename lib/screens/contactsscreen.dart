@@ -1,8 +1,8 @@
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/modals/contact_model.dart';
+import 'package:bondu/services/api.dart';
+import 'package:bondu/widgets/contact.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/modals/contact_model.dart';
-import 'package:magicconnect/services/api.dart';
-import 'package:magicconnect/widgets/contact.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/moresettingsscreen.dart';
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/moresettingsscreen.dart';
 import 'package:provider/provider.dart';
 
 import '../stores/auth.dart';
@@ -71,7 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                                color: const Color(0xFF000000).withOpacity(0.05),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
                                 blurRadius: 12,
                                 offset: const Offset(3, 4),
                                 spreadRadius: 0),
@@ -136,7 +137,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                                color: const Color(0xFF000000).withOpacity(0.05),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
                                 blurRadius: 12,
                                 offset: const Offset(3, 4),
                                 spreadRadius: 0),
@@ -156,7 +158,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Activate Device",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -171,7 +174,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "User Guide",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -182,7 +186,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Get a device",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -199,7 +204,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                                color: const Color(0xFF000000).withOpacity(0.05),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
                                 blurRadius: 12,
                                 offset: const Offset(3, 4),
                                 spreadRadius: 0),
@@ -219,7 +225,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Current Main Card",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -234,7 +241,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "About",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -245,7 +253,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Privacy Policy",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -262,7 +271,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                                color: const Color(0xFF000000).withOpacity(0.05),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
                                 blurRadius: 12,
                                 offset: const Offset(3, 4),
                                 spreadRadius: 0),
@@ -282,7 +292,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Help and Support",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
@@ -325,7 +336,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: const Text(
                                   "Dark Mode",
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.w400),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),

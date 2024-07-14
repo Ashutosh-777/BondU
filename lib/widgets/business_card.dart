@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/modals/user_model.dart';
-import 'package:magicconnect/screens/editcardscreen.dart';
-import 'package:magicconnect/services/database_strings.dart';
+import 'package:bondu/modals/user_model.dart';
+import 'package:bondu/screens/editcardscreen.dart';
+import 'package:bondu/services/database_strings.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class BusinessCard extends StatefulWidget {
@@ -134,6 +133,7 @@ class _BusinessCardState extends State<BusinessCard> {
                                           data:
                                               'https://www.app.bondu.in/user/${BackendHelper.id}',
                                           version: QrVersions.auto,
+                                          gapless: false,
                                         ),
                                       ),
                                     ),
@@ -163,6 +163,7 @@ class _BusinessCardState extends State<BusinessCard> {
                     child: QrImageView(
                       data: 'https://www.app.bondu.in/user/${BackendHelper.id}',
                       version: QrVersions.auto,
+                      gapless: false,
                     ),
                   ),
                 )

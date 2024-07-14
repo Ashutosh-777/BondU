@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/sign_in.dart';
-import 'package:magicconnect/screens/splash_screen.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/sign_in.dart';
+import 'package:bondu/services/auth_user_helper.dart';
 
 class MoreSettingsScreen extends StatefulWidget {
   const MoreSettingsScreen({super.key});
@@ -59,10 +58,7 @@ class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
               height: 50,
               width: deviceHeight(context),
             ),
-            Container(
-              height: 4,
-              color: Colors.purple.withAlpha(75),
-            ),
+            
             Container(
               margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               width: deviceWidth(context) * 0.9,
