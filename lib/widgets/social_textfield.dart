@@ -104,7 +104,10 @@ class _SocialTextFieldState extends State<SocialTextField> {
                         decoration: InputDecoration(
                           hintText: widget.name == "Whatsapp"
                               ? "Paste your Whatsapp number"
-                              : " Paste your ${widget.name} profile here",
+                              : (widget.name == "LinkedIn" ||
+                                      widget.name == "Instagram")
+                                  ? "Paste your ${widget.name} username"
+                                  : " Paste your ${widget.name} profile here",
                           suffixIcon: _showSuffixIcon
                               ? GestureDetector(
                                   onTap: () async {

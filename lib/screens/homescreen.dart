@@ -11,6 +11,7 @@ import '../stores/auth.dart';
 import '../widgets/custom_clipper.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+
 import 'add_social.dart';
 
 class HomeScreen extends StatefulWidget {
