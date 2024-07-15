@@ -1,15 +1,16 @@
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/sign_in.dart';
+import 'package:bondu/screens/splash_screen.dart';
+import 'package:bondu/services/auth_user_helper.dart';
+import 'package:bondu/stores/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/sign_in.dart';
-import 'package:magicconnect/screens/splash_screen.dart';
-import 'package:magicconnect/services/auth_user_helper.dart';
-import 'package:magicconnect/stores/auth.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final isLoggedIn = await AuthUserHelper.getLoginStatus() ;
+  final isLoggedIn = await AuthUserHelper.getLoginStatus();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -22,7 +23,9 @@ void main() async{
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MyApp(isLoggedIn: isLoggedIn,),
+      child: MyApp(
+        isLoggedIn: isLoggedIn,
+      ),
     ),
   );
 }
@@ -40,7 +43,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home:isLoggedIn? const SplashScreen(loadUserData: false,):const SignIn(),
+      // home: const SharedPreferenceReader(),
+      home: isLoggedIn ? const SplashScreen() : const SignIn(),
     );
   }
 }

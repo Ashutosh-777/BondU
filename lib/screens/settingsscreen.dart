@@ -1,6 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/globals/colors.dart';
-import 'package:magicconnect/screens/moresettingsscreen.dart';
+import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/moresettingsscreen.dart';
 import 'package:provider/provider.dart';
 
 import '../stores/auth.dart';
@@ -19,23 +20,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     var currentUser = context.read<Auth>().userDetails;
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        title: const Text(
-          "BondU",
-          style: TextStyle(
-            color: primaryColor,
-            fontWeight: FontWeight.w900,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade200,
+        appBar: AppBar(
+          title: const Text(
+            "BondU",
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.w900,
+            ),
           ),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          scrolledUnderElevation: 0,
         ),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+        body: Column(
           children: [
             Container(
               color: Colors.white,
@@ -51,181 +53,302 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Container(
               height: 4,
-              color: Colors.purple.withAlpha(75),
+              color: const Color(0xFFD0D0F2),
             ),
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              //color: Colors.white,
+            Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 14.0, horizontal: 28),
+                child: Column(
                   children: [
-                    Image.asset(
-                      "assets/whitedot.png",
-                      width: 25,
-                      height: 25,
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 17),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
+                                blurRadius: 12,
+                                offset: const Offset(3, 4),
+                                spreadRadius: 0),
+                          ],
+                        ),
+                        //color: Colors.white,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFFD9D9D9),
+                              ),
+                              width: 48,
+                              height: 48,
+                            ),
+                            // Image.asset(
+                            //   "assets/whitedot.png",
+                            //   width: 25,
+                            //   height: 25,
+                            // ),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    currentUser.name!,
+                                    maxLines: 1,
+                                    minFontSize: 20,
+                                    maxFontSize: 30,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  AutoSizeText(
+                                    currentUser.designation!,
+                                    maxLines: 1,
+                                    minFontSize: 10,
+                                    maxFontSize: 20,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(color: primaryColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(
-                      width: 16,
+                      height: 15,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          currentUser.name!,
-                          style: const TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.bold),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
+                                blurRadius: 12,
+                                offset: const Offset(3, 4),
+                                spreadRadius: 0),
+                          ],
                         ),
-                        Text(
-                          currentUser.designation!,
-                          style: const TextStyle(
-                              fontSize: 12, color: primaryColor),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey.shade300))),
+                                child: const Text(
+                                  "Activate Device",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 24),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey.shade300))),
+                                child: const Text(
+                                  "User Guide",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                child: const Text(
+                                  "Get a device",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
+                                blurRadius: 12,
+                                offset: const Offset(3, 4),
+                                spreadRadius: 0),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey.shade300))),
+                                child: const Text(
+                                  "Current Main Card",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey.shade300))),
+                                child: const Text(
+                                  "About",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                child: const Text(
+                                  "Privacy Policy",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.05),
+                                blurRadius: 12,
+                                offset: const Offset(3, 4),
+                                spreadRadius: 0),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey.shade300))),
+                                child: const Text(
+                                  "Help and Support",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MoreSettingsScreen()));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 24),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade300))),
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        "More Settings",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Spacer(),
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 8),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 24),
+                                child: const Text(
+                                  "Dark Mode",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300))),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Text(
-                      "Activate Device",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300))),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Text(
-                      "User Guide",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "Get a device",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300))),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Text(
-                      "Current Main Card",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300))),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Text(
-                      "About",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "Privacy Policy",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              width: deviceWidth(context) * 0.9,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300))),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Text(
-                      "Help and Support",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const MoreSettingsScreen()));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: Colors.grey.shade300))),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "More Settings",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "Dark Mode",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            )
           ],
         ),
       ),

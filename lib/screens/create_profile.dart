@@ -1,10 +1,8 @@
+import 'package:bondu/screens/create_profile_2.dart';
+import 'package:bondu/widgets/primary_button.dart';
+import 'package:bondu/widgets/profilepage_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:magicconnect/screens/create_profile_2.dart';
-import 'package:magicconnect/screens/sign_in.dart';
-import 'package:magicconnect/widgets/primary_button.dart';
-import 'package:magicconnect/widgets/profilepage_textfield.dart';
 import '../globals/colors.dart';
-import '../services/auth_user_helper.dart';
 
 class CreateProfile1 extends StatefulWidget {
   const CreateProfile1({super.key});
@@ -18,9 +16,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Padding(

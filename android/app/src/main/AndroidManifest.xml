@@ -4,7 +4,7 @@
 
     <application
         android:enableOnBackInvokedCallback="true"
-        android:label="magicconnect"
+        android:label="BondU"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

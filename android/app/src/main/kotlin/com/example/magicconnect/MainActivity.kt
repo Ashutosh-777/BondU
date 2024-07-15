@@ -1,4 +1,4 @@
-package com.example.magicconnect
+package com.example.bondu
 
 import io.flutter.embedding.android.FlutterActivity
 import com.otpless.otplessflutter.OtplessFlutterPlugin;
