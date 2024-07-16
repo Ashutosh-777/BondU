@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902826544206",
+    "project_id": "bondu-dfe48",
+    "storage_bucket": "bondu-dfe48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902826544206:android:d971d9059b59ed0124c71f",
+        "android_client_info": {
+          "package_name": "com.example.bondu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ4rFW_LSjZqGswyaHXra72kLeBpdVx2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

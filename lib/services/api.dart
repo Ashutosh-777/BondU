@@ -29,20 +29,20 @@ class ApiService {
   );
 
   void _addInterceptors() {
-    dio.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90,
-        logPrint: (object) {
-          print(object.toString());
-        },
-      ),
-    );
+    // dio.interceptors.add(
+    //   // PrettyDioLogger(
+    //   //   requestHeader: true,
+    //   //   requestBody: true,
+    //   //   responseBody: true,
+    //   //   responseHeader: false,
+    //   //   error: true,
+    //   //   compact: true,
+    //   //   maxWidth: 90,
+    //   //   logPrint: (object) {
+    //   //     print(object.toString());
+    //   //   },
+    //   // ),
+    // );
   }
 
   //Backend Helper not needed in verify user

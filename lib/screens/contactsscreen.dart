@@ -200,8 +200,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 }
 
-
-
 // Padding(
 //                 padding: const EdgeInsets.all(8.0),
 //                 child: Row(

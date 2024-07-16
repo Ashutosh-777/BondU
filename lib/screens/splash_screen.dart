@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:bondu/main.dart';
 import 'package:flutter/material.dart';
 import 'package:bondu/globals/colors.dart';
 import 'package:bondu/screens/create_profile.dart';
@@ -11,6 +12,8 @@ import '../modals/user_model.dart';
 import '../services/api.dart';
 import '../services/auth_user_helper.dart';
 import '../services/database_strings.dart';
+import '../services/firebase_api.dart';
+import '../services/uni_services.dart';
 import '../stores/auth.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -83,7 +86,6 @@ class _SplashScreenState extends State<SplashScreen>
       });
     _controller.forward();
   }
-
   @override
   void dispose() {
     _controller.dispose();
@@ -96,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: Scaffold(
         backgroundColor: primaryColor,
         body: FutureBuilder(
-          future: Future.delayed(const Duration(seconds: 2)),
+          future: Future.delayed(const Duration(milliseconds: 1300)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -138,7 +140,7 @@ class _SplashScreenState extends State<SplashScreen>
                 } else {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const Home(),
+                      builder: (context) =>  Home(),
                     ),
                   );
                 }
