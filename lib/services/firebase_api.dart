@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'package:bondu/screens/contactsscreen.dart';
+import 'package:bondu/services/api.dart';
+import 'package:bondu/services/auth_user_helper.dart';
 import 'package:bondu/services/context_utility.dart';
+import 'package:bondu/services/uni_services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
 import '../screens/home.dart';
 Future<void> handleBackgroundMessage(RemoteMessage message) async{
   print('Title: ${message.notification?.title}');
@@ -12,9 +16,10 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async{
 }
 void handleMessage(RemoteMessage? message ){
   if(message==null) return;
-  Navigator.of(ContextUtility.context!).push(
-    MaterialPageRoute(builder: (_)=>const Home()),
-  );
+  // Navigator.of(ContextUtility.context!).push(
+  //   MaterialPageRoute(builder: (_)=>const Home()),
+  // );
+  ContextUtility.context?.push('/contact');
 }
 class FirebaseApi {
   final firebaseMessaging = FirebaseMessaging.instance;
@@ -33,6 +38,12 @@ class FirebaseApi {
     print("Token: $fCMToken");
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     print("16");
+    bool fCMTokenset = await AuthUserHelper.getFCMToken();
+    logger.d("here $fCMTokenset");
+    if(!fCMTokenset&&fCMToken!=null){
+      logger.d("here $fCMTokenset");
+      ApiService().updatefCMToken(fCMToken);
+    }
     initPushNotifications();
     initLocalNotifications();
     print("initlocal called");

@@ -10,6 +10,10 @@ class AuthUserHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool("isLoggedIn", value);
   }
+  static Future<void> setFCMToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("fCMTokenSent", true);
+  }
 
   static Future<void> setPhone(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,6 +33,10 @@ class AuthUserHelper {
   static Future<bool> getLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool("isLoggedIn") ?? false;
+  }
+  static Future<bool> getFCMToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("fCMTokenSent") ?? false;
   }
 
   static Future<int> getPhone() async {

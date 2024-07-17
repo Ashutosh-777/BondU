@@ -5,6 +5,7 @@ import 'package:bondu/services/api.dart';
 import 'package:bondu/services/auth_user_helper.dart';
 import 'package:bondu/widgets/business_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../stores/auth.dart';
 import '../widgets/primary_button.dart';
@@ -212,8 +213,10 @@ class _EditCardScreenState extends State<EditCardScreen> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               String? temp = await AuthUserHelper.getUserID();
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Preview(userid: temp)));
+                              if(!mounted) return;
+                              context.push('/user/$temp');
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Preview(userid: temp)));
                             }
                           },
                           child: PrimaryButton(

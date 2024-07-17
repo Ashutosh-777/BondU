@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:bondu/globals/colors.dart';
 import 'package:bondu/screens/create_profile.dart';
 import 'package:bondu/screens/home.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../modals/user_model.dart';
@@ -138,11 +139,12 @@ class _SplashScreenState extends State<SplashScreen>
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const CreateProfile1()));
                 } else {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) =>  Home(),
-                    ),
-                  );
+                  context.go('/');
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //     builder: (context) =>  Home(),
+                  //   ),
+                  // );
                 }
               });
             }

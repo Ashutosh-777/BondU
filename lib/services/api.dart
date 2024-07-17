@@ -29,20 +29,20 @@ class ApiService {
   );
 
   void _addInterceptors() {
-    // dio.interceptors.add(
-    //   // PrettyDioLogger(
-    //   //   requestHeader: true,
-    //   //   requestBody: true,
-    //   //   responseBody: true,
-    //   //   responseHeader: false,
-    //   //   error: true,
-    //   //   compact: true,
-    //   //   maxWidth: 90,
-    //   //   logPrint: (object) {
-    //   //     print(object.toString());
-    //   //   },
-    //   // ),
-    // );
+    dio.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+        logPrint: (object) {
+          print(object.toString());
+        },
+      ),
+    );
   }
 
   //Backend Helper not needed in verify user
@@ -59,6 +59,7 @@ class ApiService {
       AuthUserHelper.setUserID(results.data['_id']);
       return results;
     } catch (e) {
+      print(e.toString());
       return {"error": true};
     }
   }
@@ -110,7 +111,31 @@ class ApiService {
   //     return "Failed";
   //   }
   // }
-
+  Future<Map<String,dynamic>> updatefCMToken(String token) async{
+    try {
+      Response response = await dio.post(
+        'https://server.bondu.in/profile/setFCMToken',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": BackendHelper.sessionToken,
+          },
+        ),
+        data: {
+          "userID":await AuthUserHelper.getUserID(),
+          "fcmToken":token,
+        },
+      );
+      print(response.data);
+      if(response.data["success"]){
+        await AuthUserHelper.setFCMToken();
+      }
+      return response.data;
+    } catch (e) {
+      log(e.toString());
+      return {"success":false};
+    }
+  }
   Future<void> updateUser(UserInfo user) async {
     String id = BackendHelper.id;
     Map<String, dynamic> userDetailsJSON = user.toJson();

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bondu/screens/splash_screen.dart';
 import 'package:bondu/services/auth_user_helper.dart';
 import 'package:bondu/services/database_strings.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:async';
 import 'package:otpless_flutter/otpless_flutter.dart';
 import 'package:provider/provider.dart';
@@ -150,11 +151,12 @@ class _SignInState extends State<SignIn> {
                                   .addPostFrameCallback((_) async {
                                 await ApiService().verifyUser(accessToken);
                                 if (!mounted) return;
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SplashScreen(),
-                                  ),
-                                );
+                                context.go('/splash');
+                                // Navigator.of(context).pushReplacement(
+                                //   MaterialPageRoute(
+                                //     builder: (context) => const SplashScreen(),
+                                //   ),
+                                // );
                               });
                             }
 

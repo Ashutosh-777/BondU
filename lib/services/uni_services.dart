@@ -3,6 +3,7 @@ import 'package:bondu/screens/contactsscreen.dart';
 import 'package:bondu/services/context_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:uni_links/uni_links.dart';
@@ -22,7 +23,7 @@ class UniServices{
     try{
       final Uri? uri = await getInitialUri();
       uniHandler(uri);
-      uriLinkStream.listen((Uri? uri) async{
+      uriLinkStream.listen((Uri? uri) {
         uniHandler(uri);
         logger.d(uri.toString());
       },onError: (e){
@@ -41,8 +42,7 @@ class UniServices{
     if(uri==null) return;
     // Extract the ID from the URL
     String receivedUserId = uri.pathSegments.last;
-    Navigator.push(ContextUtility.context!,MaterialPageRoute(builder: (_) {
-      return Preview(userid: receivedUserId,);
-    }));
+    ContextUtility.context?.push('/user/$receivedUserId');
+    print("________________________________________________________________________________________");
   }
 }

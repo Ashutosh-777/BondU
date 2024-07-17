@@ -1,5 +1,6 @@
 import 'package:bondu/globals/colors.dart';
 import 'package:bondu/screens/home.dart';
+import 'package:bondu/screens/preview.dart';
 import 'package:bondu/screens/sign_in.dart';
 import 'package:bondu/screens/splash_screen.dart';
 import 'package:bondu/services/auth_user_helper.dart';
@@ -10,11 +11,12 @@ import 'package:bondu/stores/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'firebase_options.dart';
-
+import 'package:flutter_web_plugins/url_strategy.dart';
+bool temp =false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,9 +24,10 @@ void main() async {
   );
   await FirebaseApi().initNotifications();
   //gives context error for now
-  await UniServices.init();
+  // await UniServices.init();
+  usePathUrlStrategy();
   final isLoggedIn = await AuthUserHelper.getLoginStatus();
-
+  temp=isLoggedIn;
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -66,22 +69,67 @@ class _MyAppState extends State<MyApp> {
   //   // await UniServices.init();
   // }
   @override
+  void initState(){
+    super.initState();
+    // UniServices.init();
+  }
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowMaterialGrid: false,
       title: 'BondU',
-      navigatorKey: ContextUtility.navigatorKey,
+      // navigatorKey: ContextUtility.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
       // home: const SharedPreferenceReader(),
       // home: widget.isLoggedIn ? const SplashScreen() : const SignIn(),
-      initialRoute: widget.isLoggedIn? '/':'/signIn',
-      routes: {
-        '/':(_)=>const SplashScreen(),
-        '/signIn': (_) => const SignIn(),
-      },
+      // initialRoute: widget.isLoggedIn? '/':'/signIn',
+      // routes: {
+      //   '/':(_)=>const SplashScreen(),
+      //   '/signIn': (_) => const SignIn(),
+      // },
+      routerConfig:_router,
+
     );
   }
 }
+final _router = GoRouter(
+  initialLocation: temp?'/splash':'/signin',
+  routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) {
+        return const SplashScreen();
+      },
+    ),
+    GoRoute(
+      path: '/signin',
+      builder: (context, state) => const SignIn(),
+    ),
+    GoRoute(
+      path: '/',
+      builder: (context, state) {
+        if(!temp){
+          return const SplashScreen();
+        }
+        return const Home();
+      },
+      routes: [
+        GoRoute(
+          path: 'user/:userId',
+          builder: (context, state) =>
+              Preview(userid: state.pathParameters['userId']!),
+        )
+      ],
+    ),
+    // GoRoute(
+    //   path: '/user/:id',
+    //   builder: (context, state) {
+    //     final id = state.pathParameters['id'];
+    //     return Preview(userid: id);
+    //   },
+    // ),
+  ],
+);
