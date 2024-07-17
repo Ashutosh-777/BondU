@@ -55,5 +55,6 @@ class AuthUserHelper {
     await prefs.remove("userID");
     await prefs.remove("sessionToken");
     await prefs.remove("userData");
+    await prefs.remove("fCMTokenSent");
   }
 }
