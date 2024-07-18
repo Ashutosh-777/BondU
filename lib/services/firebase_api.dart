@@ -19,7 +19,6 @@ void handleMessage(RemoteMessage? message ){
   // Navigator.of(ContextUtility.context!).push(
   //   MaterialPageRoute(builder: (_)=>const Home()),
   // );
-  ContextUtility.context?.push('/contact');
 }
 class FirebaseApi {
   final firebaseMessaging = FirebaseMessaging.instance;
