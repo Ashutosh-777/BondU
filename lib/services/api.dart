@@ -57,6 +57,7 @@ class ApiService {
       BackendHelper.sessionToken = results.data['sessionToken'];
       AuthUserHelper.setSessionToken(results.data['sessionToken']);
       AuthUserHelper.setUserID(results.data['_id']);
+      AuthUserHelper.setLoginState(true);
       return results;
     } catch (e) {
       print(e.toString());
@@ -127,12 +128,14 @@ class ApiService {
         },
       );
       print(response.data);
+      print("----------------dxcfvgbhnjm");
+      log(response.data);
       if(response.data["success"]){
-        await AuthUserHelper.setFCMToken();
+        await AuthUserHelper.setFCMTokenSent(true);
       }
       return response.data;
     } catch (e) {
-      log(e.toString());
+      print(e.toString());
       return {"success":false};
     }
   }

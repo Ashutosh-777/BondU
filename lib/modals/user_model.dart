@@ -26,8 +26,8 @@ class UserInfo {
       phone: json['phone'] ?? '',
       bio: json['bio'] ?? 'Please add bio',
       email: json['email'] ?? '',
-      designation: json['designation'],
-      companyName: json['companyName'],
+      designation: json['designation']??'',
+      companyName: json['companyName']??'',
       socialMediaHandles: json['socialMediaHandles'],
       id: json['_id']);
   }

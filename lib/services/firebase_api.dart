@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bondu/screens/contactsscreen.dart';
 import 'package:bondu/services/api.dart';
 import 'package:bondu/services/auth_user_helper.dart';
@@ -35,12 +36,12 @@ class FirebaseApi {
     await firebaseMessaging.requestPermission();
     final fCMToken = await firebaseMessaging.getToken();
     print("Token: $fCMToken");
+    print("-------------------------------------------------------------------------------------");
+    if(fCMToken!=null) {
+      AuthUserHelper.setFCMToken(fCMToken);
+    }
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     print("16");
-    bool fCMTokenset = await AuthUserHelper.getFCMToken();
-    if(!fCMTokenset&&fCMToken!=null){
-      ApiService().updatefCMToken(fCMToken);
-    }
     initPushNotifications();
     initLocalNotifications();
     print("initlocal called");
@@ -76,6 +77,7 @@ class FirebaseApi {
     });
   }
   Future initLocalNotifications() async{
+    log("---------------------------------------------------------------------------");
     // const ios = IOSInitializationSettings();
     const android = AndroidInitializationSettings('@drawable/ic_launcher');
     const settings = InitializationSettings(android: android);

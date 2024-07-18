@@ -35,7 +35,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
     super.initState();
     getContacts();
   }
-
+  @override
+  void dispose(){
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(

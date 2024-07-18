@@ -150,8 +150,18 @@ class _SignInState extends State<SignIn> {
                               WidgetsBinding.instance
                                   .addPostFrameCallback((_) async {
                                 await ApiService().verifyUser(accessToken);
-                                if (!mounted) return;
-                                context.go('/splash');
+                                await ApiService().getUser();
+                                UserInfo user = await ApiService().getUser();
+                                var currentUser = context.read<Auth>();
+                                currentUser.addDetails(user);
+                                user = context.read<Auth>().userDetails;
+                                print("=============================== ${user.name}");
+                                if(user.name!=null&&user.name!.isNotEmpty){
+                                  print("=============================== ${user.name}");
+                                  context.go('/');
+                                }else{
+                                  context.go('/createProfile1');
+                                }
                                 // Navigator.of(context).pushReplacement(
                                 //   MaterialPageRoute(
                                 //     builder: (context) => const SplashScreen(),

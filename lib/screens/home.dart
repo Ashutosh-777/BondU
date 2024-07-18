@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:bondu/modals/user_model.dart';
 import 'package:bondu/screens/analyticsscreen.dart';
 import 'package:bondu/screens/contactsscreen.dart';
 import 'package:bondu/screens/homescreen.dart';
 import 'package:bondu/screens/settingsscreen.dart';
+import 'package:bondu/services/firebase_api.dart';
 import 'package:bondu/widgets/sharescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 import '../services/api.dart';
 import '../services/auth_user_helper.dart';
@@ -44,12 +48,23 @@ class _HomeState extends State<Home> {
       print(user);
       print(user.name);
       currentUser.addDetails(user);
+      await uploadToken();
     } else {
       print("Error");
       return;
     }
   }
-
+  Future<void> uploadToken() async{
+    bool fCMTokensent = await AuthUserHelper.getFCMTokenSent();
+    String? id = await AuthUserHelper.getUserID();
+    String? fCMToken = await AuthUserHelper.getFCMToken();
+    print("=====================================5656565656565656565656565656==== $fCMTokensent $id $fCMToken");
+    if(!fCMTokensent&&fCMToken!=null&&id!=null){
+      log("=====================================61616161616161616161616116161616161616====");
+      ApiService().updatefCMToken(fCMToken);
+      Toast.show("updated +++++++++++++++++++++++ $fCMToken");
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -66,7 +81,6 @@ class _HomeState extends State<Home> {
       );
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

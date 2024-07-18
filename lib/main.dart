@@ -20,7 +20,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 bool temp =false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +29,7 @@ void main() async {
   await FirebaseApi().initNotifications();
   //gives context error for now
   // await UniServices.init();
-  usePathUrlStrategy();
+  // usePathUrlStrategy();
   final isLoggedIn = await AuthUserHelper.getLoginStatus();
   temp=isLoggedIn;
   SystemChrome.setSystemUIOverlayStyle(
@@ -101,7 +100,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 final _router = GoRouter(
-  initialLocation: temp?'/splash':'/signin',
+  initialLocation: '/splash',
   routes: [
     GoRoute(
       path: '/splash',
@@ -116,9 +115,6 @@ final _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        if(!temp){
-          return const SignIn();
-        }
         return const Home();
       },
       routes: [

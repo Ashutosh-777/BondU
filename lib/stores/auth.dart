@@ -14,6 +14,7 @@ class Auth with ChangeNotifier {
   }
 
   void addDetails(UserInfo temp) {
+    print("adding details__________");
     String? id = user.id;
     user = temp;
     user.id = id;

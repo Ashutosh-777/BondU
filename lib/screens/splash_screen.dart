@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
       await AuthUserHelper.setLoginState(true);
       BackendHelper.id = userID ?? "";
       BackendHelper.sessionToken = sessionToken ?? "";
-      UserInfo user = await ApiService().getUser();
+      // UserInfo user = await ApiService().getUser();
       // if(!mounted) return;
       // if(user.name!.isEmpty){
       //   print("khikhih______SDSDSD_____________");
@@ -64,8 +64,8 @@ class _SplashScreenState extends State<SplashScreen>
       //     MaterialPageRoute(builder:(context)=>const CreateProfile1()),
       //   );
       // }
-      var currentUser = context.read<Auth>();
-      currentUser.addDetails(user);
+      // var currentUser = context.read<Auth>();
+      // currentUser.addDetails(user);
     } else {
       print("Error");
       return;
@@ -98,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: Scaffold(
         backgroundColor: primaryColor,
         body: FutureBuilder(
-          future: Future.delayed(const Duration(milliseconds: 1300)),
+          future: Future.delayed(const Duration(milliseconds: 100)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -129,17 +129,27 @@ class _SplashScreenState extends State<SplashScreen>
                 //   }
                 //   await ApiService().getUser();
                 // }
-                await loadSessionToken();
-                log("Now moving to HomePage");
-                UserInfo user = context.read<Auth>().userDetails;
-                if (user.name!.isEmpty) {
-                  log("hello ${user.name}");
-                  context.go('/createProfile1');
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //     builder: (context) => const CreateProfile1()));
-                } else {
+                //await loadSessionToken();
+                final temp = await AuthUserHelper.getLoginStatus();
+                if(temp){
                   context.go('/');
+                }else{
+                  context.go('/signin');
                 }
+                // UserInfo user = context.read<Auth>().userDetails;
+                // log(user.name??'');
+                // if (user.name!.isEmpty) {
+                //   log("hello ${user.name}");
+                //   context.go('/createProfile1');
+                //   // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //   //     builder: (context) => const CreateProfile1()));
+                // } else {
+                //   log("Now moving to HomePage 140");
+                //   context.go('/');
+                //   // Navigator.of(context).pushReplacement(
+                //   //   MaterialPageRoute(builder: (_)=>Home()),
+                //   // );
+                // }
               });
             }
             return Center(
