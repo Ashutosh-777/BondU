@@ -8,30 +8,20 @@ import 'package:bondu/screens/moresettingsscreen.dart';
 import 'package:bondu/screens/preview.dart';
 import 'package:bondu/screens/sign_in.dart';
 import 'package:bondu/screens/splash_screen.dart';
-import 'package:bondu/services/auth_user_helper.dart';
-import 'package:bondu/services/context_utility.dart';
 import 'package:bondu/services/firebase_api.dart';
-import 'package:bondu/services/uni_services.dart';
 import 'package:bondu/stores/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-bool temp =false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseApi().initNotifications();
-  //gives context error for now
-  // await UniServices.init();
-  // usePathUrlStrategy();
-  final isLoggedIn = await AuthUserHelper.getLoginStatus();
-  temp=isLoggedIn;
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
@@ -44,38 +34,23 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MyApp(
-        isLoggedIn: isLoggedIn,
-      ),
+      child: const MyApp(),
 
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  final bool isLoggedIn;
-  const MyApp({super.key, required this.isLoggedIn});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  // @override
-  // Future<void> initState() async {
-  //   await UniServices.init();
-  //   super.initState();
-  // }
-  // @override
-  // void didChangeDependencies() async{
-  //   super.didChangeDependencies();
-  //   // Initialize UniServices only when it hasn't been initialized yet
-  //   // await UniServices.init();
-  // }
   @override
   void initState(){
     super.initState();
-    // UniServices.init();
   }
   @override
   Widget build(BuildContext context) {
@@ -87,13 +62,6 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      // home: const SharedPreferenceReader(),
-      // home: widget.isLoggedIn ? const SplashScreen() : const SignIn(),
-      // initialRoute: widget.isLoggedIn? '/':'/signIn',
-      // routes: {
-      //   '/':(_)=>const SplashScreen(),
-      //   '/signIn': (_) => const SignIn(),
-      // },
       routerConfig:_router,
 
     );
