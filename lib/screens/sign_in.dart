@@ -158,7 +158,7 @@ class _SignInState extends State<SignIn> {
                                 print("=============================== ${user.name}");
                                 if(user.name!=null&&user.name!.isNotEmpty){
                                   print("=============================== ${user.name}");
-                                  context.go('/');
+                                  context.go('/signedIn');
                                 }else{
                                   context.go('/createProfile1');
                                 }

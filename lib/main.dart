@@ -8,6 +8,7 @@ import 'package:bondu/screens/moresettingsscreen.dart';
 import 'package:bondu/screens/preview.dart';
 import 'package:bondu/screens/sign_in.dart';
 import 'package:bondu/screens/splash_screen.dart';
+import 'package:bondu/services/auth_user_helper.dart';
 import 'package:bondu/services/firebase_api.dart';
 import 'package:bondu/stores/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  temp  = await AuthUserHelper.getLoginStatus();
   await FirebaseApi().initNotifications();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -39,10 +41,9 @@ void main() async {
     ),
   );
 }
-
+bool temp = false;
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -81,9 +82,13 @@ final _router = GoRouter(
       builder: (context, state) => const SignIn(),
     ),
     GoRoute(
+      path: '/signedIn',
+      builder: (context, state) => const Home(),
+    ),
+    GoRoute(
       path: '/',
       builder: (context, state) {
-        return const Home();
+        return temp? const Home():SignIn();
       },
       routes: [
         GoRoute(
