@@ -3,6 +3,7 @@ import 'package:bondu/modals/user_model.dart';
 import 'package:bondu/services/api.dart';
 import 'package:bondu/services/auth_user_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../globals/colors.dart';
 import '../stores/auth.dart';
@@ -45,7 +46,9 @@ class _CreateProfile2State extends State<CreateProfile2> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: Navigator.of(context).pop,
+                          onTap: (){
+                            GoRouter.of(context).pop();
+                          },
                           child: const Icon(
                             Icons.arrow_back,
                             size: 24,
@@ -117,9 +120,9 @@ class _CreateProfile2State extends State<CreateProfile2> {
                           UserInfo user = await ApiService().getUser();
                           await AuthUserHelper.setLoginState(true);
                           context.read<Auth>().addDetails(user);
-                          if(!mounted) return;
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) =>  const Home()));
+                          context.go('/');
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (context) =>  const Home()));
                         }
                       },
                       child: PrimaryButton(

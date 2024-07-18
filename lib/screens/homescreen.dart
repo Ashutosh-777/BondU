@@ -4,6 +4,7 @@ import 'package:bondu/services/api.dart';
 import 'package:bondu/widgets/business_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../globals/colors.dart';
 import '../modals/view_model.dart';
@@ -277,17 +278,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(left: 8),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => AddLink(
-                                          name: e,
-                                          url: user.socialMediaHandles == null
-                                              ? ""
-                                              : user.socialMediaHandles![e] ??
-                                                  "",
-                                        ),
-                                      ),
+                                    String path = user.socialMediaHandles == null ? "" : user.socialMediaHandles![e] ?? "";
+                                    print(path);
+                                    context.push('/addLink',
+                                        extra: {
+                                          "name":e,
+                                          "url":path,
+                                        }
                                     );
+                                    // context.push('/addLink/$e/$path',);
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => AddLink(
+                                    //       name: e,
+                                    //       url: user.socialMediaHandles == null
+                                    //           ? ""
+                                    //           : user.socialMediaHandles![e] ??
+                                    //               "",
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                   child: Image.asset(
                                     'assets/$e.png',
@@ -302,8 +312,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           }),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const AddSocial()));
+                              context.push('/addSocial');
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => const AddSocial()));
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(left: 8),

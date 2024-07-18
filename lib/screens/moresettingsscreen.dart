@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bondu/globals/colors.dart';
 import 'package:bondu/screens/sign_in.dart';
 import 'package:bondu/services/auth_user_helper.dart';
+import 'package:go_router/go_router.dart';
 
 class MoreSettingsScreen extends StatefulWidget {
   const MoreSettingsScreen({super.key});
@@ -12,11 +13,12 @@ class MoreSettingsScreen extends StatefulWidget {
 class _MoreSettingsScreenState extends State<MoreSettingsScreen> {
   void signOut() async {
     await AuthUserHelper.signOut();
-    Navigator.of(context).pushAndRemoveUntil<void>(
-      MaterialPageRoute<void>(
-          builder: (BuildContext context) => const SignIn()),
-      ModalRoute.withName('/'),
-    );
+    context.go('/signin');
+    // Navigator.of(context).pushAndRemoveUntil<void>(
+    //   MaterialPageRoute<void>(
+    //       builder: (BuildContext context) => const SignIn()),
+    //   ModalRoute.withName('/'),
+    // );
   }
 
   @override

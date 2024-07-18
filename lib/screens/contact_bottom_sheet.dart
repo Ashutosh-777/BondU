@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bondu/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
@@ -85,12 +86,12 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
                   ToastContext().init(context);
                   Toast.show("Contact Saved!!",
                       duration: 2, gravity: Toast.bottom);
-                  Navigator.of(context).pop();
+                  GoRouter.of(context).pop();
                 } catch (e) {
                   ToastContext().init(context);
                   Toast.show("Some Error Occured",
                       duration: 2, gravity: Toast.bottom);
-                  Navigator.of(context).pop();
+                  GoRouter.of(context).pop();
                 }
               },
               child: const Padding(
@@ -120,9 +121,9 @@ class _ContactBottomSheetState extends State<ContactBottomSheet> {
                   },
                 );
                 if (didDelete == true) {
-                  Navigator.of(context).pop(true);
+                  GoRouter.of(context).pop(true);
                 } else {
-                  Navigator.of(context).pop();
+                  GoRouter.of(context).pop();
                 }
               },
               child: const Padding(

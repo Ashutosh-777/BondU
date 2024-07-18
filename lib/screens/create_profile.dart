@@ -2,6 +2,7 @@ import 'package:bondu/screens/create_profile_2.dart';
 import 'package:bondu/widgets/primary_button.dart';
 import 'package:bondu/widgets/profilepage_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../globals/colors.dart';
 
 class CreateProfile1 extends StatefulWidget {
@@ -33,7 +34,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: Navigator.of(context).pop,
+                        onTap: (){
+                          GoRouter.of(context).pop();
+                        },
                         child: const Icon(
                           Icons.arrow_back,
                           size: 24,
@@ -83,9 +86,11 @@ class _CreateProfile1State extends State<CreateProfile1> {
                   GestureDetector(
                     onTap: (){
                       if(formKey.currentState!.validate()){
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context)=> CreateProfile2(name: nameController.text, email: emailController.text,))
-                        );
+                        final path = '/createProfile2/${nameController.text}/${emailController.text}';
+                        context.push(path);
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute(builder: (context)=> CreateProfile2(name: nameController.text, email: emailController.text,))
+                        // );
                       }
           
                     },

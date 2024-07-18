@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:bondu/globals/colors.dart';
 import 'package:bondu/screens/moresettingsscreen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../stores/auth.dart';
@@ -300,9 +301,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MoreSettingsScreen()));
+                                  context.push('/moreSettingsScreen');
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const MoreSettingsScreen()));
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 24),

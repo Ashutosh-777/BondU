@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:bondu/modals/contact_model.dart';
 import 'package:bondu/services/api.dart';
+import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
@@ -54,7 +55,7 @@ class _ViewContactState extends State<ViewContact> {
           scrolledUnderElevation: 0,
           leading: GestureDetector(
               onTap: () {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop();
               },
               child: const Icon(Icons.arrow_back)),
         ),

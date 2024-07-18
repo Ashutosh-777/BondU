@@ -3,6 +3,7 @@ import 'package:bondu/modals/user_model.dart';
 import 'package:bondu/screens/add_link.dart';
 import 'package:bondu/stores/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../globals/colors.dart';
@@ -34,7 +35,9 @@ class _AddSocialState extends State<AddSocial> {
           scrolledUnderElevation: 0,
           elevation: 0,
           leading: GestureDetector(
-            onTap: Navigator.of(context).pop,
+            onTap: (){
+              GoRouter.of(context).pop();
+            },
             child: const Icon(
               Icons.close,
               size: 24,
@@ -44,7 +47,9 @@ class _AddSocialState extends State<AddSocial> {
             Padding(
               padding: const EdgeInsets.only(right: 24),
               child: GestureDetector(
-                onTap: Navigator.of(context).pop,
+                onTap: (){
+                  GoRouter.of(context).pop();
+                },
                 child: const Icon(
                   Icons.check,
                   size: 24,
@@ -163,13 +168,20 @@ class CustomSocialTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => AddLink(
-                    name: name,
-                    url: url,
-                  )),
+        print('/addLink/$name/$url');
+        context.push('/addLink',
+            extra: {
+              "name":name,
+              "url":url,
+            }
         );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //       builder: (context) => AddLink(
+        //             name: name,
+        //             url: url,
+        //           )),
+        // );
       },
       child: Container(
         margin: const EdgeInsets.only(top: 12),

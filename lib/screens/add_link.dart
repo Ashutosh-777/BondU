@@ -5,6 +5,7 @@ import 'package:bondu/modals/user_model.dart';
 import 'package:bondu/stores/auth.dart';
 import 'package:bondu/widgets/social_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../globals/colors.dart';
 
@@ -37,7 +38,9 @@ class _AddLinkState extends State<AddLink> {
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
           leading: GestureDetector(
-            onTap: Navigator.of(context).pop,
+            onTap: (){
+              GoRouter.of(context).pop();
+            },
             child: const Icon(
               Icons.arrow_back,
               size: 24,
@@ -208,14 +211,21 @@ class __CustomSocialTileState extends State<_CustomSocialTile> {
       padding: const EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AddLink(
-                name: widget.name,
-                url: widget.url,
-              ),
-            ),
+          print("not yet here");
+          context.pushReplacement('/addLink',
+            extra: {
+            "name":widget.name,
+              "url":widget.url,
+            }
           );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (context) => AddLink(
+          //       name: ,
+          //       url: ,
+          //     ),
+          //   ),
+          // );
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.4,

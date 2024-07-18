@@ -1,5 +1,10 @@
 import 'package:bondu/globals/colors.dart';
+import 'package:bondu/screens/add_link.dart';
+import 'package:bondu/screens/add_social.dart';
+import 'package:bondu/screens/create_profile.dart';
+import 'package:bondu/screens/create_profile_2.dart';
 import 'package:bondu/screens/home.dart';
+import 'package:bondu/screens/moresettingsscreen.dart';
 import 'package:bondu/screens/preview.dart';
 import 'package:bondu/screens/sign_in.dart';
 import 'package:bondu/screens/splash_screen.dart';
@@ -112,7 +117,7 @@ final _router = GoRouter(
       path: '/',
       builder: (context, state) {
         if(!temp){
-          return const SplashScreen();
+          return const SignIn();
         }
         return const Home();
       },
@@ -121,15 +126,33 @@ final _router = GoRouter(
           path: 'user/:userId',
           builder: (context, state) =>
               Preview(userid: state.pathParameters['userId']!),
-        )
+        ),
+        GoRoute(
+          path: 'addSocial',
+          builder: (context, state) =>
+              const AddSocial(),
+        ),
+        GoRoute(
+          path: 'addLink',
+          builder: (context, state) {
+            var extra =  state.extra as Map<String,String>;
+            return AddLink(name: extra['name']!, url: extra['url']??'',);
+          },
+        ),
+        GoRoute(
+          path: 'moreSettingsScreen',
+          builder: (context, state) => const MoreSettingsScreen(),
+        ),
       ],
     ),
-    // GoRoute(
-    //   path: '/user/:id',
-    //   builder: (context, state) {
-    //     final id = state.pathParameters['id'];
-    //     return Preview(userid: id);
-    //   },
-    // ),
+    GoRoute(
+      path: '/createProfile1',
+      builder: (context, state) => const CreateProfile1(),
+    ),
+    GoRoute(
+      path: '/createProfile2/:name/:email',
+      builder: (context, state) =>  CreateProfile2(name: state.pathParameters['name']!, email: state.pathParameters['email']!,),
+    ),
+
   ],
 );

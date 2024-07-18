@@ -197,8 +197,9 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddSocial()));
+                            context.push('/addSocial');
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => const AddSocial()));
                           },
                           child: PrimaryButton(
                             width: width,

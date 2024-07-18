@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
   ];
   late String? sessionToken;
   late String? userID;
-  void loadSessionToken() async {
+  Future<void> loadSessionToken() async {
     sessionToken = await AuthUserHelper.getSessionToken();
     userID = await AuthUserHelper.getUserID();
     if (sessionToken != null && userID != null) {
@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    loadSessionToken();
   }
 
   void changeIndex(int index) {

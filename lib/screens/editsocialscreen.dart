@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bondu/globals/colors.dart';
+import 'package:go_router/go_router.dart';
 
 class EditSocialScreen extends StatelessWidget {
   final String socialName;
@@ -20,7 +21,7 @@ class EditSocialScreen extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    GoRouter.of(context).pop();
                   },
                   icon: const Icon(
                     Icons.arrow_back,

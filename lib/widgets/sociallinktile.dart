@@ -49,7 +49,7 @@ class SocialLinkTile extends StatelessWidget {
                   builder: (context) => EditSocialScreen(socialName: text)));
             },
             style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(primaryColor),
+              backgroundColor: WidgetStatePropertyAll(primaryColor),
             ),
             child: Text(
               linkExists ? "ADD" : "EDIT",

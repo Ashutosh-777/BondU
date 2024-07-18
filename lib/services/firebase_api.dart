@@ -39,9 +39,7 @@ class FirebaseApi {
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     print("16");
     bool fCMTokenset = await AuthUserHelper.getFCMToken();
-    logger.d("here $fCMTokenset");
     if(!fCMTokenset&&fCMToken!=null){
-      logger.d("here $fCMTokenset");
       ApiService().updatefCMToken(fCMToken);
     }
     initPushNotifications();
