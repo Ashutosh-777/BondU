@@ -1,7 +1,3 @@
-Sure, I'll update the dependencies section in the README to include all the dependencies and dev dependencies you provided. Here's the revised README template for your **BondU** project with the updated dependencies section:
-
----
-
 # [BondU](www.app.bondu.in)
 
 **BondU** is a digital business card and networking platform designed to transform the way professionals connect, exchange information, and follow up at events like exhibitions, expos, summits, and trade shows.Visit us at [BondU](www.app.bondu.in)
