@@ -147,6 +147,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 For any questions or feedback, please contact:
 
-- **Email**: [ashutosh@iitg.ac.in](mailto:ashutosh@iitg.ac.in)
+- **Email**: [ashutosh.eee21@iitg.ac.in](mailto:ashutosh.eee21@iitg.ac.in)
 - **GitHub**: [ashutosh-777](https://github.com/ashutosh-777)
 - **LinkedIn**: [Ashutosh Kumar](https://www.linkedin.com/in/ashutosh-kumar-936383230/)
