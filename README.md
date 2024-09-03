@@ -45,7 +45,7 @@ To run this project locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/bondU.git
+   git clone https://github.com/ashutosh-777/BondU.git
    cd bondU
    ```
 
@@ -87,7 +87,7 @@ To run this project locally, follow these steps:
 
 - Receive real-time notifications whenever someone connects with you.
 
-## Screenshots
+## Demo
 
 Include some screenshots or GIFs of your app to showcase its design and functionality.
 
