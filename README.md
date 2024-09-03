@@ -1,6 +1,10 @@
-# BondU
+Sure, I'll update the dependencies section in the README to include all the dependencies and dev dependencies you provided. Here's the revised README template for your **BondU** project with the updated dependencies section:
 
-**BondU** is a digital business card and networking platform designed to revolutionize how professionals connect, exchange information, and follow up at events such as exhibitions, expos, summits, and trade shows.
+---
+
+# [BondU](www.app.bondu.in)
+
+**BondU** is a digital business card and networking platform designed to transform the way professionals connect, exchange information, and follow up at events like exhibitions, expos, summits, and trade shows.Visit us at [BondU](www.app.bondu.in)
 
 ## Table of Contents
 
@@ -45,7 +49,7 @@ To run this project locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Ashutosh-777/BondU.git
+   git clone https://github.com/yourusername/bondU.git
    cd bondU
    ```
 
@@ -96,14 +100,38 @@ Include some screenshots or GIFs of your app to showcase its design and function
 
 ## Dependencies
 
-- `flutter`: Framework for building natively compiled applications.
-- `otpless_sdk`: For OTP-based authentication.
-- `firebase_messaging`: For handling real-time notifications.
-- `provider`: State management.
-- `http`: For making HTTP requests.
-- `Dio`: For making Api Calls.
-- `firebase`: For integrating several firebase services
-- `gorouter`: For managing routes
+The project relies on several dependencies to provide its functionalities. Here's a list of all the dependencies used:
+
+- **Core Dependencies:**
+  - `auto_size_text: ^3.0.0` - A widget to automatically resize text to fit within its bounds.
+  - `cupertino_icons: ^1.0.2` - Cupertino icons for iOS styling.
+  - `dio: ^5.4.0` - A powerful HTTP client for Dart, which supports interceptors, global configuration, and much more.
+  - `firebase_core: ^3.2.0` - Core Firebase SDK for Flutter apps.
+  - `firebase_messaging: ^15.0.3` - Firebase Cloud Messaging integration for notifications.
+  - `flutter_contacts: ^1.1.8` - A plugin to manage contacts on both Android and iOS.
+  - `flutter_inner_shadow: ^0.0.1` - Allows adding inner shadows to widgets.
+  - `flutter_local_notifications: ^17.2.1+2` - Provides cross-platform APIs for displaying local notifications.
+  - `go_router: ^14.2.1` - A routing package for Flutter.
+  - `intl: ^0.19.0` - Internationalization and localization utilities.
+  - `open_filex: ^4.4.0` - A plugin to open files on Android and iOS.
+  - `otpless_flutter: ^2.1.3` - SDK for OTP-less authentication.
+  - `path_provider: ^2.1.3` - A plugin to access commonly used locations on the filesystem.
+  - `pretty_dio_logger: ^1.3.1` - A logger for Dio requests and responses.
+  - `provider: ^6.1.1` - A state management library.
+  - `qr_flutter: ^4.1.0` - QR code generator for Flutter.
+  - `qr_image_generator: ^0.2.9` - A plugin for generating QR images.
+  - `share_plus: ^7.2.2` - A plugin to share content with other apps.
+  - `shared_preferences: ^2.2.3` - A plugin to store key-value pairs persistently.
+  - `syncfusion_flutter_charts: ^25.1.35` - A package for creating charts in Flutter.
+  - `toast: ^0.3.0` - A plugin to show native toasts.
+  - `url_launcher: ^6.3.0` - A plugin for launching URLs.
+  - `webview_flutter: ^4.5.0` - A plugin to embed a webview within Flutter apps.
+
+- **Development Dependencies:**
+  - `dependency_validator: ^4.1.0` - Helps in validating the dependency tree of the Flutter project.
+  - `flutter_lints: ^4.0.0` - Contains recommended lints for Flutter projects.
+  - `icons_launcher: ^2.1.7` - A tool for generating app icons.
+  - `change_app_package_name: ^1.3.0` - Utility to change the app package name.
 
 ## Contributing
 
@@ -124,10 +152,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 For any questions or feedback, please contact:
 
-- **Email**: [ashutosh.iitg21@gmail.com](mailto:ashutosh.iitg21@gmail.com)
-- **GitHub**: [ashutosh-777](https://github.com/Ashutosh-777)
+- **Email**: [ashutosh@iitg.ac.in](mailto:ashutosh@iitg.ac.in)
+- **GitHub**: [ashutosh-777](https://github.com/ashutosh-777)
 - **LinkedIn**: [Ashutosh Kumar](https://www.linkedin.com/in/ashutosh-kumar-936383230/)
-
----
-
-Feel free to modify this template further to better match the specifics of your project or to add more information. This README should help provide a comprehensive overview of BondU to users and contributors!
