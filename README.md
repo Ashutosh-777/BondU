@@ -89,7 +89,6 @@ To run this project locally, follow these steps:
 
 ## Demo
 
-Include some screenshots or GIFs of your app to showcase its design and functionality.
 
 ![Home Screen](https://example.com/screenshot1.png)
 ![Analytics Screen](https://example.com/screenshot2.png)
