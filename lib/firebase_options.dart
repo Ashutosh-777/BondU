@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,30 +49,22 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCftjhw2LwlNnx_KGajeQXDPsUDnD_9iuM',
-    appId: '1:902826544206:web:943e679a6841660a24c71f',
-    messagingSenderId: '902826544206',
-    projectId: 'bondu-dfe48',
-    authDomain: 'bondu-dfe48.firebaseapp.com',
-    storageBucket: 'bondu-dfe48.appspot.com',
-    measurementId: 'G-FWDV431T03',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDJ4rFW_LSjZqGswyaHXra72kLeBpdVx2A',
-    appId: '1:902826544206:android:d971d9059b59ed0124c71f',
+    appId: '1:902826544206:android:04674730fcf2a65924c71f',
     messagingSenderId: '902826544206',
     projectId: 'bondu-dfe48',
+    databaseURL: 'https://bondu-dfe48-default-rtdb.firebaseio.com',
     storageBucket: 'bondu-dfe48.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDIGO_RVDKVFS58tT2VehmpeWWuadJbwjw',
-    appId: '1:902826544206:ios:033a209856d454a924c71f',
+    appId: '1:902826544206:ios:eea7b35c2dc6e2cb24c71f',
     messagingSenderId: '902826544206',
     projectId: 'bondu-dfe48',
+    databaseURL: 'https://bondu-dfe48-default-rtdb.firebaseio.com',
     storageBucket: 'bondu-dfe48.appspot.com',
-    iosBundleId: 'com.example.bondu',
+    iosBundleId: 'com.bondu.bondu',
   );
 }
