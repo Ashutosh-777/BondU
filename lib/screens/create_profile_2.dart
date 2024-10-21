@@ -120,6 +120,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
                           UserInfo user = await ApiService().getUser();
                           await AuthUserHelper.setLoginState(true);
                           context.read<Auth>().addDetails(user);
+
                           context.go('/');
                           // Navigator.of(context).pushReplacement(MaterialPageRoute(
                           //     builder: (context) =>  const Home()));

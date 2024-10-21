@@ -22,7 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  temp  = await AuthUserHelper.getLoginStatus();
+  // temp  = await AuthUserHelper.getLoginStatus();
   await FirebaseApi().initNotifications();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -41,7 +41,7 @@ void main() async {
     ),
   );
 }
-bool temp = false;
+// bool temp = false;
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
   @override
@@ -88,7 +88,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return temp? const Home():SignIn();
+        return  const Home();
       },
       routes: [
         GoRoute(
@@ -122,6 +122,5 @@ final _router = GoRouter(
       path: '/createProfile2/:name/:email',
       builder: (context, state) =>  CreateProfile2(name: state.pathParameters['name']!, email: state.pathParameters['email']!,),
     ),
-
   ],
 );
