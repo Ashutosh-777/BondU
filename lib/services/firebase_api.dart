@@ -99,7 +99,7 @@ class FirebaseApi {
       //   handleBackgroundMessage(msg);
       //   handleMessage(msg);
       //   }
-        onDidReceiveNotificationResponse: ( x) async {
+        onDidReceiveNotificationResponse: (x) async {
           print("Received notification response:");
           // print(payload);
           try {

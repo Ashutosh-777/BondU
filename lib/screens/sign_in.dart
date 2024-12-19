@@ -62,6 +62,7 @@ class _SignInState extends State<SignIn> {
   Future<void> openLoginPage() async {
     try {
       _otplessFlutterPlugin.openLoginPage((result) {
+        print(result);
         if (result['data'] != null) {
           final token = result['data']['token'];
           setState(() async {
@@ -169,7 +170,6 @@ class _SignInState extends State<SignIn> {
                                 // );
                               });
                             }
-
                             return const SizedBox();
                           },
                         )

@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       routerConfig:_router,
-
     );
   }
 }
